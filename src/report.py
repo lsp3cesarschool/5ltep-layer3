@@ -141,7 +141,7 @@ def dashboard_data(profile: Profile, monthly: pd.DataFrame, detections: pd.DataF
         "summary": summary,
         "categories": profile.categories,
         "months": [str(m) for m in monthly.index],
-        "series": {c: [round(float(v), 2) for v in monthly[c]] for c in profile.series},
+        "series": {c: [float(f"{float(v):.6g}") for v in monthly[c]] for c in profile.series},
         "context": {"excluded": [int(v) for v in monthly["excluded"]],
                     "excluded_label": rule["label"] if rule else "excluded",
                     "missing_key": [int(v) for v in monthly["missing_key"]]},
@@ -159,4 +159,6 @@ def write_json(path, data) -> None:
 def write_index(profiles: list[Profile], path) -> None:
     """docs/data/index.json: the profiles that have dashboard data."""
     items = [{"id": p.id, "title": p["title"]} for p in profiles if p.paths.dashboard.exists()]
-    write_json(path, {"profiles": items, "default": config.DEFAULT_PROFILE})
+    from src.profile import default_id
+
+    write_json(path, {"profiles": items, "default": default_id()})

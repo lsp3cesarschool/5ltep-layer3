@@ -8,6 +8,7 @@ profile, so a run only spends inference time on anomalies that have no
 judgment yet for the current model and prompt version.
 """
 
+import hashlib
 import json
 import logging
 import time
@@ -34,14 +35,19 @@ A statistical ensemble flagged one month of a monthly time series built from the
 
 {categories}
 
-Think step by step, using only the evidence given: compare the value with the same
-calendar month in other years (seasonality), with the months just before and after,
-with the other series, and with the listed events. A change that is abrupt, confined to
-the records themselves (for example a jump in volume with no matching event, or a burst
-of {excluded} or of records without an identifier) or that looks like a change of
-information system points to a data-quality explanation. A seasonal explanation needs
-the same calendar month to deviate in the same direction in most years. A policy
-explanation needs a listed event whose timing fits.
+Reason in this order, using only the evidence given:
+1. Seasonality. Look at the same calendar month in the previous years. If it usually
+   deviates in the same direction (even when this year is stronger), and above all if the
+   same calendar month was flagged in other years too, the anomaly is seasonal.
+2. Events. If a listed event plausibly explains the timing and the direction, the anomaly
+   is policy-driven. Currency reforms only explain changes in monetary values.
+3. Records. Signs of a data problem are: a burst of {excluded} or of records without an
+   identifier; an abrupt step that persists with no event to explain it (e.g. a change
+   of information system); values that are implausible, such as zero or near zero in an
+   otherwise active series.
+4. Otherwise, a real change that none of the above explains is a genuine shift.
+Do not choose the data-quality category only because the deviation is large: a large
+deviation is the reason the month was flagged in the first place.
 
 Answer in JSON with: "reasoning" (at most 120 words, step by step), "category" (one of
 {codes}) and "confidence" (0 to 1)."""
@@ -71,15 +77,28 @@ def system_prompt(profile: Profile) -> str:
 
 
 def _fmt(v: float) -> str:
-    return f"{v / 1e6:,.1f}M" if abs(v) >= 1e6 else f"{v:,.0f}"
+    if abs(v) >= 1e6:
+        return f"{v / 1e6:,.1f}M"
+    if abs(v) >= 1 or v == 0:
+        return f"{v:,.0f}"
+    return f"{v:.3g}"
 
 
-def seasonal_index(values: pd.Series) -> dict[int, float]:
-    """Median ratio of each calendar month to its trailing 12-month median."""
+def trailing_ratio(values: pd.Series) -> pd.Series:
+    """Each month divided by the median of its previous 12 months."""
     base = values.shift(1).rolling(12, min_periods=12).median()
-    ratio = (values / base.replace(0, np.nan)).dropna()
-    by_month = ratio.groupby(ratio.index.month).median()
-    return {int(k): round(float(v), 2) for k, v in by_month.items()}
+    return values / base.replace(0, np.nan)
+
+
+def same_month_history(values: pd.Series, month: pd.Period, years: int = 10) -> list[tuple[str, float]]:
+    """Trailing ratio of the same calendar month in each of the previous `years` years."""
+    ratio = trailing_ratio(values)
+    out = []
+    for y in range(1, years + 1):
+        m = month - 12 * y
+        if m in ratio.index and pd.notna(ratio.loc[m]):
+            out.append((str(m), round(float(ratio.loc[m]), 2)))
+    return out
 
 
 def events_near(events: list[dict], month: pd.Period, window: int) -> list[dict]:
@@ -92,7 +111,8 @@ def events_near(events: list[dict], month: pd.Period, window: int) -> list[dict]
 
 
 def build_prompt(profile: Profile, series_name: str, month: pd.Period, monthly: pd.DataFrame,
-                 det_row: pd.Series, other_flagged: list[str], events: list[dict]) -> str:
+                 det_row: pd.Series, other_flagged: list[str], events: list[dict],
+                 same_month_flagged: list[str] | None = None) -> str:
     """User prompt with the evidence for one anomaly."""
     k = config.CONTEXT_MONTHS
     window = monthly[(monthly.index >= month - k) & (monthly.index <= month + k)]
@@ -101,7 +121,10 @@ def build_prompt(profile: Profile, series_name: str, month: pd.Period, monthly: 
     value = float(col.loc[month])
     base_med = float(baseline.median()) if len(baseline) else float("nan")
     change = f"{(value / base_med - 1) * 100:+.0f}%" if base_med else "n/a"
-    seas = seasonal_index(col).get(month.month)
+    ratio_now = value / base_med if base_med else float("nan")
+    history = same_month_history(col, month)
+    same_dir = sum(1 for _, r in history if (r < 1) == (ratio_now < 1))
+    flagged_years = [m for m in (same_month_flagged or []) if m != str(month)]
     votes = [d for d in DETECTOR_NAMES if det_row[f"{d}_vote"]]
     rule = profile.get("exclude")
     excluded_label = rule["label"] if rule else "excluded"
@@ -110,9 +133,13 @@ def build_prompt(profile: Profile, series_name: str, month: pd.Period, monthly: 
     lines = [
         f"Series: {series_name} - {profile.series[series_name]['description']}.",
         f"Anomalous month: {month} (calendar month {month.month}).",
-        f"Value: {_fmt(value)}; median of the previous 12 months: {_fmt(base_med)} ({change}).",
-        f"Typical ratio of calendar month {month.month} to its trailing 12-month median, over all "
-        f"years: {seas if seas is not None else 'n/a'} (1.00 = no seasonal effect).",
+        f"Value: {_fmt(value)}; median of the previous 12 months: {_fmt(base_med)} ({change}; ratio {ratio_now:.2f}).",
+        f"Seasonality check - ratio of calendar month {month.month} to the median of its previous 12 months,"
+        " in the previous years: " + (" | ".join(f"{m}: {r:.2f}" for m, r in history) if history else "n/a") + ".",
+        f"The same calendar month deviated in the same direction ({'below' if ratio_now < 1 else 'above'} 1)"
+        f" in {same_dir} of these {len(history)} years.",
+        "The same calendar month was also flagged as anomalous in: "
+        + (", ".join(flagged_years) if flagged_years else "no other year") + ".",
         f"Detectors that flagged it: {', '.join(votes)} ({int(det_row['votes'])} of 4); "
         f"ensemble score {float(det_row['ensemble_score']):.2f} (0.5 = at threshold).",
         "A Page-Hinkley test found a sustained level shift within "
@@ -131,7 +158,8 @@ def build_prompt(profile: Profile, series_name: str, month: pd.Period, monthly: 
     lines.append("")
     if near:
         lines.append(f"Known events within +-{config.EVENT_WINDOW_MONTHS} months:")
-        lines += [f"- {e['month']} ({e['offset_months']:+d} months, {e['kind']}): {e['label']}" for e in near]
+        lines += [f"- {e['month']} ({e['offset_months']:+d} months, {e['kind']}): {e['label']}"
+                  + (" [unverified suggestion]" if e.get("status") == "suggested" else "") for e in near]
     else:
         lines.append(f"No known events within +-{config.EVENT_WINDOW_MONTHS} months.")
     return "\n".join(lines)
@@ -155,7 +183,8 @@ class OllamaClient:
             logger.warning("Could not read Ollama info: %s", exc)
         return out
 
-    def generate(self, system: str, prompt: str, seed: int, schema: dict) -> tuple[str, float]:
+    def generate(self, system: str, prompt: str, seed: int, schema: dict,
+                 temperature: float | None = None, num_ctx: int | None = None) -> tuple[str, float]:
         payload = {
             "model": self.model,
             "system": system,
@@ -163,10 +192,10 @@ class OllamaClient:
             "stream": False,
             "format": schema,
             "options": {
-                "temperature": config.LLM_TEMPERATURE,
+                "temperature": config.LLM_TEMPERATURE if temperature is None else temperature,
                 "seed": seed,
-                "num_predict": config.LLM_NUM_PREDICT,
-                "num_ctx": config.LLM_NUM_CTX,
+                "num_predict": config.LLM_NUM_PREDICT if num_ctx is None else 1200,
+                "num_ctx": num_ctx or config.LLM_NUM_CTX,
             },
         }
         t0 = time.monotonic()
@@ -202,7 +231,7 @@ def aggregate_runs(runs: list[dict]) -> dict:
 
 
 def review_level(category: str, consistency: float) -> str:
-    """HitL protocol (dissertation, Sec. 4.8.5): DQE is always reviewed."""
+    """Human-in-the-loop protocol: DQE is always reviewed, inconsistent labels are advised."""
     if category in ("DQE", "INVALID"):
         return "mandatory"
     if consistency < config.ADVISORY_CONSISTENCY:
@@ -227,6 +256,24 @@ def is_current(entry: dict | None, model: str = config.LLM_MODEL) -> bool:
     return bool(entry) and entry.get("model") == model and entry.get("prompt_version") == config.PROMPT_VERSION
 
 
+def data_fingerprint(monthly: pd.DataFrame, month: pd.Period) -> str:
+    """SHA-256 of the data that make a month anomalous: that month and the 12 before it.
+
+    Later months are deliberately left out, so an anomaly judged once is not
+    judged again just because time has passed; only a change in its own data
+    (e.g. a retroactive correction in the portal) triggers a new judgment.
+    """
+    rows = monthly[(monthly.index >= month - 12) & (monthly.index <= month)]
+    return hashlib.sha256(rows.to_csv(float_format="%.10g").encode()).hexdigest()
+
+
+def needs_judgment(entry: dict | None, model: str, fingerprint: str) -> bool:
+    if not is_current(entry, model):
+        return True
+    known = entry.get("data_fingerprint")
+    return known is not None and known != fingerprint
+
+
 def judge_pending(profile: Profile, monthly: pd.DataFrame, detections: pd.DataFrame, client,
                   max_judgments: int = config.MAX_JUDGMENTS,
                   max_minutes: float = config.MAX_JUDGE_MINUTES) -> dict:
@@ -241,18 +288,30 @@ def judge_pending(profile: Profile, monthly: pd.DataFrame, detections: pd.DataFr
     flagged_by_month: dict = {}
     for m, s in zip(flagged.index, flagged["series"]):
         flagged_by_month.setdefault(m, []).append(s)
-    pending = [(m, row) for m, row in flagged.iterrows()
-               if not is_current(judgments.get(anomaly_id(row["series"], m)), client.model)]
+    pending, backfilled = [], 0
+    for m, row in flagged.iterrows():
+        aid = anomaly_id(row["series"], m)
+        fp = data_fingerprint(monthly, m)
+        entry = judgments.get(aid)
+        if needs_judgment(entry, client.model, fp):
+            pending.append((m, row, fp))
+        elif "data_fingerprint" not in entry:
+            entry["data_fingerprint"] = fp  # judged before fingerprints existed
+            backfilled += 1
+    if backfilled:
+        save_judgments(judgments, path)
     pending.sort(key=lambda item: item[0], reverse=True)
-    logger.info("%d anomalies flagged, %d pending judgment", len(flagged), len(pending))
+    logger.info("%d anomalies flagged, %d already judged on the same data, %d pending judgment",
+                len(flagged), len(flagged) - len(pending), len(pending))
 
     deadline = time.monotonic() + max_minutes * 60
     done = 0
-    for month, row in pending:
+    for month, row, fp in pending:
         if done >= max_judgments or time.monotonic() > deadline:
             break
         others = [s for s in flagged_by_month[month] if s != row["series"]]
-        prompt = build_prompt(profile, row["series"], month, monthly, row, others, events)
+        same_month = [str(m) for m in flagged[flagged["series"] == row["series"]].index if m.month == month.month]
+        prompt = build_prompt(profile, row["series"], month, monthly, row, others, events, same_month)
         runs = []
         for seed in config.LLM_SEEDS[: config.LLM_RUNS]:
             try:
@@ -264,6 +323,16 @@ def judge_pending(profile: Profile, monthly: pd.DataFrame, detections: pd.DataFr
             runs.append(parsed)
         vote = aggregate_runs(runs)
         aid = anomaly_id(row["series"], month)
+        previous = judgments.get(aid)
+        history = []
+        if previous:
+            history = previous.get("history", []) + [
+                {k: previous.get(k) for k in ("category", "consistency", "model", "prompt_version",
+                                              "data_fingerprint", "judged_at")}]
+        reason = None
+        if previous:
+            reason = ("data changed" if is_current(previous, client.model)
+                      else "model or prompt version changed")
         judgments[aid] = {
             "series": row["series"],
             "month": str(month),
@@ -280,8 +349,12 @@ def judge_pending(profile: Profile, monthly: pd.DataFrame, detections: pd.DataFr
             "ollama_version": model_info.get("ollama_version"),
             "temperature": config.LLM_TEMPERATURE,
             "prompt_version": config.PROMPT_VERSION,
+            "data_fingerprint": fp,
             "judged_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         }
+        if reason:
+            judgments[aid]["rejudge_reason"] = reason
+            judgments[aid]["history"] = history
         done += 1
         save_judgments(judgments, path)  # persist after each anomaly: a timeout loses nothing
         logger.info("[%d] %s -> %s (C=%.2f)", done, aid, vote["category"], vote["consistency"])

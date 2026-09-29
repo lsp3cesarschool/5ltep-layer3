@@ -140,8 +140,12 @@ def test_filters_define_a_data_cut(tmp_path):
 def test_analysis_window_drops_sparse_start_and_applies_period(tmp_path):
     p = make_profile(tmp_path)
     idx = pd.period_range("2000-01", periods=60, freq="M")
-    monthly = pd.DataFrame({"notices": [1, 2] + [10] * 58, "fines": 1.0, "excluded": 0, "missing_key": 0}, index=idx)
-    assert aggregate.analysis_window(monthly, p).index.min() == pd.Period("2000-03", freq="M")
+    counts = [0] * 10 + [10] * 50
+    counts[40] = 0  # a quiet month later on is data, not a sparse start
+    monthly = pd.DataFrame({"notices": counts, "fines": 1.0, "excluded": 0, "missing_key": 0}, index=idx)
+    window = aggregate.analysis_window(monthly, p)
+    assert window.index.min() == pd.Period("2000-05", freq="M")  # first 12 months with median >= 3
+    assert pd.Period("2003-05", freq="M") in window.index
     p2 = make_profile(tmp_path, period={"start": "2001-01", "end": None})
     assert aggregate.analysis_window(monthly, p2).index.min() == pd.Period("2001-01", freq="M")
     with pytest.raises(ValueError):
@@ -212,7 +216,7 @@ class FakeClient:
     def info(self):
         return {"model": self.model, "model_digest": "sha256:fake", "ollama_version": "0.0-test"}
 
-    def generate(self, system, prompt, seed, schema):
+    def generate(self, system, prompt, seed, schema, temperature=None, num_ctx=None):
         self.prompts.append((system, prompt, seed, schema))
         return self.answers.pop(0), 0.1
 
@@ -267,6 +271,161 @@ def test_judge_caches_and_respects_budget(tmp_path):
     res2 = judge.judge_pending(p, monthly, det, client, max_judgments=100)
     assert res2["pending_before"] == n_flagged - 1
     assert len(judge.load_judgments(p.paths.judgments)) == n_flagged
+
+
+def test_same_data_is_never_judged_again_changed_data_is(tmp_path):
+    p, monthly, det, _ = pipeline_inputs(tmp_path)
+    n = int(det["anomaly"].sum())
+    client = FakeClient([answer("SP")] * 3 * n + [answer("DQE")] * 3 * n)
+    judge.judge_pending(p, monthly, det, client, max_judgments=100)
+    assert len(client.prompts) == 3 * n
+    # New months arrive: every judged anomaly keeps its own data -> no new calls.
+    later = pd.concat([monthly, monthly.iloc[-6:].set_axis(monthly.index[-6:] + 6)])
+    det_later = det.copy()
+    res = judge.judge_pending(p, later, det_later, client, max_judgments=100)
+    assert res["pending_before"] == 0 and len(client.prompts) == 3 * n
+    # A retroactive correction in an anomalous month -> judged again are exactly the
+    # anomalies whose own data (that month and the 12 before) include it.
+    flagged = det[det["anomaly"]]
+    month = flagged.index.min()
+    series = flagged.loc[[month], "series"].iloc[0]
+    changed = later.copy()
+    changed.loc[month, series] *= 1.5
+    affected = sum(1 for m in flagged.index if 0 <= (m - month).n <= 12)
+    res = judge.judge_pending(p, changed, det_later, client, max_judgments=100)
+    assert res["pending_before"] == affected >= 1
+    entry = judge.load_judgments(p.paths.judgments)[judge.anomaly_id(series, month)]
+    assert entry["category"] == "DQE" and entry["rejudge_reason"] == "data changed"
+    assert entry["history"][-1]["category"] == "SP"
+
+
+def test_new_prompt_version_rejudges_once_and_keeps_history(tmp_path, monkeypatch):
+    p, monthly, det, _ = pipeline_inputs(tmp_path)
+    n = int(det["anomaly"].sum())
+    client = FakeClient([answer("SP")] * 3 * n + [answer("GES")] * 3 * n)
+    judge.judge_pending(p, monthly, det, client, max_judgments=100)
+    monkeypatch.setattr(config, "PROMPT_VERSION", "v-next")
+    assert judge.judge_pending(p, monthly, det, client, max_judgments=100)["judged_now"] == n
+    assert judge.judge_pending(p, monthly, det, client, max_judgments=100)["judged_now"] == 0
+    entry = next(iter(judge.load_judgments(p.paths.judgments).values()))
+    assert entry["rejudge_reason"] == "model or prompt version changed"
+    assert entry["history"][-1]["category"] == "SP" and entry["category"] == "GES"
+
+
+def test_legacy_judgments_are_backfilled_not_rejudged(tmp_path):
+    p, monthly, det, _ = pipeline_inputs(tmp_path)
+    flagged = det[det["anomaly"]]
+    legacy = {judge.anomaly_id(s, m): {"model": config.LLM_MODEL, "prompt_version": config.PROMPT_VERSION,
+                                       "category": "SP", "consistency": 1.0}
+              for m, s in zip(flagged.index, flagged["series"])}
+    judge.save_judgments(legacy, p.paths.judgments)
+    client = FakeClient([])
+    res = judge.judge_pending(p, monthly, det, client)
+    assert res["pending_before"] == 0 and client.prompts == []
+    assert all("data_fingerprint" in j for j in judge.load_judgments(p.paths.judgments).values())
+
+
+def test_data_change_comments_existing_issue_once(tmp_path, monkeypatch):
+    monkeypatch.setattr(review.time, "sleep", lambda s: None)
+    p = make_profile(tmp_path)
+    j = {"series": "notices", "month": "2020-01", "category": "GES", "consistency": 1.0, "review_level": "mandatory",
+         "votes": 2, "ensemble_score": 0.6, "near_drift": False, "model": "m", "temperature": 0.7, "prompt": "e",
+         "runs": [], "data_fingerprint": "new", "judged_at": "2026-10-05T06:00:00+00:00",
+         "rejudge_reason": "data changed", "prompt_version": "v2",
+         "history": [{"category": "DQE", "consistency": 1.0, "model": "m", "prompt_version": "v2"}]}
+    judgments = {"notices:2020-01": j}
+    gh = FakeGitHub()
+    gh.created.append({"title": "t", "body": review.MARKER.format("test-profile/notices:2020-01"), "labels": []})
+    comments = []
+    gh.comment = lambda number, body: comments.append((number, body))
+    review.open_review_issues(p, judgments, set(judgments), gh, "https://x")
+    review.open_review_issues(p, judgments, set(judgments), gh, "https://x")
+    assert len(comments) == 1 and comments[0][0] == 1 and "DQE" in comments[0][1]
+    assert len(gh.created) == 1  # never a duplicate issue
+
+
+# --- currency reforms and event calendar ---------------------------------------
+
+def test_currency_conversion_and_monetary_events():
+    from src import monetary
+
+    reforms = monetary.load("profiles/monetary/brazil-currency.json")
+    monetary.validate(reforms)
+    f = monetary.conversion_factors(pd.Series(["1994-06-30", "1994-07-01", "1993-07-31", "1986-02-27"]), reforms)
+    assert f.tolist() == [2750.0, 1.0, 2750.0 * 1000, 2750.0 * 1000 * 1 * 1000 * 1000]
+    evs = monetary.as_events(reforms)
+    assert [e["month"] for e in evs] == ["1986-02", "1989-01", "1990-03", "1993-08", "1994-07"]
+    assert all(e["kind"] == "monetary" and e["status"] == "verified" for e in evs)
+
+
+def test_convert_currency_in_aggregation(tmp_path):
+    series = copy.deepcopy(BASE_PROFILE["series"])
+    series[1]["convert_currency"] = True
+    p = make_profile(tmp_path, series=series, monetary_file="profiles/monetary/brazil-currency.json")
+    rows = ["1;1994-06-10;2.750.000,00;N;PA", "2;1994-07-10;1.000,00;N;PA"]
+    zp = write_zip(tmp_path / "r.zip", {"a.csv": rows})
+    monthly, _ = aggregate.monthly_series(aggregate.load_records(zp, p), p, pd.Timestamp("1994-08-15"))
+    assert monthly["fines"].tolist() == [pytest.approx(1000.0), pytest.approx(1000.0)]
+    with pytest.raises(ValueError):
+        make_profile(tmp_path, series=series)  # convert_currency without monetary_file
+
+
+def test_event_status_filtering(tmp_path, monkeypatch):
+    monkeypatch.setattr(config, "ROOT", tmp_path)
+    (tmp_path / "ev.json").write_text(json.dumps({"events": [
+        {"month": "2020-01", "kind": "policy", "label": "a", "source": "s"},
+        {"month": "2020-02", "kind": "policy", "label": "b", "source": "s", "status": "suggested"},
+        {"month": "2020-03", "kind": "policy", "label": "c", "source": "s", "status": "rejected"},
+    ]}), encoding="utf-8")
+    p = make_profile(tmp_path, events_file="ev.json")
+    assert [e["label"] for e in p.events()] == ["a", "b"]
+    assert [e["label"] for e in p.events(include_suggested=False)] == ["a"]
+    near = [{**e, "offset_months": 0} for e in p.events()]
+    assert "[unverified suggestion]" in "\n".join(
+        f"{e['label']}" + (" [unverified suggestion]" if e["status"] == "suggested" else "") for e in near)
+
+
+def test_grounding_rejects_invented_evidence():
+    from src import events_suggest as es
+
+    source = "25 de janeiro – O rompimento de uma barragem de rejeitos em Brumadinho, Minas Gerais, deixa 270 mortos."
+    assert es.grounded("O rompimento de uma barragem de rejeitos em Brumadinho, Minas Gerais", source)
+    assert es.grounded("o rompimento de uma BARRAGEM de rejeitos em brumadinho minas gerais", source)
+    assert not es.grounded("Nova lei ambiental sancionada pelo presidente em janeiro", source)
+    assert not es.grounded("barragem", source)  # too short to count as a quote
+
+
+def test_suggest_events_appends_grounded_suggestions_only(tmp_path, monkeypatch):
+    from src import events_suggest as es
+
+    monkeypatch.setattr(config, "ROOT", tmp_path)
+    (tmp_path / "ev.json").write_text(json.dumps({"events": [
+        {"month": "2019-01", "kind": "political", "label": "Change of federal administration", "source": "s"},
+        {"month": "2019-07", "kind": "policy", "label": "Old rejected thing about decree", "source": "s",
+         "status": "rejected"}]}), encoding="utf-8")
+    p = make_profile(tmp_path, events_file="ev.json", event_sources={"wikipedia": {"lang": "pt", "title": "{year} no Brasil"}})
+    text = ("1 de janeiro – Novo presidente toma posse como presidente do Brasil.\n"
+            "25 de janeiro – O rompimento de uma barragem de rejeitos em Brumadinho deixa centenas de mortos.")
+    monkeypatch.setattr(es, "fetch_wikipedia", lambda lang, title: (text, "https://pt.wikipedia.org/wiki/2019_no_Brasil"))
+    items = {"events": [
+        {"month": "2019-01", "kind": "external", "label": "Brumadinho tailings dam collapse", "relevance": "r",
+         "evidence": "O rompimento de uma barragem de rejeitos em Brumadinho deixa centenas de mortos"},
+        {"month": "2019-03", "kind": "policy", "label": "Invented decree", "relevance": "r",
+         "evidence": "Decreto inventado que nao aparece no texto da fonte"},
+        {"month": "2019-01", "kind": "political", "label": "Change of the federal administration", "relevance": "r",
+         "evidence": "Novo presidente toma posse como presidente do Brasil"},
+        {"month": "2020-05", "kind": "policy", "label": "Wrong year", "relevance": "r", "evidence": "x" * 30},
+    ]}
+    client = FakeClient([json.dumps(items)])
+    idx = pd.PeriodIndex(["2019-01", "2019-02"], freq="M")
+    det = pd.DataFrame({"series": "notices", "anomaly": [True, False]}, index=idx)
+    res = es.suggest(p, det, client)
+    assert [e["label"] for e in res["added"]] == ["Brumadinho tailings dam collapse"]
+    assert {d["reason"] for d in res["dropped"]} == {
+        "evidence not found in the source", "already in the calendar", "month outside the year"}
+    saved = json.loads((tmp_path / "ev.json").read_text(encoding="utf-8"))["events"]
+    new = [e for e in saved if e.get("status") == "suggested"]
+    assert len(new) == 1 and new[0]["origin"] == "llm+wikipedia" and "wikipedia" in new[0]["source"]
 
 
 def test_events_near_window():

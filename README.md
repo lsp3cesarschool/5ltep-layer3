@@ -9,6 +9,35 @@
 📊 **Dashboard:** <https://lsp3cesarschool.github.io/5ltep-layer3/> (anomalies, LLM labels, steward decisions, provenance of every result)
 🧑‍⚖️ **Review queue:** [open `layer3` issues](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3)
 
+## Use case in one paragraph
+
+Take a large open dataset, such as IBAMA's infraction notices, and suppose we want to fix what is
+wrong in it, but do not know where to start. This layer finds the **periods** whose volume or values
+depart from the usual pattern (for example, a month with three times the usual number of notices)
+and uses AI to check which departures have a known explanation. A month with more notices in the dry
+season, when the same happens every year, is **seasonal**; a drop that coincides with a new law is
+**policy-driven**. What remains, and above all what looks like a **data problem** (a system migration,
+a backlog, a burst of records without an identifier), is sent to people first. Instead of reviewing
+records at random, the team starts with the periods that nothing explains, and the people who make
+the manual corrections are allocated where they matter most. The AI only proposes; a data steward
+confirms or corrects every decision that leads to action.
+
+<details>
+<summary>Em português</summary>
+
+Dado um conjunto de dados, por exemplo os autos de infração do IBAMA, imagine que queiramos corrigir
+o que estiver incorreto, mas não sabemos por onde começar. Esta terceira camada detecta os
+**períodos** em que o volume ou os valores fogem do padrão (por exemplo, um mês com o triplo de autos
+do normal) e usa inteligência artificial para verificar quais desses desvios têm explicação conhecida.
+Mais autos num mês de estação seca, quando isso se repete todo ano, é **sazonal**; uma queda que
+coincide com uma nova lei é **mudança de política**. O que sobra, e principalmente o que parece
+**problema nos dados** (migração de sistema, represamento, rajada de registros sem identificador), vai
+primeiro para as pessoas. Em vez de revisar registros ao acaso, a equipe começa pelos períodos que
+nada explica, e os recursos humanos que farão as correções manuais são alocados onde mais importam.
+A IA apenas propõe; um gestor de dados confirma ou corrige toda decisão que leve a uma ação.
+
+</details>
+
 ## Overview
 
 This toolkit implements **Layer 3 (Anomaly Detection)** of the Five-Layer Trust Engineering Pyramid
@@ -71,8 +100,9 @@ datasets, other cuts of the data and other CKAN portals (see
 
 ## Stage 1: statistical detection
 
-Each series is analysed on `log1p` scale (counts and fine totals are heavy-tailed: a single fine can
-exceed R$ 4 billion).
+Each series is analysed on a log scale (counts and fine totals are heavy-tailed: a single fine can
+exceed R$ 4 billion). The log is scale-invariant, so converting old currencies only removes the
+artificial steps of currency reforms; zeros get a floor of half the smallest positive value.
 
 | Detector | What it scores | Flags when | Reference |
 |---|---|---|---|
@@ -111,18 +141,29 @@ construction and "consistency" would measure nothing. Sampling with fixed seeds 
 the runs disagree, while every run remains reproducible with the same model digest. The majority
 label is kept; the label consistency is *C = runs agreeing with the majority / 3*.
 
-**Budget and cache.** CPU inference on the Actions runner is slow, so each run judges at most
+**Budget.** CPU inference on the Actions runner is slow, so each run judges at most
 `MAX_JUDGMENTS` new anomalies (most recent first) within `MAX_JUDGE_MINUTES`, saving after each
-one. Judgments are cached in `results/<profile>/judgments.json` with the model digest and prompt
-version; later runs only judge what is new, so a long history is back-filled over a few runs and
-the monthly run then only sees the new months.
+one. A long history is back-filled over a few runs; after that, the monthly run only sees new months.
+
+**Past anomalies are not judged again when their data are the same.** Each judgment stores a
+fingerprint (SHA-256) of the data that make the month anomalous: that month and the 12 before it,
+for every series. A later run skips the anomaly while the fingerprint matches, even though new
+months keep arriving. It is judged again only when:
+
+| Trigger | Why | What happens to the review |
+|---|---|---|
+| its data changed | a retroactive correction in the portal altered that month or its 12-month baseline | the existing issue gets a comment with the old and new label |
+| `LLM_MODEL` or `PROMPT_VERSION` changed | the method changed, so the old label no longer describes it | same |
+
+In both cases the previous judgment is kept in the entry's `history`, never overwritten, and no
+issue is ever duplicated. Events added to the calendar do not trigger new judgments on their own.
 
 The LLM is a decision-support tool, not ground truth: every prompt and every reasoning is stored,
 and the steward's decision replaces the LLM label wherever there is one.
 
 ## Human-in-the-loop review
 
-Following the protocol of the dissertation (Sec. 4.8.5):
+Two levels of review:
 
 - **Mandatory review**: LLM majority `DQE` (or no valid answer). No corrective action before a
   steward decides.
@@ -161,11 +202,40 @@ paper, so Layer 4 can ingest them unchanged.
 - **Records without an identifier** (6,806 in IBAMA's file in Sept. 2026) are kept and counted
   (`missing_key`); true duplicates of a non-empty identifier would be dropped (none found).
 - **The current month is never analysed**: it is still being filled in and would always look like a drop.
-- **Sparse start**: the analysis starts after the last month with fewer than 3 records (1983-02
-  for IBAMA), the rule used in earlier Layer 3 experiments.
-- **Currency**: fine totals are **nominal**, in the currency of the time. Brazil changed currency
-  five times before the Real (July 1994); these reforms are in the event calendar so the judge
-  does not mistake them for enforcement changes.
+- **Sparse start**: the analysis starts at the first month from which the next 12 months have a
+  median of at least 3 records (1980-11 for IBAMA). Only the beginning is trimmed: quiet months
+  later on are kept, which matters for low-volume datasets.
+- **Currency**: Brazil changed currency five times before the Real (July 1994). The reforms are in a
+  hand-editable file, [`profiles/monetary/brazil-currency.json`](profiles/monetary/brazil-currency.json)
+  (date, old and new currency, divisor, legal source). Series marked `"convert_currency": true` have
+  each value converted to Reais at its own date, which removes the artificial /1,000 steps of the
+  reforms; values are **not** adjusted for inflation. The reforms also reach the judge as events.
+  When a new reform happens, add one entry to that file.
+
+## Event calendar: curated by people, suggested by the LLM
+
+The judge can only relate an anomaly to events it is told about. Each profile has an event calendar
+(e.g. [`brazil-environmental-enforcement.json`](profiles/events/brazil-environmental-enforcement.json)),
+where every event has a `status`:
+
+| status | meaning | given to the judge |
+|---|---|---|
+| `verified` | checked by a steward, with a source | yes |
+| `suggested` | proposed by the LLM, not checked yet | yes, flagged *[unverified suggestion]* (profile option `events_include_suggested`) |
+| `rejected` | checked and discarded | no (kept so it is not suggested again) |
+
+**Filling it automatically.** `python main.py suggest-events` looks at the years with anomalies and,
+for each one, fetches the "*year* in *country*" Wikipedia page (profile option `event_sources`; for
+Brazil, `pt.wikipedia.org/wiki/2019_no_Brasil` and so on). The LLM selects the events that could
+have affected the records and must **quote the sentence** each one comes from; suggestions whose
+quote is not found in the page are discarded, which filters out invented events. With `--offline`,
+the model answers from its own knowledge instead; those entries are marked `origin: llm-memory` and
+need extra care.
+
+On GitHub, the dashboard's **Suggest events** button opens the
+[`events.yml`](.github/workflows/events.yml) workflow, which runs the same command and opens a
+**pull request** with the suggestions. The steward reviews the diff, sets each `status` to
+`verified` or `rejected`, fixes labels if needed, and merges.
 
 ## FAIR principles and replicability
 
@@ -215,7 +285,7 @@ The code never changes. Outputs are kept per profile (`data/<id>/`, `results/<id
 
 | Field | Meaning |
 |---|---|
-| `id`, `title` | identifier (file name, output folder, issue label) and human title |
+| `id`, `title`, `country` | identifier (file name, output folder, issue label), human title, country of the publisher |
 | `scheduled` | `true`: included in the monthly run; `false`: run on demand only |
 | `source.portal_url`, `dataset_id`, `resource_name`, `resource_format` | the CKAN portal, the dataset slug and the resource (matched by name and format). The URL is looked up at every run, so moved files are followed. |
 | `file.compression` (`zip`/`none`), `member_pattern`, `sep`, `encoding` | how to read the resource (a zip of CSVs or one CSV) |
@@ -223,10 +293,13 @@ The code never changes. Outputs are kept per profile (`data/<id>/`, `results/<id
 | `exclude` | rows removed from the series but counted as context (e.g. cancelled notices) |
 | `filters` | **the data cut**: a list of `{"column", "in" \| "not_in" \| "equals"}` |
 | `period.start`, `period.end` | optional time window (`YYYY-MM`) |
-| `sparse_min_records` | months below this at the start are dropped |
-| `series` | the monthly series: `{"name", "kind": "count"}` or `{"name", "kind": "sum", "column", "number_format": "br" \| "plain"}`, each with a `description` the LLM reads |
+| `sparse_min_records` | the analysis starts where the next 12 months have at least this median |
+| `series` | the monthly series: `{"name", "kind": "count"}` or `{"name", "kind": "sum", "column", "number_format": "br" \| "plain", "convert_currency": true \| false}`, each with a `description` the LLM reads |
 | `domain`, `record_label` | a paragraph describing the publisher and the records, for the LLM |
-| `events_file` | the event calendar (`{"month", "kind", "label", "source"}`) |
+| `events_file` | the event calendar (`{"month", "kind", "label", "source", "status"}`) |
+| `events_include_suggested` | give unverified LLM suggestions to the judge (flagged as such) |
+| `event_sources` | where `suggest-events` looks, e.g. `{"wikipedia": {"lang": "pt", "title": "{year} no Brasil"}}` |
+| `monetary_file` | currency reforms, for `convert_currency` and as events |
 | `categories` | the taxonomy the LLM chooses from and the steward labels (`DQE` is always sent to review) |
 
 ### 1. Another cut of the same dataset
@@ -258,6 +331,14 @@ the columns and shows the analysis window:
 ```bash
 python main.py check-profile profiles/my-portal-dataset.json
 ```
+
+The repository ships a real example from a second portal:
+[`aneel-autos-infracao.json`](profiles/aneel-autos-infracao.json), the infraction notices of ANEEL,
+Brazil's electricity regulator, from [dadosabertos.aneel.gov.br](https://dadosabertos.aneel.gov.br).
+It differs from IBAMA in every dimension a profile covers: one plain CSV instead of a zip of yearly
+files, other column names, no cancellation flag, ~1,600 records since 2018 instead of 700,000 since
+1977, and a much shorter event calendar, meant to be extended with `suggest-events`. Only its
+profile and calendar were written; no code was changed for it.
 
 Portals that are not CKAN need a small source adapter in `src/ckan_source.py` (the rest of the
 pipeline only needs a file on disk).
@@ -308,6 +389,7 @@ Then open `docs/index.html` through a local server (`python -m http.server -d do
 |---|---|---|
 | [`layer3.yml`](.github/workflows/layer3.yml) | 5th of every month, 06:00 UTC, and **manual** (*Run workflow*, with profile, judgment budget and "detectors only" inputs) | detect → judge → open issues → report → commit |
 | [`reviews.yml`](.github/workflows/reviews.yml) | whenever a `layer3` issue is labelled, closed or reopened | sync steward decisions, refresh the L3 score and dashboard |
+| [`events.yml`](.github/workflows/events.yml) | **manual** (dashboard button *Suggest events*), with profile, online/offline and years inputs | LLM suggestions for the event calendar → pull request for review |
 | [`tests.yml`](.github/workflows/tests.yml) | push / pull request | test suite on Python 3.10–3.12 |
 
 **Why monthly?** Layer 3 looks for changes in monthly series; running every six hours like the Layer 4
@@ -342,11 +424,14 @@ saved in `evaluation/results/`. Only numbers produced by these scripts are repor
 
 ```
 5ltep-layer3/
-├── main.py                        # pipeline CLI (detect, judge, issues, sync-reviews, report, check-profile)
+├── main.py                        # pipeline CLI (detect, judge, issues, sync-reviews, report,
+│                                  #   check-profile, suggest-events)
 ├── profiles/
 │   ├── ibama-autos-infracao.json                 # IBAMA infraction notices, Brazil (scheduled)
 │   ├── ibama-autos-infracao-amazonia-legal.json  # example data cut (on demand)
-│   └── events/brazil-environmental-enforcement.json  # event calendar (sourced)
+│   ├── aneel-autos-infracao.json                 # example second portal: ANEEL (on demand)
+│   ├── events/                                   # event calendars (verified / suggested / rejected)
+│   └── monetary/brazil-currency.json             # currency reforms (hand-editable)
 ├── src/
 │   ├── config.py                  # method parameters (overridable by environment variables)
 │   ├── profile.py                 # profile loading and validation, output paths
@@ -355,13 +440,16 @@ saved in `evaluation/results/`. Only numbers produced by these scripts are repor
 │   ├── detectors.py               # Z-score, MAD, Isolation Forest, LSTM-ED, ensemble, Page-Hinkley
 │   ├── judge.py                   # LLM-as-a-Judge (Ollama), majority vote, consistency, cache
 │   ├── review.py                  # GitHub Issues review queue (HitL)
+│   ├── events_suggest.py          # LLM suggestions for the event calendar, grounded on Wikipedia
+│   ├── monetary.py                # currency conversion and reform events
 │   └── report.py                  # Layer 3 score, summary, dashboard data
 ├── docs/                          # GitHub Pages dashboard (static; data/ written by the pipeline)
 ├── data/<profile>/                # monthly series + source manifest (committed by the bot)
 ├── results/<profile>/             # detections, drift, judgments, reviews, summary, run log
 ├── evaluation/                    # reproducible evaluation scripts and results
 ├── tests/                         # unit + integration tests (no network, fake LLM)
-├── .github/workflows/             # layer3.yml, reviews.yml, tests.yml
+├── .github/workflows/             # layer3.yml, reviews.yml, events.yml, tests.yml
+├── .github/actions/setup-ollama/  # shared step: install Ollama, cached model, start, pull
 ├── CITATION.cff
 └── LICENSE
 ```

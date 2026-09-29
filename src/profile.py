@@ -11,7 +11,7 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from src import config
+from src import config, monetary
 
 REQUIRED = ("id", "title", "source", "file", "columns", "series", "domain", "record_label", "categories")
 SERIES_KINDS = ("count", "sum")
@@ -57,6 +57,8 @@ class Profile:
         self.path = path
         self.id = raw["id"]
         self.paths = Paths.for_profile(self.id)
+        if raw.get("monetary_file"):
+            monetary.validate(self.monetary(), raw["monetary_file"])
 
     def __getitem__(self, key):
         return self.raw[key]
@@ -72,11 +74,33 @@ class Profile:
     def categories(self) -> dict[str, str]:
         return self.raw["categories"]
 
-    def events(self) -> list[dict]:
+    def monetary(self) -> dict | None:
+        rel = self.raw.get("monetary_file")
+        return monetary.load(rel) if rel else None
+
+    def events(self, include_suggested: bool | None = None) -> list[dict]:
+        """Events for the judge: the calendar plus the currency reforms.
+
+        Entries marked "rejected" by the steward are always left out; entries
+        still "suggested" (proposed by the LLM, not yet checked) are included
+        only when the profile allows it, and are flagged as unverified.
+        """
+        if include_suggested is None:
+            include_suggested = self.raw.get("events_include_suggested", True)
+        events = []
         rel = self.raw.get("events_file")
-        if not rel:
-            return []
-        return json.loads((config.ROOT / rel).read_text(encoding="utf-8"))["events"]
+        if rel:
+            events += json.loads((config.ROOT / rel).read_text(encoding="utf-8"))["events"]
+        reforms = self.monetary()
+        if reforms:
+            events += monetary.as_events(reforms)
+        out = []
+        for ev in events:
+            status = ev.get("status", "verified")
+            if status == "rejected" or (status == "suggested" and not include_suggested):
+                continue
+            out.append({**ev, "status": status})
+        return sorted(out, key=lambda e: e["month"])
 
 
 def validate(raw: dict) -> None:
@@ -91,6 +115,8 @@ def validate(raw: dict) -> None:
             raise ValueError(f"Series {s.get('name')!r}: kind must be one of {SERIES_KINDS}")
         if s["kind"] == "sum" and not s.get("column"):
             raise ValueError(f"Series {s['name']!r}: kind 'sum' needs a 'column'")
+        if s.get("convert_currency") and not raw.get("monetary_file"):
+            raise ValueError(f"Series {s['name']!r}: convert_currency needs a profile 'monetary_file'")
         if s["name"] in names:
             raise ValueError(f"Duplicate series name {s['name']!r}")
         names.add(s["name"])
@@ -103,9 +129,20 @@ def validate(raw: dict) -> None:
         raise ValueError("Profile needs a non-empty category taxonomy (INVALID is reserved)")
 
 
+def default_id() -> str:
+    """PROFILE if set, else the first scheduled profile, else the first profile."""
+    if config.DEFAULT_PROFILE:
+        return config.DEFAULT_PROFILE
+    raws = [json.loads(p.read_text(encoding="utf-8")) for p in sorted(config.PROFILES_DIR.glob("*.json"))]
+    if not raws:
+        raise FileNotFoundError(f"No profile in {config.PROFILES_DIR}")
+    scheduled = [r["id"] for r in raws if r.get("scheduled")]
+    return (scheduled or [raws[0]["id"]])[0]
+
+
 def load(name_or_path: str | None = None) -> Profile:
     """Load a profile by id (profiles/<id>.json) or by file path."""
-    name = name_or_path or config.DEFAULT_PROFILE
+    name = name_or_path or default_id()
     path = Path(name)
     if not path.suffix:
         path = config.PROFILES_DIR / f"{name}.json"

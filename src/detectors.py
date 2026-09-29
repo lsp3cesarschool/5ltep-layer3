@@ -4,7 +4,7 @@ Four detectors vote on every month of a series; a month is a candidate
 anomaly when at least ENSEMBLE_MIN_VOTES of them agree. Page-Hinkley runs
 alongside to tell sustained drift (a level shift) apart from point anomalies.
 
-All detectors work on log1p(series): counts and fine totals are heavy-tailed
+All detectors work on log(series): counts and fine totals are heavy-tailed
 (one fine can exceed R$ 4 billion), and the log keeps a single month from
 dominating the scale.
 
@@ -25,7 +25,17 @@ DETECTORS = ("zscore", "mad", "iforest", "lstm_ed")
 
 
 def _transform(values: pd.Series) -> np.ndarray:
-    return np.log1p(np.clip(values.to_numpy(dtype=float), 0, None))
+    """Scale-invariant log; zeros get a floor of half the smallest positive value.
+
+    Plain log (not log1p) matters for money converted from old currencies:
+    values can be fractions of a Real, and log1p would flatten them, while
+    log turns a currency conversion into a constant shift and hyperinflation
+    into a smooth trend.
+    """
+    v = np.clip(values.to_numpy(dtype=float), 0, None)
+    positive = v[v > 0]
+    floor = positive.min() / 2 if len(positive) else 1.0
+    return np.log(np.maximum(v, floor))
 
 
 def rolling_zscore(x: np.ndarray, window: int, k: float) -> tuple[np.ndarray, float]:

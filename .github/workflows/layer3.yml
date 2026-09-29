@@ -10,9 +10,9 @@ on:
   workflow_dispatch:
     inputs:
       profile:
-        description: 'Profile id (a file in profiles/)'
+        description: 'Profile id (a file in profiles/); empty = every profile marked "scheduled"'
         required: false
-        default: 'ibama-autos-infracao'
+        default: ''
       max_judgments:
         description: 'Maximum anomalies judged by the LLM in this run'
         required: false
@@ -80,28 +80,11 @@ jobs:
         id: detect
         run: python main.py detect --profile "$PROFILE"
 
-      - name: Cache Ollama models
+      - name: Set up Ollama
         if: ${{ !inputs.skip_llm }}
-        uses: actions/cache@v4
+        uses: ./.github/actions/setup-ollama
         with:
-          path: ~/.ollama/models
-          key: ollama-${{ env.LLM_MODEL }}
-
-      - name: Start Ollama and pull the model
-        if: ${{ !inputs.skip_llm }}
-        run: |
-          curl -fsSL https://ollama.com/install.sh | sh
-          # The installer may start a system service with its own model store;
-          # run our own server so the cached ~/.ollama/models is used.
-          sudo systemctl stop ollama 2>/dev/null || true
-          export OLLAMA_MODELS="$HOME/.ollama/models"
-          nohup ollama serve > /tmp/ollama.log 2>&1 &
-          for i in $(seq 1 60); do
-            curl -sf http://127.0.0.1:11434/api/version && break
-            sleep 2
-          done
-          ollama --version
-          ollama pull "$LLM_MODEL"
+          model: ${{ env.LLM_MODEL }}
 
       - name: "Stage 2: LLM-as-a-Judge"
         id: judge

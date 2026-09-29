@@ -13,6 +13,7 @@ from pathlib import Path
 
 import pandas as pd
 
+from src import monetary
 from src.profile import Profile
 
 logger = logging.getLogger(__name__)
@@ -124,6 +125,10 @@ def monthly_series(records: pd.DataFrame, profile: Profile, as_of: pd.Timestamp)
         else:
             values = parse_number(kept[s["column"]], s.get("number_format", "plain"))
             stats[f"rows_without_{name}"] = int(values.isna().sum())
+            if s.get("convert_currency"):
+                # Each value is converted at its own date, so a reform in the
+                # middle of a month is handled exactly.
+                values = values / monetary.conversion_factors(kept["date"], profile.monetary())
             out[name] = values.groupby(kept["month"]).sum(min_count=1)
     out["excluded"] = df.groupby("month")["excluded"].sum()
     out["missing_key"] = df.groupby("month")["missing_key"].sum()
@@ -134,7 +139,8 @@ def monthly_series(records: pd.DataFrame, profile: Profile, as_of: pd.Timestamp)
     # The current month is still being filled in; it is never analysed.
     monthly = monthly[monthly.index < current]
     for name, s in profile.series.items():
-        monthly[name] = monthly[name].round(2) if s["kind"] == "sum" else monthly[name].astype(int)
+        if s["kind"] == "count":
+            monthly[name] = monthly[name].astype(int)
     monthly = monthly.astype({c: int for c in CONTEXT_COLUMNS})
     stats["first_month"] = str(monthly.index.min())
     stats["last_complete_month"] = str(monthly.index.max())
@@ -144,9 +150,10 @@ def monthly_series(records: pd.DataFrame, profile: Profile, as_of: pd.Timestamp)
 def analysis_window(monthly: pd.DataFrame, profile: Profile) -> pd.DataFrame:
     """Apply the profile's period and drop the sparse beginning of the series.
 
-    The analysis starts after the last month in which the first series has
-    fewer than `sparse_min_records` (same rule as the draft: <3 records are
-    excluded).
+    The analysis starts at the first month from which the next 12 months of
+    the first series have a median of at least `sparse_min_records`. Only
+    the beginning is trimmed: quiet months later in the series (common in
+    low-volume datasets) are data, not noise, and stay in the analysis.
     """
     period = profile.get("period") or {}
     if period.get("start"):
@@ -154,9 +161,10 @@ def analysis_window(monthly: pd.DataFrame, profile: Profile) -> pd.DataFrame:
     if period.get("end"):
         monthly = monthly[monthly.index <= pd.Period(period["end"], freq="M")]
     first = next(iter(profile.series))
-    sparse = monthly.index[monthly[first] < profile.get("sparse_min_records", 3)]
-    if len(sparse):
-        monthly = monthly[monthly.index > sparse.max()]
+    ahead = monthly[first][::-1].rolling(12, min_periods=12).median()[::-1]
+    dense = ahead.index[ahead >= profile.get("sparse_min_records", 3)]
+    if len(dense):
+        monthly = monthly[monthly.index >= dense.min()]
     if len(monthly) < 36:
         raise ValueError(f"Only {len(monthly)} usable months; the detectors need at least 36")
     return monthly
@@ -166,7 +174,9 @@ def save_series(monthly: pd.DataFrame, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     out = monthly.copy()
     out.index = out.index.astype(str)
-    out.to_csv(path, float_format="%.2f")
+    # Significant digits, not decimals: converted historical values can be
+    # fractions of a cent and must not round to zero.
+    out.to_csv(path, float_format="%.10g")
 
 
 def load_series(path: Path) -> pd.DataFrame:

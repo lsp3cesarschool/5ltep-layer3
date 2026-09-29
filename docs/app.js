@@ -26,6 +26,7 @@ function label(a) {
 async function init() {
   el("run-link").href = `https://github.com/${REPO}/actions/workflows/layer3.yml`;
   el("issues-link").href = `https://github.com/${REPO}/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3`;
+  el("events-link").href = `https://github.com/${REPO}/actions/workflows/events.yml`;
   const res = await fetch("data/index.json", { cache: "no-store" });
   const index = res.ok ? await res.json() : { profiles: [] };
   if (!index.profiles.length) {
@@ -51,7 +52,15 @@ async function load(profileId) {
   drawCards();
   drawCharts();
   drawTable();
+  drawEvents();
   drawProvenance();
+}
+
+function drawEvents() {
+  el("events").innerHTML = [...data.events].reverse().map((e) => `<tr>
+    <td class="num">${esc(e.month)}</td><td>${esc(e.kind)}</td><td>${esc(e.label)}</td>
+    <td>${e.status === "suggested" ? `<span class="tag" style="--c: var(--GES)">suggested</span>` : esc(e.status || "verified")}</td>
+    <td class="muted">${esc(e.source)}</td></tr>`).join("") || `<tr><td colspan="5" class="muted">No events.</td></tr>`;
 }
 
 function drawCards() {

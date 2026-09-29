@@ -10,6 +10,7 @@ Stages, each a sub-command so GitHub Actions can run them as separate steps:
   report        Layer 3 summary + dashboard data
   run           detect + judge + report (local convenience)
   check-profile validate a profile against the live portal before its first run
+  suggest-events LLM suggestions for the event calendar, grounded on Wikipedia (for review)
   list-profiles
 
 Examples:
@@ -128,6 +129,8 @@ def cmd_issues(args) -> None:
     owner, name = gh.repo.split("/")
     url = f"https://{owner}.github.io/{name}/?profile={p.id}"
     res = review.open_review_issues(p, judgments, current, gh, url, args.max_new)
+    if res["notified_rejudged"]:
+        judge.save_judgments(judgments, p.paths.judgments)
     review.sync_reviews(p, gh)
     mandatory = sum(1 for c in res["created"] if c["review_level"] == "mandatory")
     logger.info("Opened %d issues (%d mandatory), %d still to open",
@@ -191,6 +194,27 @@ def cmd_check_profile(args) -> None:
     print(f"Analysis window: {window.index.min()} to {window.index.max()} ({len(window)} months). Ready.")
 
 
+def cmd_suggest_events(args) -> None:
+    from src import events_suggest
+
+    p = profiles.load(args.profile)
+    if not p.get("events_file"):
+        raise SystemExit(f"Profile {p.id} has no events_file to write suggestions to")
+    det = _load_detections(p.paths.detections)
+    years = [int(y) for y in args.years.split(",")] if args.years else None
+    client = judge.OllamaClient(model=args.model or config.LLM_MODEL)
+    res = events_suggest.suggest(p, det, client, online=not args.offline, years=years, max_years=args.max_years)
+    for e in res["added"]:
+        logger.info("suggested %s %-9s %s", e["month"], e["kind"], e["label"])
+    for d in res["dropped"]:
+        logger.info("dropped   %s: %s (%s)", d["year"], d["label"], d["reason"])
+    logger.info("%d suggestions added to %s for review", len(res["added"]), p["events_file"])
+    _log_run(p, "suggest-events", {"years": res["years"], "added": len(res["added"]),
+                                   "dropped": len(res["dropped"]), "online": not args.offline})
+    _set_output("added", len(res["added"]))
+    _set_output("profile", p.id)
+
+
 def cmd_list_profiles(args) -> None:
     for p in profiles.available():
         flag = "scheduled" if p.get("scheduled") else "on demand"
@@ -225,6 +249,11 @@ def main(argv=None) -> None:
         "--all", action="store_true", help="every profile in profiles/")
     add("report", cmd_report, "summary + dashboard data")
     add("check-profile", cmd_check_profile, "validate a profile against the live portal")
+    sp = add("suggest-events", cmd_suggest_events, "LLM suggestions for the event calendar (for review)")
+    sp.add_argument("--offline", action="store_true", help="no online source: the model answers from memory")
+    sp.add_argument("--years", help="comma-separated years (default: years with anomalies, most recent first)")
+    sp.add_argument("--max-years", type=int, default=8)
+    sp.add_argument("--model", default=None)
     sub.add_parser("list-profiles", help="list available profiles").set_defaults(fn=cmd_list_profiles)
 
     args = parser.parse_args(argv)

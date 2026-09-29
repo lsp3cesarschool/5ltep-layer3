@@ -1,6 +1,7 @@
 {
   "id": "ibama-autos-infracao",
   "title": "IBAMA infraction notices (Autos de Infração), Brazil",
+  "country": "Brazil",
   "scheduled": true,
   "source": {
     "portal_url": "https://dadosabertos.ibama.gov.br",
@@ -26,7 +27,10 @@
     "description": "notices later cancelled"
   },
   "filters": [],
-  "period": {"start": null, "end": null},
+  "period": {
+    "start": null,
+    "end": null
+  },
   "sparse_min_records": 3,
   "series": [
     {
@@ -39,12 +43,21 @@
       "kind": "sum",
       "column": "VAL_AUTO_INFRACAO",
       "number_format": "br",
-      "description": "Total value of fines issued in the month (non-cancelled); nominal values in the currency of the time: no inflation adjustment, and Brazil changed currency five times before the Real (July 1994)"
+      "description": "Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment)",
+      "convert_currency": true
     }
   ],
   "domain": "IBAMA, Brazil's federal environmental agency, publishes every infraction notice (auto de infracao) it issues. Each record is one notice, dated when it was issued, with the fine value when a fine applies.",
   "record_label": "infraction notices",
   "events_file": "profiles/events/brazil-environmental-enforcement.json",
+  "events_include_suggested": true,
+  "monetary_file": "profiles/monetary/brazil-currency.json",
+  "event_sources": {
+    "wikipedia": {
+      "lang": "pt",
+      "title": "{year} no Brasil"
+    }
+  },
   "categories": {
     "PDC": "Policy-Driven Change: legislation, mandate, agency restructuring or political transition",
     "SP": "Seasonal Pattern: a recurring annual enforcement cycle",

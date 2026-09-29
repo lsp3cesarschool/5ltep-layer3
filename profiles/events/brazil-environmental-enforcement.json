@@ -1,119 +1,103 @@
 {
-  "_comment": "Known contextual events given to the LLM-as-a-Judge (events within +-6 months of an anomaly). Curated by the data steward: add, correct or remove entries through a pull request. Keep only events with a verifiable source. 'month' is YYYY-MM; 'kind' is policy, political, monetary or external.",
+  "_comment": "Known contextual events given to the LLM-as-a-Judge (events within +-6 months of an anomaly). 'month' is YYYY-MM; 'kind' is policy, political or external; 'status' is verified (checked by a steward), suggested (proposed by `main.py suggest-events`, not checked yet) or rejected (kept so it is not suggested again). Edit freely: change status, fix labels, add events with a verifiable source. Currency reforms are not listed here: they come from the profile's monetary_file.",
   "events": [
-    {
-      "month": "1986-02",
-      "kind": "monetary",
-      "label": "Currency reform: Cruzeiro replaced by Cruzado (1 Cruzado = 1,000 Cruzeiros), Plano Cruzado",
-      "source": "Decreto-Lei 2.283, de 27/02/1986"
-    },
-    {
-      "month": "1989-01",
-      "kind": "monetary",
-      "label": "Currency reform: Cruzado replaced by Cruzado Novo (1 Cruzado Novo = 1,000 Cruzados), Plano Verao",
-      "source": "Medida Provisoria 32, de 15/01/1989 (Lei 7.730/1989)"
-    },
     {
       "month": "1989-02",
       "kind": "policy",
       "label": "IBAMA created (Law 7,735/1989), merging four federal bodies",
-      "source": "Lei 7.735, de 22/02/1989"
-    },
-    {
-      "month": "1990-03",
-      "kind": "monetary",
-      "label": "Currency reform: Cruzado Novo replaced by Cruzeiro at par, Plano Collor",
-      "source": "Medida Provisoria 168, de 15/03/1990 (Lei 8.024/1990)"
-    },
-    {
-      "month": "1993-08",
-      "kind": "monetary",
-      "label": "Currency reform: Cruzeiro replaced by Cruzeiro Real (1 Cruzeiro Real = 1,000 Cruzeiros)",
-      "source": "Medida Provisoria 336, de 28/07/1993 (Lei 8.697/1993)"
-    },
-    {
-      "month": "1994-07",
-      "kind": "monetary",
-      "label": "Currency reform: Real introduced (1 Real = 2,750 Cruzeiros Reais), Plano Real",
-      "source": "Medida Provisoria 542, de 30/06/1994 (Lei 9.069/1995)"
+      "source": "Lei 7.735, de 22/02/1989",
+      "status": "verified"
     },
     {
       "month": "1998-02",
       "kind": "policy",
       "label": "Environmental Crimes Law enacted",
-      "source": "Lei 9.605, de 12/02/1998"
+      "source": "Lei 9.605, de 12/02/1998",
+      "status": "verified"
     },
     {
       "month": "1999-09",
       "kind": "policy",
       "label": "First decree regulating administrative environmental sanctions",
-      "source": "Decreto 3.179, de 21/09/1999"
+      "source": "Decreto 3.179, de 21/09/1999",
+      "status": "verified"
     },
     {
       "month": "2003-01",
       "kind": "political",
       "label": "Change of federal administration",
-      "source": "Posse presidencial, 01/01/2003"
+      "source": "Posse presidencial, 01/01/2003",
+      "status": "verified"
     },
     {
       "month": "2004-03",
       "kind": "policy",
       "label": "PPCDAm (Amazon deforestation prevention and control plan) launched",
-      "source": "PPCDAm, 1a fase, 2004"
+      "source": "PPCDAm, 1a fase, 2004",
+      "status": "verified"
     },
     {
       "month": "2007-08",
       "kind": "policy",
       "label": "ICMBio created, taking over federal protected areas from IBAMA",
-      "source": "Lei 11.516, de 28/08/2007"
+      "source": "Lei 11.516, de 28/08/2007",
+      "status": "verified"
     },
     {
       "month": "2008-07",
       "kind": "policy",
       "label": "New decree on administrative environmental infractions and sanctions (replaces Decree 3,179/1999)",
-      "source": "Decreto 6.514, de 22/07/2008"
+      "source": "Decreto 6.514, de 22/07/2008",
+      "status": "verified"
     },
     {
       "month": "2011-01",
       "kind": "political",
       "label": "Change of federal administration",
-      "source": "Posse presidencial, 01/01/2011"
+      "source": "Posse presidencial, 01/01/2011",
+      "status": "verified"
     },
     {
       "month": "2012-05",
       "kind": "policy",
       "label": "New Forest Code",
-      "source": "Lei 12.651, de 25/05/2012"
+      "source": "Lei 12.651, de 25/05/2012",
+      "status": "verified"
     },
     {
       "month": "2016-05",
       "kind": "political",
       "label": "Change of federal administration (interim, after impeachment proceedings opened)",
-      "source": "12/05/2016"
+      "source": "12/05/2016",
+      "status": "verified"
     },
     {
       "month": "2019-01",
       "kind": "political",
       "label": "Change of federal administration",
-      "source": "Posse presidencial, 01/01/2019"
+      "source": "Posse presidencial, 01/01/2019",
+      "status": "verified"
     },
     {
       "month": "2019-04",
       "kind": "policy",
       "label": "Environmental conciliation stage added to the sanctioning process",
-      "source": "Decreto 9.760, de 11/04/2019"
+      "source": "Decreto 9.760, de 11/04/2019",
+      "status": "verified"
     },
     {
       "month": "2020-03",
       "kind": "external",
       "label": "COVID-19 pandemic declared; public-health emergency measures in Brazil",
-      "source": "OMS, 11/03/2020; Decreto Legislativo 6/2020"
+      "source": "OMS, 11/03/2020; Decreto Legislativo 6/2020",
+      "status": "verified"
     },
     {
       "month": "2023-01",
       "kind": "political",
       "label": "Change of federal administration",
-      "source": "Posse presidencial, 01/01/2023"
+      "source": "Posse presidencial, 01/01/2023",
+      "status": "verified"
     }
   ]
 }

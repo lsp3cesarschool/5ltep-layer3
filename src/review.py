@@ -90,6 +90,9 @@ class GitHub:
     def create_issue(self, title: str, body: str, labels: list[str]) -> dict:
         return self._req("POST", "/issues", json={"title": title, "body": body, "labels": labels})
 
+    def comment(self, number: int, body: str) -> dict:
+        return self._req("POST", f"/issues/{number}/comments", json={"body": body})
+
 
 def issue_title(profile: Profile, j: dict) -> str:
     return f"[L3] {profile.id}: {j['series']} {j['month']}, LLM says {j['category']} (C={j['consistency']:.2f})"
@@ -147,11 +150,12 @@ def open_review_issues(profile: Profile, judgments: dict, current_ids: set[str],
                        dashboard_url: str, max_new: int = config.MAX_NEW_ISSUES) -> dict:
     """Create issues for anomalies that need review and have none yet."""
     gh.ensure_labels(labels_for(profile))
-    existing = set()
+    existing = {}
     for issue in gh.issues():
         m = MARKER_RE.search(issue.get("body") or "")
         if m:
-            existing.add(m.group(1))
+            existing[m.group(1)] = issue["number"]
+    notified = notify_rejudgments(profile, judgments, existing, gh)
     todo = sorted(
         (aid for aid, j in judgments.items()
          if aid in current_ids and j["review_level"] != "none" and f"{profile.id}/{aid}" not in existing),
@@ -168,7 +172,35 @@ def open_review_issues(profile: Profile, judgments: dict, current_ids: set[str],
         issue = gh.create_issue(issue_title(profile, j), issue_body(profile, aid, j, dashboard_url), labels)
         created.append({"anomaly_id": aid, "issue": issue["number"], "review_level": j["review_level"]})
         time.sleep(1.5)  # stay clear of GitHub's secondary rate limit on content creation
-    return {"created": created, "remaining": max(0, len(todo) - max_new)}
+    return {"created": created, "remaining": max(0, len(todo) - max_new), "notified_rejudged": notified}
+
+
+def notify_rejudgments(profile: Profile, judgments: dict, existing: dict[str, int], gh: GitHub) -> list[str]:
+    """Comment on an existing issue when its anomaly was judged again.
+
+    That happens when the anomaly's own data changed (e.g. a retroactive
+    correction in the portal) or when the model or prompt version changed.
+    The issue is never duplicated; the steward sees the new judgment in the
+    same thread and can revise the decision. `issue_notified_judged_at`
+    makes this idempotent.
+    """
+    notified = []
+    for aid, j in judgments.items():
+        number = existing.get(f"{profile.id}/{aid}")
+        if not number or not j.get("rejudge_reason") or j.get("issue_notified_judged_at") == j["judged_at"]:
+            continue
+        before = j.get("history", [{}])[-1]
+        gh.comment(number, (
+            f"**This anomaly was judged again** ({j['rejudge_reason']}, {j['judged_at']}).\n\n"
+            f"- Before: **{before.get('category')}** (consistency {before.get('consistency')}, "
+            f"{before.get('model')} / prompt {before.get('prompt_version')})\n"
+            f"- Now: **{j['category']}** (consistency {j['consistency']:.2f}, "
+            f"{j['model']} / prompt {j['prompt_version']})\n\n"
+            "If you already decided this issue, please check whether the decision still holds."
+        ))
+        j["issue_notified_judged_at"] = j["judged_at"]
+        notified.append(aid)
+    return notified
 
 
 def parse_review(issue: dict, categories: dict) -> dict | None:

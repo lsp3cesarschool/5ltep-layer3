@@ -13,7 +13,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PROFILES_DIR = ROOT / "profiles"
-DEFAULT_PROFILE = os.environ.get("PROFILE") or "ibama-autos-infracao"
+# Profile used when none is named: the PROFILE variable, else the first
+# profile marked "scheduled" (see src/profile.py), so an instance for another
+# portal needs no code change.
+DEFAULT_PROFILE = os.environ.get("PROFILE") or None
 
 
 def _env(name: str, default):
@@ -53,7 +56,12 @@ LLM_NUM_CTX = _env("LLM_NUM_CTX", 4096)
 LLM_TIMEOUT_S = _env("LLM_TIMEOUT_S", 600)
 CONTEXT_MONTHS = _env("CONTEXT_MONTHS", 12)          # +-12 months around the anomaly
 EVENT_WINDOW_MONTHS = _env("EVENT_WINDOW_MONTHS", 6)  # events within +-6 months
-PROMPT_VERSION = "v1"
+# Bump when the evidence given to the judge changes meaning; every anomaly is
+# then judged once more and the previous judgment moves to its history.
+# v2: fines converted to Reais, unverified events flagged, significant digits;
+#     year-by-year seasonality evidence and symmetric criteria (v1 labelled
+#     recurring January drops as data-quality events).
+PROMPT_VERSION = "v2"
 # Budget per run: CPU inference on the Actions runner is slow, so each run
 # judges at most this many new anomalies (most recent first) and stops early
 # when the time budget runs out. The next run continues where it stopped.
@@ -61,7 +69,7 @@ MAX_JUDGMENTS = _env("MAX_JUDGMENTS", 25)
 MAX_JUDGE_MINUTES = _env("MAX_JUDGE_MINUTES", 240.0)
 
 # --- Human-in-the-loop review (GitHub Issues) --------------------------------
-ADVISORY_CONSISTENCY = _env("ADVISORY_CONSISTENCY", 0.6)  # dissertation: C < 0.6
+ADVISORY_CONSISTENCY = _env("ADVISORY_CONSISTENCY", 0.6)  # below this: advisory review
 MAX_NEW_ISSUES = _env("MAX_NEW_ISSUES", 15)
 ISSUE_LABEL = "layer3"
 STEWARD_LABEL_PREFIX = "steward:"

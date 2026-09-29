@@ -18,6 +18,7 @@
     <label>Profile <select id="profile"></select></label>
     <a class="button" id="run-link" target="_blank" rel="noopener">Run Layer 3 now ↗</a>
     <a class="button secondary" id="issues-link" target="_blank" rel="noopener">Review queue ↗</a>
+    <a class="button secondary" id="events-link" target="_blank" rel="noopener">Suggest events ↗</a>
   </div>
 </header>
 
@@ -48,6 +49,19 @@
       <table>
         <thead><tr><th>Month</th><th>Series</th><th>Ensemble</th><th>LLM</th><th>C</th><th>Steward</th><th>Reasoning (majority run)</th></tr></thead>
         <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Event calendar</h2>
+      <span class="muted">verified by a steward · suggested by the LLM (unverified) · currency reforms</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Month</th><th>Kind</th><th>Event</th><th>Status</th><th>Source</th></tr></thead>
+        <tbody id="events"></tbody>
       </table>
     </div>
   </section>
