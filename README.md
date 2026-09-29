@@ -167,7 +167,13 @@ Two levels of review:
 
 - **Mandatory review**: LLM majority `DQE` (or no valid answer). No corrective action before a
   steward decides.
-- **Advisory review**: label consistency *C* < 0.6 (the three runs all disagree).
+- **Advisory review**: label consistency *C* < 0.6 (the three runs all disagree), or the month is
+  next to a Page-Hinkley alarm. The 5L-TEP paper routes confirmed drift to a review of the data's
+  structure whatever its label: a permanent jump (e.g. IBAMA's notices multiplied by ~8 from January
+  1996 on) can be a change of information system even when the model calls it a genuine shift.
+
+Review levels are a policy applied to stored judgments, so changing them never requires calling the
+LLM again.
 
 Each of these becomes **one GitHub Issue** (idempotent: re-runs never duplicate it) with the
 evidence, the three reasonings and instructions. The steward decides by **applying one
