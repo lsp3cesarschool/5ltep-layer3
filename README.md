@@ -221,7 +221,7 @@ where every event has a `status`:
 | status | meaning | given to the judge |
 |---|---|---|
 | `verified` | checked by a steward, with a source | yes |
-| `suggested` | proposed by the LLM, not checked yet | yes, flagged *[unverified suggestion]* (profile option `events_include_suggested`) |
+| `suggested` | proposed by the LLM, not checked yet | only if grounded on a quoted source, flagged *[unverified suggestion]* (profile option `events_include_suggested`); suggestions made from the model's memory never, until verified |
 | `rejected` | checked and discarded | no (kept so it is not suggested again) |
 
 **Filling it automatically.** `python main.py suggest-events` looks at the years with anomalies and,
@@ -230,7 +230,9 @@ Brazil, `pt.wikipedia.org/wiki/2019_no_Brasil` and so on). The LLM selects the e
 have affected the records and must **quote the sentence** each one comes from; suggestions whose
 quote is not found in the page are discarded, which filters out invented events. With `--offline`,
 the model answers from its own knowledge instead; those entries are marked `origin: llm-memory` and
-need extra care.
+are never given to the judge before a steward verifies them. This is not a theoretical precaution:
+in a first run without grounding, Gemma 3 4B proposed non-existent impeachments and decrees with
+made-up numbers. Use offline mode only as a list of leads to check.
 
 On GitHub, the dashboard's **Suggest events** button opens the
 [`events.yml`](.github/workflows/events.yml) workflow, which runs the same command and opens a
