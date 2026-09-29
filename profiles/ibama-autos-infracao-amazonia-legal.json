@@ -1,0 +1,56 @@
+{
+  "id": "ibama-autos-infracao-amazonia-legal",
+  "title": "IBAMA infraction notices, Legal Amazon states only (example of a data cut)",
+  "scheduled": false,
+  "source": {
+    "portal_url": "https://dadosabertos.ibama.gov.br",
+    "dataset_id": "fiscalizacao-auto-de-infracao",
+    "resource_name": "Autos de infração",
+    "resource_format": "CSV",
+    "license_note": "IBAMA open data; cite the source when reusing"
+  },
+  "file": {
+    "compression": "zip",
+    "member_pattern": "*.csv",
+    "sep": ";",
+    "encoding": "utf-8"
+  },
+  "columns": {
+    "date": "DAT_HORA_AUTO_INFRACAO",
+    "key": "SEQ_AUTO_INFRACAO"
+  },
+  "exclude": {
+    "column": "SIT_CANCELADO",
+    "equals": "S",
+    "label": "cancelled",
+    "description": "notices later cancelled"
+  },
+  "filters": [
+    {"column": "UF", "in": ["AC", "AM", "AP", "MA", "MT", "PA", "RO", "RR", "TO"]}
+  ],
+  "period": {"start": "1996-01", "end": null},
+  "sparse_min_records": 3,
+  "series": [
+    {
+      "name": "notices",
+      "kind": "count",
+      "description": "Number of infraction notices issued in the month in the nine Legal Amazon states (non-cancelled)"
+    },
+    {
+      "name": "fine_total_brl",
+      "kind": "sum",
+      "column": "VAL_AUTO_INFRACAO",
+      "number_format": "br",
+      "description": "Total value of fines issued in the month in the nine Legal Amazon states (non-cancelled); nominal values in the currency of the time: no inflation adjustment, and Brazil changed currency five times before the Real (July 1994)"
+    }
+  ],
+  "domain": "IBAMA, Brazil's federal environmental agency, publishes every infraction notice (auto de infracao) it issues. This cut keeps only notices issued in the nine Legal Amazon states (AC, AM, AP, MA, MT, PA, RO, RR, TO), where the dry season (roughly June to September) concentrates deforestation and fire enforcement.",
+  "record_label": "infraction notices",
+  "events_file": "profiles/events/brazil-environmental-enforcement.json",
+  "categories": {
+    "PDC": "Policy-Driven Change: legislation, mandate, agency restructuring or political transition",
+    "SP": "Seasonal Pattern: a recurring annual enforcement cycle",
+    "DQE": "Data-Quality Event: reporting failure, system migration, backlog, duplication or retroactive correction",
+    "GES": "Genuine Enforcement Shift: a real change in enforcement intensity not explained by the above"
+  }
+}

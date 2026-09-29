@@ -1,0 +1,54 @@
+{
+  "id": "ibama-autos-infracao",
+  "title": "IBAMA infraction notices (Autos de Infração), Brazil",
+  "scheduled": true,
+  "source": {
+    "portal_url": "https://dadosabertos.ibama.gov.br",
+    "dataset_id": "fiscalizacao-auto-de-infracao",
+    "resource_name": "Autos de infração",
+    "resource_format": "CSV",
+    "license_note": "IBAMA open data; cite the source when reusing"
+  },
+  "file": {
+    "compression": "zip",
+    "member_pattern": "*.csv",
+    "sep": ";",
+    "encoding": "utf-8"
+  },
+  "columns": {
+    "date": "DAT_HORA_AUTO_INFRACAO",
+    "key": "SEQ_AUTO_INFRACAO"
+  },
+  "exclude": {
+    "column": "SIT_CANCELADO",
+    "equals": "S",
+    "label": "cancelled",
+    "description": "notices later cancelled"
+  },
+  "filters": [],
+  "period": {"start": null, "end": null},
+  "sparse_min_records": 3,
+  "series": [
+    {
+      "name": "notices",
+      "kind": "count",
+      "description": "Number of infraction notices issued in the month (non-cancelled)"
+    },
+    {
+      "name": "fine_total_brl",
+      "kind": "sum",
+      "column": "VAL_AUTO_INFRACAO",
+      "number_format": "br",
+      "description": "Total value of fines issued in the month (non-cancelled); nominal values in the currency of the time: no inflation adjustment, and Brazil changed currency five times before the Real (July 1994)"
+    }
+  ],
+  "domain": "IBAMA, Brazil's federal environmental agency, publishes every infraction notice (auto de infracao) it issues. Each record is one notice, dated when it was issued, with the fine value when a fine applies.",
+  "record_label": "infraction notices",
+  "events_file": "profiles/events/brazil-environmental-enforcement.json",
+  "categories": {
+    "PDC": "Policy-Driven Change: legislation, mandate, agency restructuring or political transition",
+    "SP": "Seasonal Pattern: a recurring annual enforcement cycle",
+    "DQE": "Data-Quality Event: reporting failure, system migration, backlog, duplication or retroactive correction",
+    "GES": "Genuine Enforcement Shift: a real change in enforcement intensity not explained by the above"
+  }
+}

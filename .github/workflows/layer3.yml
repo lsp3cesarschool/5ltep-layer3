@@ -1,0 +1,139 @@
+name: 5L-TEP Layer 3 Anomaly Detection
+
+# Monthly: the anomalies Layer 3 looks for move at the pace of the monthly
+# series, so running more often would only re-analyse the same months.
+# Manual: a steward can run it any time (Actions > this workflow > Run workflow),
+# e.g. right before a Layer 5 publication decision.
+on:
+  schedule:
+    - cron: '0 6 5 * *'   # 5th of every month, 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: 'Profile id (a file in profiles/)'
+        required: false
+        default: 'ibama-autos-infracao'
+      max_judgments:
+        description: 'Maximum anomalies judged by the LLM in this run'
+        required: false
+        default: '25'
+      skip_llm:
+        description: 'Only run the statistical detectors'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: layer3-writes      # shared with reviews.yml: one writer at a time
+  cancel-in-progress: false
+
+env:
+  LLM_MODEL: ${{ vars.LLM_MODEL || 'gemma3:4b' }}
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  plan:
+    # Manual run: the chosen profile. Monthly run: every profile with "scheduled": true.
+    runs-on: ubuntu-latest
+    outputs:
+      profiles: ${{ steps.pick.outputs.profiles }}
+    steps:
+      - uses: actions/checkout@v5
+      - id: pick
+        run: |
+          if [ -n "${{ inputs.profile }}" ]; then
+            echo "profiles=[\"${{ inputs.profile }}\"]" >> "$GITHUB_OUTPUT"
+          else
+            echo "profiles=$(jq -c -s '[.[] | select(.scheduled == true) | .id]' profiles/*.json)" >> "$GITHUB_OUTPUT"
+          fi
+
+  layer3:
+    needs: plan
+    runs-on: ubuntu-latest   # public repository: 4 vCPU / 16 GB RAM, no minute quota
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false
+      max-parallel: 1        # profiles commit to the same branch: one at a time
+      matrix:
+        profile: ${{ fromJSON(needs.plan.outputs.profiles) }}
+    env:
+      PROFILE: ${{ matrix.profile }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: "Stage 1: download, aggregate, detect"
+        id: detect
+        run: python main.py detect --profile "$PROFILE"
+
+      - name: Cache Ollama models
+        if: ${{ !inputs.skip_llm }}
+        uses: actions/cache@v4
+        with:
+          path: ~/.ollama/models
+          key: ollama-${{ env.LLM_MODEL }}
+
+      - name: Start Ollama and pull the model
+        if: ${{ !inputs.skip_llm }}
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          # The installer may start a system service with its own model store;
+          # run our own server so the cached ~/.ollama/models is used.
+          sudo systemctl stop ollama 2>/dev/null || true
+          export OLLAMA_MODELS="$HOME/.ollama/models"
+          nohup ollama serve > /tmp/ollama.log 2>&1 &
+          for i in $(seq 1 60); do
+            curl -sf http://127.0.0.1:11434/api/version && break
+            sleep 2
+          done
+          ollama --version
+          ollama pull "$LLM_MODEL"
+
+      - name: "Stage 2: LLM-as-a-Judge"
+        id: judge
+        if: ${{ !inputs.skip_llm }}
+        run: python main.py judge --profile "$PROFILE" --max-judgments "${{ inputs.max_judgments || '25' }}"
+
+      - name: Open review issues (human-in-the-loop)
+        id: issues
+        if: ${{ !inputs.skip_llm }}
+        run: python main.py issues --profile "$PROFILE"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build summary and dashboard data
+        id: report
+        if: ${{ always() && steps.detect.outcome == 'success' }}
+        run: python main.py report --profile "$PROFILE"
+
+      - name: Commit results
+        id: commit
+        if: ${{ always() && steps.detect.outcome == 'success' }}
+        run: |
+          git config user.name "5L-TEP L3 Bot"
+          git config user.email "5ltep-l3-bot@users.noreply.github.com"
+          git add data/ results/ docs/data/
+          git diff --cached --quiet || git commit -m "chore(l3): $PROFILE results [$(date -u +%Y-%m-%dT%H:%M:%SZ)]"
+          git pull --rebase
+          git push
+
+      - name: Alert on new mandatory reviews
+        if: ${{ steps.issues.outputs.new_mandatory > 0 }}
+        run: |
+          echo "::error::${{ steps.issues.outputs.new_mandatory }} anomaly(ies) need a mandatory steward review."
+          echo "Open issues: https://github.com/${{ github.repository }}/issues?q=is%3Aopen+label%3Areview%3Amandatory"
+          exit 1
