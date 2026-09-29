@@ -332,13 +332,16 @@ the columns and shows the analysis window:
 python main.py check-profile profiles/my-portal-dataset.json
 ```
 
-The repository ships a real example from a second portal:
-[`aneel-autos-infracao.json`](profiles/aneel-autos-infracao.json), the infraction notices of ANEEL,
-Brazil's electricity regulator, from [dadosabertos.aneel.gov.br](https://dadosabertos.aneel.gov.br).
-It differs from IBAMA in every dimension a profile covers: one plain CSV instead of a zip of yearly
-files, other column names, no cancellation flag, ~1,600 records since 2018 instead of 700,000 since
-1977, and a much shorter event calendar, meant to be extended with `suggest-events`. Only its
-profile and calendar were written; no code was changed for it.
+A second portal runs as a separate instance, exactly as another agency would adopt the toolkit:
+[**5ltep-layer3-aneel**](https://github.com/lsp3cesarschool/5ltep-layer3-aneel) monitors the
+infraction notices of ANEEL, Brazil's electricity regulator, from
+[dadosabertos.aneel.gov.br](https://dadosabertos.aneel.gov.br). It differs from IBAMA in every
+dimension a profile covers: one plain CSV instead of a zip of yearly files, other column names, no
+cancellation flag, ~1,600 records since 2018 instead of 700,000 since 1977, and a much shorter
+event calendar, meant to be extended with `suggest-events`. That instance runs the same code as
+this repository; only its profile, calendar and README differ. Running it exposed two assumptions
+that held for IBAMA but not in general (sparse months only at the start of a series; a hard-coded
+default profile); both were fixed here, in the shared code.
 
 Portals that are not CKAN need a small source adapter in `src/ckan_source.py` (the rest of the
 pipeline only needs a file on disk).
@@ -353,8 +356,8 @@ pipeline only needs a file on disk).
    GitHub Pages (*Settings → Pages → Deploy from a branch → `main` / `docs`*).
 5. Keep the repository **public**: public repositories get the 16 GB runner the LLM needs, and no
    minute quota. (A private repository's 7 GB runner is tight for a 4B model.)
-6. Run *Actions → 5L-TEP Layer 3 Anomaly Detection → Run workflow* once per profile. The first run
-   back-fills up to 25 judgments; repeat it (or wait for the monthly runs) until "pending" reaches 0.
+6. Run *Actions → 5L-TEP Layer 3 Anomaly Detection → Run workflow* once. It works through the
+   whole history in batches of 25 judgments, each batch starting the next, until nothing is pending.
 7. Optionally, set the repository variable `LLM_MODEL` to use another Ollama model. Changing the
    model or `PROMPT_VERSION` makes every anomaly eligible for a new judgment; old ones stay in the
    history.
@@ -387,7 +390,7 @@ Then open `docs/index.html` through a local server (`python -m http.server -d do
 
 | Workflow | When | What |
 |---|---|---|
-| [`layer3.yml`](.github/workflows/layer3.yml) | 5th of every month, 06:00 UTC, and **manual** (*Run workflow*, with profile, judgment budget and "detectors only" inputs) | detect → judge → open issues → report → commit |
+| [`layer3.yml`](.github/workflows/layer3.yml) | 5th of every month, 06:00 UTC, and **manual** (*Run workflow*, with profile, batch size, "continue" and "detectors only" inputs) | detect → judge a batch → open issues → report → commit → next batch, until nothing is pending |
 | [`reviews.yml`](.github/workflows/reviews.yml) | whenever a `layer3` issue is labelled, closed or reopened | sync steward decisions, refresh the L3 score and dashboard |
 | [`events.yml`](.github/workflows/events.yml) | **manual** (dashboard button *Suggest events*), with profile, online/offline and years inputs | LLM suggestions for the event calendar → pull request for review |
 | [`tests.yml`](.github/workflows/tests.yml) | push / pull request | test suite on Python 3.10–3.12 |
@@ -398,14 +401,23 @@ decision (Layer 5) triggers a run from the dashboard's **Run Layer 3 now** butto
 workflow page: the run is authorised by the steward's own GitHub login, and no token is ever
 embedded in the public page.
 
+**Batches until done.** A month is plenty of time to judge every anomaly, but a single job is
+limited to six hours. Each run therefore judges one batch (`max_judgments`, 25 by default,
+about 45 minutes on the CPU runner), commits, so the dashboard shows progress, and starts the next
+batch while anomalies or review issues are still pending (up to 60 batches per chain). Batches
+after the first re-use the series committed by the first one, so the whole chain analyses the same
+data even if the portal is updated in the meantime. After the initial back-fill, a monthly chain is
+usually a single batch.
+
 **Ollama in Actions.** The job installs Ollama, restores `~/.ollama/models` from `actions/cache`
 (the 3.3 GB model is downloaded once), starts the server, waits for its health check and pulls the
 model. Inference is CPU-only.
 
-**Alerts cost nothing and need no mail server** (as in Layer 4): when a run opens new
-**mandatory** reviews, the workflow first commits everything and then fails on purpose; GitHub
-e-mails the maintainer about the failed run. Enable *Settings → Notifications → Actions* on your
-account.
+**Alerts cost nothing and need no mail server** (as in Layer 4): at the end of a chain, if
+**mandatory** reviews are still open, the last batch (which has already committed everything) fails
+on purpose, and GitHub e-mails the maintainer about the failed run. Open mandatory reviews therefore
+produce one reminder per monthly run until a steward decides them. Enable
+*Settings → Notifications → Actions* on your account.
 
 ## Evaluation
 
@@ -429,7 +441,6 @@ saved in `evaluation/results/`. Only numbers produced by these scripts are repor
 ├── profiles/
 │   ├── ibama-autos-infracao.json                 # IBAMA infraction notices, Brazil (scheduled)
 │   ├── ibama-autos-infracao-amazonia-legal.json  # example data cut (on demand)
-│   ├── aneel-autos-infracao.json                 # example second portal: ANEEL (on demand)
 │   ├── events/                                   # event calendars (verified / suggested / rejected)
 │   └── monetary/brazil-currency.json             # currency reforms (hand-editable)
 ├── src/

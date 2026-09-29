@@ -138,6 +138,7 @@ def cmd_issues(args) -> None:
     _log_run(p, "issues", res)
     _set_output("new_mandatory", mandatory)
     _set_output("new_issues", len(res["created"]))
+    _set_output("issues_remaining", res["remaining"])
 
 
 def cmd_sync_reviews(args) -> None:

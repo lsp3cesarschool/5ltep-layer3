@@ -4,6 +4,12 @@ name: 5L-TEP Layer 3 Anomaly Detection
 # series, so running more often would only re-analyse the same months.
 # Manual: a steward can run it any time (Actions > this workflow > Run workflow),
 # e.g. right before a Layer 5 publication decision.
+#
+# Batches: each run judges at most `max_judgments` anomalies, commits (so the
+# dashboard shows progress) and, while anomalies or review issues are still
+# pending, starts the next batch of the same chain. Batches after the first
+# re-use the series committed by the first one, so a whole chain analyses the
+# same data even if the portal is updated meanwhile.
 on:
   schedule:
     - cron: '0 6 5 * *'   # 5th of every month, 06:00 UTC
@@ -14,16 +20,26 @@ on:
         required: false
         default: ''
       max_judgments:
-        description: 'Maximum anomalies judged by the LLM in this run'
+        description: 'Anomalies judged by the LLM per batch'
         required: false
         default: '25'
+      continue_batches:
+        description: 'Keep starting new batches until nothing is pending'
+        type: boolean
+        required: false
+        default: true
       skip_llm:
         description: 'Only run the statistical detectors'
         type: boolean
         required: false
         default: false
+      batch:
+        description: 'Batch number in the chain (set automatically; 1 = fresh download)'
+        required: false
+        default: '1'
 
 permissions:
+  actions: write            # to start the next batch
   contents: write
   issues: write
 
@@ -34,6 +50,7 @@ concurrency:
 env:
   LLM_MODEL: ${{ vars.LLM_MODEL || 'gemma3:4b' }}
   PYTHON_VERSION: '3.11'
+  MAX_BATCHES: 60           # safety stop for a chain
 
 jobs:
   plan:
@@ -62,6 +79,7 @@ jobs:
         profile: ${{ fromJSON(needs.plan.outputs.profiles) }}
     env:
       PROFILE: ${{ matrix.profile }}
+      BATCH: ${{ inputs.batch || '1' }}
 
     steps:
       - name: Checkout repository
@@ -78,7 +96,13 @@ jobs:
 
       - name: "Stage 1: download, aggregate, detect"
         id: detect
-        run: python main.py detect --profile "$PROFILE"
+        run: |
+          echo "Batch $BATCH of the chain for $PROFILE"
+          if [ "$BATCH" != "1" ] && [ -f "data/$PROFILE/monthly_series.csv" ]; then
+            python main.py detect --profile "$PROFILE" --from-series
+          else
+            python main.py detect --profile "$PROFILE"
+          fi
 
       - name: Set up Ollama
         if: ${{ !inputs.skip_llm }}
@@ -110,13 +134,38 @@ jobs:
           git config user.name "5L-TEP L3 Bot"
           git config user.email "5ltep-l3-bot@users.noreply.github.com"
           git add data/ results/ docs/data/
-          git diff --cached --quiet || git commit -m "chore(l3): $PROFILE results [$(date -u +%Y-%m-%dT%H:%M:%SZ)]"
+          git diff --cached --quiet || git commit -m "chore(l3): $PROFILE results, batch $BATCH [$(date -u +%Y-%m-%dT%H:%M:%SZ)]"
           git pull --rebase
           git push
 
-      - name: Alert on new mandatory reviews
-        if: ${{ steps.issues.outputs.new_mandatory > 0 }}
+      - name: Start the next batch
+        id: next
+        if: >-
+          ${{ success() && !inputs.skip_llm && inputs.continue_batches != false &&
+              (steps.judge.outputs.pending_after > 0 || steps.issues.outputs.issues_remaining > 0) }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "::error::${{ steps.issues.outputs.new_mandatory }} anomaly(ies) need a mandatory steward review."
-          echo "Open issues: https://github.com/${{ github.repository }}/issues?q=is%3Aopen+label%3Areview%3Amandatory"
-          exit 1
+          if [ "$BATCH" -ge "$MAX_BATCHES" ]; then
+            echo "::warning::Stopped after $MAX_BATCHES batches; run the workflow again to continue."
+            exit 0
+          fi
+          echo "${{ steps.judge.outputs.pending_after }} anomalies and ${{ steps.issues.outputs.issues_remaining }} issues still pending."
+          gh workflow run layer3.yml --ref "${{ github.ref_name }}" \
+            -f profile="$PROFILE" -f max_judgments="${{ inputs.max_judgments || '25' }}" \
+            -f continue_batches=true -f batch="$((BATCH + 1))"
+          echo "started=true" >> "$GITHUB_OUTPUT"
+
+      - name: Alert on open mandatory reviews (end of the chain)
+        if: ${{ success() && !inputs.skip_llm && steps.next.outputs.started != 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          open=$(gh issue list --state open --label layer3 --label review:mandatory --label "profile:$PROFILE" \
+                   --limit 1000 --json number --jq length)
+          echo "Open mandatory reviews for $PROFILE: $open"
+          if [ "$open" -gt 0 ]; then
+            echo "::error::$open anomaly(ies) of $PROFILE await a mandatory steward review."
+            echo "Open issues: https://github.com/${{ github.repository }}/issues?q=is%3Aopen+label%3Areview%3Amandatory"
+            exit 1
+          fi
