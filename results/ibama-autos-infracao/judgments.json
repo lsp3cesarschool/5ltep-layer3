@@ -500,7 +500,8 @@
     "data_fingerprint": null,
     "judged_at": "2026-09-29T18:47:54+00:00"
    }
-  ]
+  ],
+  "issue_notified_judged_at": "2026-09-29T19:30:33+00:00"
  },
  "fine_total_brl:2008-06": {
   "series": "fine_total_brl",
@@ -1677,7 +1678,8 @@
     "data_fingerprint": null,
     "judged_at": "2026-09-29T18:40:40+00:00"
    }
-  ]
+  ],
+  "issue_notified_judged_at": "2026-09-29T19:22:47+00:00"
  },
  "notices:2012-01": {
   "series": "notices",
@@ -1885,7 +1887,8 @@
     "data_fingerprint": null,
     "judged_at": "2026-09-29T18:29:55+00:00"
    }
-  ]
+  ],
+  "issue_notified_judged_at": "2026-09-29T19:10:48+00:00"
  },
  "notices:2021-01": {
   "series": "notices",

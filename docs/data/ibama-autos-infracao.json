@@ -1,7 +1,7 @@
 {
  "summary": {
   "toolkit": "5ltep-layer3 v0.1.0",
-  "generated_at": "2026-09-29T22:34:25+00:00",
+  "generated_at": "2026-09-29T22:37:26+00:00",
   "profile": {
    "id": "ibama-autos-infracao",
    "title": "IBAMA infraction notices (Autos de Infração), Brazil",
@@ -119,10 +119,10 @@
    "unanimous_rate": 0.477
   },
   "hitl": {
-   "issues": 18,
+   "issues": 28,
    "decided": 0,
    "open_by_level": {
-    "advisory": 16,
+    "advisory": 26,
     "mandatory": 2
    },
    "human_llm_agreement": null
@@ -3173,7 +3173,7 @@
    "id": "fine_total_brl:2011-11",
    "series": "fine_total_brl",
    "month": "2011-11",
-   "value": 755360693.37,
+   "value": 755360693.4,
    "votes": 2,
    "score": 0.4087,
    "detectors": [
@@ -3258,7 +3258,7 @@
    "id": "fine_total_brl:2008-06",
    "series": "fine_total_brl",
    "month": "2008-06",
-   "value": 891521944.49,
+   "value": 891521944.5,
    "votes": 2,
    "score": 0.5257,
    "detectors": [
@@ -3308,7 +3308,7 @@
    "id": "fine_total_brl:2005-10",
    "series": "fine_total_brl",
    "month": "2005-10",
-   "value": 686054063.42,
+   "value": 686054063.4,
    "votes": 2,
    "score": 0.4146,
    "detectors": [
@@ -3633,7 +3633,7 @@
    "id": "fine_total_brl:1993-08",
    "series": "fine_total_brl",
    "month": "1993-08",
-   "value": 17367.48009090909,
+   "value": 17367.48009,
    "votes": 2,
    "score": 0.4225,
    "detectors": [
@@ -3688,7 +3688,7 @@
    "id": "fine_total_brl:1992-08",
    "series": "fine_total_brl",
    "month": "1992-08",
-   "value": 2464.565969330909,
+   "value": 2464.565969,
    "votes": 4,
    "score": 0.7166,
    "detectors": [
@@ -3720,7 +3720,7 @@
    "id": "fine_total_brl:1992-04",
    "series": "fine_total_brl",
    "month": "1992-04",
-   "value": 320.02285619636365,
+   "value": 320.0228562,
    "votes": 2,
    "score": 0.4323,
    "detectors": [
@@ -3824,7 +3824,12 @@
      "GES"
     ]
    },
-   "review": null
+   "review": {
+    "issue": 22,
+    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/22",
+    "status": "pending",
+    "steward_category": null
+   }
   },
   {
    "id": "notices:1989-01",
@@ -3851,13 +3856,18 @@
      "PDC"
     ]
    },
-   "review": null
+   "review": {
+    "issue": 24,
+    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/24",
+    "status": "pending",
+    "steward_category": null
+   }
   },
   {
    "id": "fine_total_brl:1989-01",
    "series": "fine_total_brl",
    "month": "1989-01",
-   "value": 1.638920634850909,
+   "value": 1.638920635,
    "votes": 4,
    "score": 0.7747,
    "detectors": [
@@ -3878,7 +3888,12 @@
      "PDC"
     ]
    },
-   "review": null
+   "review": {
+    "issue": 23,
+    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/23",
+    "status": "pending",
+    "steward_category": null
+   }
   },
   {
    "id": "notices:1988-12",
@@ -3904,13 +3919,18 @@
      "SP"
     ]
    },
-   "review": null
+   "review": {
+    "issue": 25,
+    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/25",
+    "status": "pending",
+    "steward_category": null
+   }
   },
   {
    "id": "fine_total_brl:1988-03",
    "series": "fine_total_brl",
    "month": "1988-03",
-   "value": 0.0203457564072727,
+   "value": 0.02034575641,
    "votes": 2,
    "score": 0.4321,
    "detectors": [
@@ -3929,7 +3949,12 @@
      "SP"
     ]
    },
-   "review": null
+   "review": {
+    "issue": 26,
+    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/26",
+    "status": "pending",
+    "steward_category": null
+   }
   },
   {
    "id": "notices:1987-12",
@@ -3954,13 +3979,18 @@
      "SP"
     ]
    },
-   "review": null
+   "review": {
+    "issue": 27,
+    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/27",
+    "status": "pending",
+    "steward_category": null
+   }
   },
   {
    "id": "fine_total_brl:1986-06",
    "series": "fine_total_brl",
    "month": "1986-06",
-   "value": 0.001636000330909,
+   "value": 0.001636000331,
    "votes": 4,
    "score": 0.6892,
    "detectors": [
@@ -3981,13 +4011,18 @@
      "GES"
     ]
    },
-   "review": null
+   "review": {
+    "issue": 28,
+    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/28",
+    "status": "pending",
+    "steward_category": null
+   }
   },
   {
    "id": "fine_total_brl:1986-03",
    "series": "fine_total_brl",
    "month": "1986-03",
-   "value": 0.0003215835454545,
+   "value": 0.0003215835455,
    "votes": 3,
    "score": 0.6295,
    "detectors": [
@@ -4018,7 +4053,7 @@
    "id": "fine_total_brl:1983-05",
    "series": "fine_total_brl",
    "month": "1983-05",
-   "value": 6.138330909090909e-08,
+   "value": 6.138330909e-08,
    "votes": 2,
    "score": 0.4838,
    "detectors": [
@@ -4037,7 +4072,12 @@
      "GES"
     ]
    },
-   "review": null
+   "review": {
+    "issue": 29,
+    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/29",
+    "status": "pending",
+    "steward_category": null
+   }
   },
   {
    "id": "notices:1983-01",
@@ -4064,7 +4104,12 @@
      "DQE"
     ]
    },
-   "review": null
+   "review": {
+    "issue": 30,
+    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/30",
+    "status": "pending",
+    "steward_category": null
+   }
   },
   {
    "id": "notices:1981-03",
@@ -4089,7 +4134,12 @@
      "GES"
     ]
    },
-   "review": null
+   "review": {
+    "issue": 31,
+    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/31",
+    "status": "pending",
+    "steward_category": null
+   }
   },
   {
    "id": "fine_total_brl:1981-03",

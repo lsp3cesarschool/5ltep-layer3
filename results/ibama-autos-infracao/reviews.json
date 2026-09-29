@@ -11,6 +11,18 @@
   "closed_at": null,
   "updated_at": "2026-09-29T22:14:39Z"
  },
+ "fine_total_brl:1983-05": {
+  "profile": "ibama-autos-infracao",
+  "anomaly_id": "fine_total_brl:1983-05",
+  "issue": 29,
+  "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/29",
+  "state": "open",
+  "status": "pending",
+  "steward_category": null,
+  "review_level": "advisory",
+  "closed_at": null,
+  "updated_at": "2026-09-29T22:37:20Z"
+ },
  "fine_total_brl:1986-03": {
   "profile": "ibama-autos-infracao",
   "anomaly_id": "fine_total_brl:1986-03",
@@ -22,6 +34,42 @@
   "review_level": "mandatory",
   "closed_at": null,
   "updated_at": "2026-09-29T22:14:37Z"
+ },
+ "fine_total_brl:1986-06": {
+  "profile": "ibama-autos-infracao",
+  "anomaly_id": "fine_total_brl:1986-06",
+  "issue": 28,
+  "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/28",
+  "state": "open",
+  "status": "pending",
+  "steward_category": null,
+  "review_level": "advisory",
+  "closed_at": null,
+  "updated_at": "2026-09-29T22:37:18Z"
+ },
+ "fine_total_brl:1988-03": {
+  "profile": "ibama-autos-infracao",
+  "anomaly_id": "fine_total_brl:1988-03",
+  "issue": 26,
+  "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/26",
+  "state": "open",
+  "status": "pending",
+  "steward_category": null,
+  "review_level": "advisory",
+  "closed_at": null,
+  "updated_at": "2026-09-29T22:37:14Z"
+ },
+ "fine_total_brl:1989-01": {
+  "profile": "ibama-autos-infracao",
+  "anomaly_id": "fine_total_brl:1989-01",
+  "issue": 23,
+  "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/23",
+  "state": "open",
+  "status": "pending",
+  "steward_category": null,
+  "review_level": "advisory",
+  "closed_at": null,
+  "updated_at": "2026-09-29T22:37:08Z"
  },
  "fine_total_brl:1992-08": {
   "profile": "ibama-autos-infracao",
@@ -81,7 +129,79 @@
   "steward_category": null,
   "review_level": "advisory",
   "closed_at": null,
-  "updated_at": "2026-09-29T22:33:58Z"
+  "updated_at": "2026-09-29T22:37:04Z"
+ },
+ "notices:1981-03": {
+  "profile": "ibama-autos-infracao",
+  "anomaly_id": "notices:1981-03",
+  "issue": 31,
+  "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/31",
+  "state": "open",
+  "status": "pending",
+  "steward_category": null,
+  "review_level": "advisory",
+  "closed_at": null,
+  "updated_at": "2026-09-29T22:37:23Z"
+ },
+ "notices:1983-01": {
+  "profile": "ibama-autos-infracao",
+  "anomaly_id": "notices:1983-01",
+  "issue": 30,
+  "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/30",
+  "state": "open",
+  "status": "pending",
+  "steward_category": null,
+  "review_level": "advisory",
+  "closed_at": null,
+  "updated_at": "2026-09-29T22:37:21Z"
+ },
+ "notices:1987-12": {
+  "profile": "ibama-autos-infracao",
+  "anomaly_id": "notices:1987-12",
+  "issue": 27,
+  "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/27",
+  "state": "open",
+  "status": "pending",
+  "steward_category": null,
+  "review_level": "advisory",
+  "closed_at": null,
+  "updated_at": "2026-09-29T22:37:16Z"
+ },
+ "notices:1988-12": {
+  "profile": "ibama-autos-infracao",
+  "anomaly_id": "notices:1988-12",
+  "issue": 25,
+  "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/25",
+  "state": "open",
+  "status": "pending",
+  "steward_category": null,
+  "review_level": "advisory",
+  "closed_at": null,
+  "updated_at": "2026-09-29T22:37:12Z"
+ },
+ "notices:1989-01": {
+  "profile": "ibama-autos-infracao",
+  "anomaly_id": "notices:1989-01",
+  "issue": 24,
+  "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/24",
+  "state": "open",
+  "status": "pending",
+  "steward_category": null,
+  "review_level": "advisory",
+  "closed_at": null,
+  "updated_at": "2026-09-29T22:37:10Z"
+ },
+ "notices:1989-02": {
+  "profile": "ibama-autos-infracao",
+  "anomaly_id": "notices:1989-02",
+  "issue": 22,
+  "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/22",
+  "state": "open",
+  "status": "pending",
+  "steward_category": null,
+  "review_level": "advisory",
+  "closed_at": null,
+  "updated_at": "2026-09-29T22:37:06Z"
  },
  "notices:1989-03": {
   "profile": "ibama-autos-infracao",
@@ -201,7 +321,7 @@
   "steward_category": null,
   "review_level": "advisory",
   "closed_at": null,
-  "updated_at": "2026-09-29T22:33:56Z"
+  "updated_at": "2026-09-29T22:37:05Z"
  },
  "notices:2019-01": {
   "profile": "ibama-autos-infracao",
@@ -213,6 +333,6 @@
   "steward_category": null,
   "review_level": "advisory",
   "closed_at": null,
-  "updated_at": "2026-09-29T22:33:54Z"
+  "updated_at": "2026-09-29T22:37:06Z"
  }
 }
