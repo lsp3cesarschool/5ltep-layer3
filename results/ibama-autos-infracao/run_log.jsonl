@@ -1,1 +1,4 @@
 {"at": "2026-09-29T18:17:51+00:00", "stage": "detect", "run_id": "36610887727", "months": 523, "flagged": 51, "from_series": false}
+{"at": "2026-09-29T18:57:09+00:00", "stage": "detect", "run_id": "36615592912", "months": 550, "flagged": 44, "from_series": false}
+{"at": "2026-09-29T19:48:44+00:00", "stage": "judge", "run_id": "36615592912", "judged_now": 25, "pending_before": 44, "model": {"model": "gemma3:4b", "ollama_version": "0.34.4", "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a", "quantization": "Q4_K_M"}}
+{"at": "2026-09-29T19:48:51+00:00", "stage": "issues", "run_id": "36615592912", "created": [{"anomaly_id": "notices:2009-01", "issue": 3, "review_level": "advisory"}], "remaining": 0, "notified_rejudged": []}

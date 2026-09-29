@@ -1,173 +1,187 @@
 {
  "notices": [
   {
-   "index": 15,
-   "alarm_index": 22,
+   "index": 1,
+   "alarm_index": 10,
+   "direction": "up",
+   "month": "1980-12",
+   "alarm_month": "1981-09"
+  },
+  {
+   "index": 26,
+   "alarm_index": 32,
+   "direction": "down",
+   "month": "1983-01",
+   "alarm_month": "1983-07"
+  },
+  {
+   "index": 42,
+   "alarm_index": 49,
    "direction": "up",
    "month": "1984-05",
    "alarm_month": "1984-12"
   },
   {
-   "index": 55,
-   "alarm_index": 59,
+   "index": 82,
+   "alarm_index": 87,
    "direction": "up",
    "month": "1987-09",
-   "alarm_month": "1988-01"
+   "alarm_month": "1988-02"
   },
   {
-   "index": 70,
-   "alarm_index": 72,
+   "index": 97,
+   "alarm_index": 99,
    "direction": "down",
    "month": "1988-12",
    "alarm_month": "1989-02"
   },
   {
-   "index": 75,
-   "alarm_index": 87,
+   "index": 102,
+   "alarm_index": 115,
    "direction": "up",
    "month": "1989-05",
-   "alarm_month": "1990-05"
+   "alarm_month": "1990-06"
   },
   {
-   "index": 97,
-   "alarm_index": 102,
+   "index": 124,
+   "alarm_index": 129,
    "direction": "down",
    "month": "1991-03",
    "alarm_month": "1991-08"
   },
   {
-   "index": 116,
-   "alarm_index": 125,
-   "direction": "down",
-   "month": "1992-10",
-   "alarm_month": "1993-07"
+   "index": 153,
+   "alarm_index": 157,
+   "direction": "up",
+   "month": "1993-08",
+   "alarm_month": "1993-12"
   },
   {
-   "index": 138,
-   "alarm_index": 151,
+   "index": 163,
+   "alarm_index": 178,
    "direction": "up",
-   "month": "1994-08",
+   "month": "1994-06",
    "alarm_month": "1995-09"
   },
   {
-   "index": 155,
-   "alarm_index": 157,
+   "index": 182,
+   "alarm_index": 184,
    "direction": "up",
    "month": "1996-01",
    "alarm_month": "1996-03"
   },
   {
-   "index": 201,
-   "alarm_index": 215,
+   "index": 228,
+   "alarm_index": 243,
    "direction": "down",
    "month": "1999-11",
-   "alarm_month": "2001-01"
+   "alarm_month": "2001-02"
   },
   {
-   "index": 310,
-   "alarm_index": 335,
+   "index": 337,
+   "alarm_index": 368,
    "direction": "down",
    "month": "2008-12",
-   "alarm_month": "2011-01"
+   "alarm_month": "2011-07"
   },
   {
-   "index": 418,
-   "alarm_index": 443,
+   "index": 457,
+   "alarm_index": 473,
    "direction": "down",
-   "month": "2017-12",
-   "alarm_month": "2020-01"
+   "month": "2018-12",
+   "alarm_month": "2020-04"
   },
   {
-   "index": 469,
-   "alarm_index": 481,
+   "index": 496,
+   "alarm_index": 509,
    "direction": "up",
    "month": "2022-03",
-   "alarm_month": "2023-03"
+   "alarm_month": "2023-04"
   }
  ],
  "fine_total_brl": [
   {
-   "index": 4,
-   "alarm_index": 20,
+   "index": 8,
+   "alarm_index": 14,
+   "direction": "up",
+   "month": "1981-07",
+   "alarm_month": "1982-01"
+  },
+  {
+   "index": 31,
+   "alarm_index": 43,
    "direction": "up",
    "month": "1983-06",
-   "alarm_month": "1984-10"
+   "alarm_month": "1984-06"
   },
   {
-   "index": 37,
-   "alarm_index": 39,
-   "direction": "down",
-   "month": "1986-03",
-   "alarm_month": "1986-05"
+   "index": 54,
+   "alarm_index": 65,
+   "direction": "up",
+   "month": "1985-05",
+   "alarm_month": "1986-04"
   },
   {
-   "index": 48,
-   "alarm_index": 59,
+   "index": 75,
+   "alarm_index": 86,
    "direction": "up",
    "month": "1987-02",
    "alarm_month": "1988-01"
   },
   {
-   "index": 71,
-   "alarm_index": 74,
-   "direction": "down",
-   "month": "1989-01",
-   "alarm_month": "1989-04"
+   "index": 90,
+   "alarm_index": 100,
+   "direction": "up",
+   "month": "1988-05",
+   "alarm_month": "1989-03"
   },
   {
-   "index": 82,
-   "alarm_index": 87,
+   "index": 103,
+   "alarm_index": 114,
    "direction": "up",
-   "month": "1989-12",
+   "month": "1989-06",
    "alarm_month": "1990-05"
   },
   {
-   "index": 95,
-   "alarm_index": 104,
+   "index": 122,
+   "alarm_index": 132,
    "direction": "up",
    "month": "1991-01",
-   "alarm_month": "1991-10"
+   "alarm_month": "1991-11"
   },
   {
-   "index": 114,
-   "alarm_index": 119,
+   "index": 141,
+   "alarm_index": 153,
    "direction": "up",
    "month": "1992-08",
-   "alarm_month": "1993-01"
+   "alarm_month": "1993-08"
   },
   {
-   "index": 126,
-   "alarm_index": 132,
-   "direction": "down",
-   "month": "1993-08",
-   "alarm_month": "1994-02"
-  },
-  {
-   "index": 134,
-   "alarm_index": 139,
-   "direction": "down",
-   "month": "1994-04",
+   "index": 160,
+   "alarm_index": 166,
+   "direction": "up",
+   "month": "1994-03",
    "alarm_month": "1994-09"
   },
   {
-   "index": 155,
-   "alarm_index": 161,
+   "index": 182,
+   "alarm_index": 188,
    "direction": "up",
    "month": "1996-01",
    "alarm_month": "1996-07"
   },
   {
-   "index": 191,
-   "alarm_index": 203,
+   "index": 218,
+   "alarm_index": 231,
    "direction": "up",
    "month": "1999-01",
-   "alarm_month": "2000-01"
+   "alarm_month": "2000-02"
   },
   {
-   "index": 257,
-   "alarm_index": 272,
+   "index": 285,
+   "alarm_index": 299,
    "direction": "up",
-   "month": "2004-07",
+   "month": "2004-08",
    "alarm_month": "2005-10"
   }
  ]
