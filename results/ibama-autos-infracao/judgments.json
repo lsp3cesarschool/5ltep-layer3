@@ -1,4 +1,373 @@
 {
+ "fine_total_brl:1981-03": {
+  "series": "fine_total_brl",
+  "month": "1981-03",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.3345,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 1981-03 is highly suggestive of a data quality issue. The fine total is zero, drastically below the median of -100% for the previous 12 months, and has been flagged by multiple detectors. Furthermore, this month has been flagged as anomalous in 1986-03 and 1988-03, indicating a recurring pattern. The absence of any other significant changes in the data around this month supports the DQE category. The fact that this month is flagged again in other years, despite the lack of a clear seasonal pattern, points to a systematic problem with the data collection or reporting process.",
+    "seed": 11,
+    "latency_s": 67.9
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 1981-03 is highly suggestive of a data quality issue. The fine total is zero, while the median for the previous 12 months is extremely low (1.41e-08).  Furthermore, this month was flagged as anomalous in 1986-03 and 1988-03, and the same calendar month deviated in the same direction in 0 of these 0 years. The absence of any associated notices and the lack of an identifier (no_id) in the records for this month strengthens the suspicion of a data problem. The fact that the same month was flagged by multiple detectors further supports this view.",
+    "seed": 22,
+    "latency_s": 20.1
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1981-03 is highly suggestive of a data quality issue. The fine total is zero, while the median of the previous 12 months is extremely low. Furthermore, this same calendar month has been flagged as anomalous in 1986-03 and 1988-03, indicating a consistent problem. The lack of a sustained level shift, combined with the absence of any known policy changes or seasonal patterns, strongly points towards a data-quality event such as a reporting failure or a system issue. The fact that other series were also flagged in the same month supports this conclusion.",
+    "seed": 33,
+    "latency_s": 18.4
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 1981-03 (calendar month 3).\nValue: 0; median of the previous 12 months: 1.41e-08 (-100%; ratio 0.00).\nSeasonality check - ratio of calendar month 3 to the median of its previous 12 months, in the previous years: n/a.\nThe same calendar month deviated in the same direction (below 1) in 0 of these 0 years.\nThe same calendar month was also flagged as anomalous in: 1986-03, 1988-03.\nDetectors that flagged it: iforest, lstm_ed (2 of 4); ensemble score 0.33 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: notices.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1980-11 | 0 | 0 | 0 | 0\n1980-12 | 2 | 4.31e-09 | 0 | 0\n1981-01 | 2 | 1.1e-07 | 0 | 0\n1981-02 | 5 | 2.38e-08 | 0 | 0\n1981-03 | 0 | 0 | 0 | 0  <== anomaly\n1981-04 | 3 | 4.26e-09 | 0 | 0\n1981-05 | 2 | 4.41e-09 | 0 | 0\n1981-06 | 4 | 9.08e-09 | 0 | 0\n1981-07 | 9 | 5.24e-08 | 0 | 0\n1981-08 | 10 | 1.61e-07 | 0 | 0\n1981-09 | 18 | 7.58e-08 | 0 | 0\n1981-10 | 19 | 1.39e-07 | 0 | 0\n1981-11 | 8 | 2.02e-08 | 0 | 0\n1981-12 | 18 | 1.34e-07 | 0 | 0\n1982-01 | 11 | 8.34e-08 | 0 | 0\n1982-02 | 22 | 1.33e-07 | 0 | 0\n1982-03 | 11 | 1.19e-07 | 0 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "1244ea7695cf903031f94f1863554be0a9070369cdc9103f827b023be9012f57",
+  "judged_at": "2026-09-29T22:14:35+00:00"
+ },
+ "fine_total_brl:1983-05": {
+  "series": "fine_total_brl",
+  "month": "1983-05",
+  "category": "GES",
+  "consistency": 1.0,
+  "review_level": "none",
+  "ensemble_score": 0.4838,
+  "votes": 2,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "GES",
+    "confidence": 0.8,
+    "reasoning": "The anomaly in 1983-05 is unusual given the low fine total and the fact that the median of the previous 12 months is significantly higher. The seasonality check reveals no deviation in previous years. There are no other series flagged in the same month. The Page-Hinkley test indicates a sustained level shift. Considering the limited historical data and lack of supporting events, a genuine shift (GES) is the most plausible explanation. The data quality issues (low fine total, shift) are not sufficient to fully explain the anomaly, and a policy change (PDC) is unlikely given the lack of context.",
+    "seed": 11,
+    "latency_s": 78.4
+   },
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1983-05 is primarily driven by a significant deviation from the median fine total. Seasonality checks reveal no historical pattern supporting this deviation across previous years. The Page-Hinkley test confirms a sustained level shift within two months, further suggesting a systematic change rather than random fluctuation. There are no other series flagged in the same month, and the data shows no evidence of a policy change or data quality event. Given the lack of supporting evidence for seasonality or policy changes, a genuine enforcement shift (GES) appears most plausible.",
+    "seed": 22,
+    "latency_s": 17.3
+   },
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1983-05 is primarily driven by a significant deviation from the median, coupled with a Page-Hinkley test indicating a sustained level shift. However, the seasonality check reveals that this calendar month has *never* deviated in the same direction before, and not in any other year. The small number of notices and fines issued in 1983-05 compared to the previous months, combined with the lack of other anomalies, makes a genuine shift the most plausible explanation. The data quality event category is unlikely due to the lack of other flagged anomalies and the sustained level shift. PDC and GES are not supported by the evidence.",
+    "seed": 33,
+    "latency_s": 19.8
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 1983-05 (calendar month 5).\nValue: 6.14e-08; median of the previous 12 months: 3.92e-07 (-84%; ratio 0.16).\nSeasonality check - ratio of calendar month 5 to the median of its previous 12 months, in the previous years: 1982-05: 4.61.\nThe same calendar month deviated in the same direction (below 1) in 0 of these 1 years.\nThe same calendar month was also flagged as anomalous in: no other year.\nDetectors that flagged it: mad, iforest (2 of 4); ensemble score 0.48 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1982-05 | 23 | 3.67e-07 | 0 | 0\n1982-06 | 14 | 5.21e-07 | 0 | 0\n1982-07 | 21 | 2.03e-07 | 0 | 0\n1982-08 | 32 | 4.18e-07 | 0 | 0\n1982-09 | 49 | 7.73e-07 | 0 | 0\n1982-10 | 34 | 4.79e-07 | 1 | 0\n1982-11 | 44 | 7.94e-07 | 0 | 0\n1982-12 | 22 | 3.44e-07 | 0 | 0\n1983-01 | 2 | 4.9e-08 | 0 | 0\n1983-02 | 15 | 2.72e-07 | 0 | 0\n1983-03 | 14 | 5.38e-07 | 0 | 0\n1983-04 | 10 | 2.87e-07 | 0 | 0\n1983-05 | 6 | 6.14e-08 | 0 | 0  <== anomaly\n1983-06 | 15 | 5.99e-07 | 0 | 0\n1983-07 | 11 | 1.12e-06 | 0 | 0\n1983-08 | 14 | 8.88e-07 | 0 | 0\n1983-09 | 7 | 2.67e-07 | 0 | 0\n1983-10 | 19 | 2.52e-06 | 1 | 0\n1983-11 | 12 | 7.89e-07 | 0 | 0\n1983-12 | 9 | 4.51e-07 | 0 | 0\n1984-01 | 12 | 2.14e-07 | 1 | 0\n1984-02 | 16 | 2.65e-06 | 0 | 0\n1984-03 | 9 | 1.99e-06 | 0 | 0\n1984-04 | 11 | 8.95e-07 | 0 | 0\n1984-05 | 14 | 2.44e-06 | 0 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "c7fefbc515f4760b94941d23ea888b587dad52223de9ab4e2dc73b959ec9aa14",
+  "judged_at": "2026-09-29T22:08:46+00:00"
+ },
+ "fine_total_brl:1986-03": {
+  "series": "fine_total_brl",
+  "month": "1986-03",
+  "category": "DQE",
+  "consistency": 0.667,
+  "review_level": "mandatory",
+  "ensemble_score": 0.6295,
+  "votes": 3,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1986-03 is highly suggestive of a data quality event (DQE). The fine total is dramatically higher than the median of the previous 12 months (26.06x). The Page-Hinkley test confirms a sustained level shift within 2 months. Furthermore, the same calendar month was flagged as anomalous in 1981-03 and 1988-03. The timing coincides with a significant currency reform (1986-02) which would have altered the monetary values, creating a difficult situation for data reporting and potentially leading to a large, unexpected fine total. The records show one cancelled notice in 1986-03, which could be related. The lack of other flagged series strengthens the suspicion of a specific event impacting this single month’s data.",
+    "seed": 11,
+    "latency_s": 90.7
+   },
+   {
+    "category": "PDC",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1986-03 is driven by a large increase in fines (26.06x the median) and is supported by the Page-Hinkley test indicating a sustained level shift within two months.  The seasonality check reveals a consistent upward trend in the ratio of March's fine total compared to the previous 12 months across multiple years (1985-1987). The fact that the same month was flagged as anomalous in 1981-03 and 1988-03 further strengthens the argument for a recurring pattern. Crucially, the month of the anomaly (1986-03) immediately follows a significant currency reform that dramatically changed the value of fines, which aligns with the observed increase. The currency reform is the most plausible event, explaining the magnitude of the change.",
+    "seed": 22,
+    "latency_s": 28.0
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1986-03 is highly suggestive of a data quality event (DQE) related to the currency reform. The fine total is unusually high compared to the median, and this pattern is observed in multiple years (1981-03, 1988-03, 1986-03). The Page-Hinkley test confirms a sustained level shift within 2 months. Furthermore, the data shows a cancellation of a record in 1986-03. The currency reform would necessitate a significant shift in the monetary values, and the abrupt increase in fines, coupled with the record cancellation, points to a system migration or retroactive correction following the reform. The fact that other series were flagged in the same month is irrelevant.",
+    "seed": 33,
+    "latency_s": 25.0
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 1986-03 (calendar month 3).\nValue: 0.000322; median of the previous 12 months: 1.23e-05 (+2506%; ratio 26.06).\nSeasonality check - ratio of calendar month 3 to the median of its previous 12 months, in the previous years: 1985-03: 2.92 | 1984-03: 3.51 | 1983-03: 1.51 | 1982-03: 1.86.\nThe same calendar month deviated in the same direction (above 1) in 4 of these 4 years.\nThe same calendar month was also flagged as anomalous in: 1981-03, 1988-03.\nDetectors that flagged it: zscore, mad, iforest (3 of 4); ensemble score 0.63 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1985-03 | 54 | 9.4e-06 | 0 | 0\n1985-04 | 42 | 3.23e-06 | 0 | 0\n1985-05 | 57 | 8.11e-06 | 0 | 0\n1985-06 | 56 | 6.62e-06 | 0 | 0\n1985-07 | 53 | 1.37e-05 | 0 | 0\n1985-08 | 59 | 2.49e-05 | 1 | 0\n1985-09 | 89 | 2.73e-05 | 0 | 0\n1985-10 | 63 | 1.95e-05 | 0 | 0\n1985-11 | 48 | 1.14e-05 | 1 | 0\n1985-12 | 51 | 8.76e-06 | 0 | 0\n1986-01 | 32 | 1.33e-05 | 0 | 0\n1986-02 | 61 | 1.99e-05 | 1 | 0\n1986-03 | 42 | 0.000322 | 1 | 0  <== anomaly\n1986-04 | 82 | 0.000179 | 1 | 0\n1986-05 | 37 | 4.19e-05 | 0 | 0\n1986-06 | 53 | 0.00164 | 0 | 0\n1986-07 | 39 | 3e-05 | 1 | 0\n1986-08 | 55 | 5.43e-05 | 0 | 0\n1986-09 | 67 | 0.000628 | 1 | 0\n1986-10 | 83 | 0.000731 | 0 | 0\n1986-11 | 39 | 0.000488 | 2 | 0\n1986-12 | 20 | 3.09e-05 | 0 | 0\n1987-01 | 26 | 4.68e-05 | 0 | 0\n1987-02 | 39 | 0.00264 | 0 | 0\n1987-03 | 35 | 0.000713 | 0 | 0\n\nKnown events within +-6 months:\n- 1986-02 (-1 months, monetary): Currency reform: Cruzeiro (Cr$) replaced by Cruzado (Cz$) (1 new unit = 1,000 old units), Plano Cruzado",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "e17b3c21cec42ad0186434bc6643a1a477e0c67a774ce5b6fb4a5afba51f0407",
+  "judged_at": "2026-09-29T22:06:51+00:00"
+ },
+ "fine_total_brl:1986-06": {
+  "series": "fine_total_brl",
+  "month": "1986-06",
+  "category": "GES",
+  "consistency": 0.667,
+  "review_level": "none",
+  "ensemble_score": 0.6892,
+  "votes": 4,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1986-06 is highly suggestive of a data quality event (DQE). The fine total is significantly above the median of the previous 12 months, and the ratio is exceptionally high (83.06). This is compounded by the fact that the same calendar month has been flagged as anomalous in 2008-06, and multiple anomaly detection algorithms (zscore, mad, iforest, lstm_ed) all identified it. Furthermore, a sustained level shift was detected within 2 months. The currency reform of 1986-02, occurring 4 months prior, could have introduced errors in data entry or processing, leading to the inflated fine total. The Page-Hinkley test confirms a sustained shift. The other data points (no cancellations, no missing IDs) do not provide further evidence to suggest seasonality or policy changes.",
+    "seed": 11,
+    "latency_s": 92.5
+   },
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1986-06 is driven by a sustained level shift (Page-Hinkley test) and a significant increase in fine total brl (8206% relative to the median). Furthermore, the calendar month 6 has consistently deviated above the median in the previous 4 years. A currency reform occurred 4 months prior to this month, which could have caused data issues and reporting changes. The anomaly is most likely a genuine enforcement shift (GES) caused by the currency reform, combined with a data quality issue. The detection ensemble confirms this, with 4 out of 4 detectors flagging the anomaly. The fact that it also flagged in 2008-06 suggests that this phenomenon is recurring and may be linked to a specific event.",
+    "seed": 22,
+    "latency_s": 24.9
+   },
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly is most likely a Genuine Enforcement Shift (GES). The fine total for June 1986 (0.00164) is significantly higher than the median of the previous 12 months (1.97e-05) and shows a sustained level shift as indicated by the Page-Hinkley test. Furthermore, the same calendar month has been flagged as anomalous in 1985-06 and 2008-06. Importantly, the month of June 1986 coincides with a significant currency reform (Plano Cruzado) implemented in February 1986. While the reform itself doesn’t directly explain the increased fine value, it creates a plausible scenario where enforcement activity might have been temporarily intensified due to the change in the monetary unit. The ensemble detection score (0.69) further supports this conclusion. The seasonality check confirms that this month is consistently an outlier, but it doesn’t fully explain the magnitude of the anomaly.",
+    "seed": 33,
+    "latency_s": 31.6
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 1986-06 (calendar month 6).\nValue: 0.00164; median of the previous 12 months: 1.97e-05 (+8206%; ratio 83.06).\nSeasonality check - ratio of calendar month 6 to the median of its previous 12 months, in the previous years: 1985-06: 1.56 | 1984-06: 3.09 | 1983-06: 1.57 | 1982-06: 5.14.\nThe same calendar month deviated in the same direction (above 1) in 4 of these 4 years.\nThe same calendar month was also flagged as anomalous in: 2008-06.\nDetectors that flagged it: zscore, mad, iforest, lstm_ed (4 of 4); ensemble score 0.69 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1985-06 | 56 | 6.62e-06 | 0 | 0\n1985-07 | 53 | 1.37e-05 | 0 | 0\n1985-08 | 59 | 2.49e-05 | 1 | 0\n1985-09 | 89 | 2.73e-05 | 0 | 0\n1985-10 | 63 | 1.95e-05 | 0 | 0\n1985-11 | 48 | 1.14e-05 | 1 | 0\n1985-12 | 51 | 8.76e-06 | 0 | 0\n1986-01 | 32 | 1.33e-05 | 0 | 0\n1986-02 | 61 | 1.99e-05 | 1 | 0\n1986-03 | 42 | 0.000322 | 1 | 0\n1986-04 | 82 | 0.000179 | 1 | 0\n1986-05 | 37 | 4.19e-05 | 0 | 0\n1986-06 | 53 | 0.00164 | 0 | 0  <== anomaly\n1986-07 | 39 | 3e-05 | 1 | 0\n1986-08 | 55 | 5.43e-05 | 0 | 0\n1986-09 | 67 | 0.000628 | 1 | 0\n1986-10 | 83 | 0.000731 | 0 | 0\n1986-11 | 39 | 0.000488 | 2 | 0\n1986-12 | 20 | 3.09e-05 | 0 | 0\n1987-01 | 26 | 4.68e-05 | 0 | 0\n1987-02 | 39 | 0.00264 | 0 | 0\n1987-03 | 35 | 0.000713 | 0 | 0\n1987-04 | 40 | 0.000315 | 0 | 0\n1987-05 | 56 | 0.00036 | 0 | 0\n1987-06 | 54 | 0.000274 | 0 | 0\n\nKnown events within +-6 months:\n- 1986-02 (-4 months, monetary): Currency reform: Cruzeiro (Cr$) replaced by Cruzado (Cz$) (1 new unit = 1,000 old units), Plano Cruzado",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "99bc2cffdfd3518e10025ffa6c730c6078d8d6b7ac7ba2dbc7c2f36c4d9d7791",
+  "judged_at": "2026-09-29T22:04:27+00:00"
+ },
+ "fine_total_brl:1988-03": {
+  "series": "fine_total_brl",
+  "month": "1988-03",
+  "category": "SP",
+  "consistency": 0.667,
+  "review_level": "none",
+  "ensemble_score": 0.4321,
+  "votes": 2,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "SP",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1988-03 is highly suggestive of a seasonal pattern. The ratio of the month's fine total to the median of the previous 12 months has consistently been above 1 for the last 6 years (1982-2019). Furthermore, the same month was flagged as anomalous in 1981-03 and 1986-03. The Page-Hinkley test confirms a sustained level shift within 2 months. While the increase in fine totals is large (2969%), the consistent historical pattern points strongly to a seasonal effect. There is no evidence of a policy change, data quality issue, or genuine enforcement shift.",
+    "seed": 11,
+    "latency_s": 85.3
+   },
+   {
+    "category": "GES",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 1988-03 is characterized by a significantly elevated fine total (0.0203) compared to the median of the previous 12 months (0.000663), a ratio of 30.69. Furthermore, this calendar month has consistently deviated positively in the same direction across the preceding six years. The Page-Hinkley test identified a sustained level shift within two months, and the 1988-03 record itself has a valid identifier. Given these factors, a genuine enforcement shift (GES) is the most plausible explanation. The strong seasonal pattern is also supported by the fact that this month has consistently shown a similar deviation in earlier years and was also flagged anomalous in 1981-03 and 1986-03.",
+    "seed": 22,
+    "latency_s": 25.7
+   },
+   {
+    "category": "SP",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1988-03 is highly suggestive of a seasonal pattern. The ratio of this month's fine total to the median of the previous 12 months is an astounding 30.69, and this has occurred in 6 out of 6 years. Furthermore, the Page-Hinkley test identified a sustained level shift within 2 months. The data records show no evidence of a data quality issue (no cancelled notices, no missing identifiers). While 1981-03 and 1986-03 were also flagged, the consistent pattern across multiple years strongly indicates a seasonal effect. The values are also very high compared to the median, corroborating the seasonal pattern. The ensemble score of 0.43, while not high, is sufficient to flag the anomaly, given the strong statistical evidence.",
+    "seed": 33,
+    "latency_s": 26.4
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 1988-03 (calendar month 3).\nValue: 0.0203; median of the previous 12 months: 0.000663 (+2969%; ratio 30.69).\nSeasonality check - ratio of calendar month 3 to the median of its previous 12 months, in the previous years: 1987-03: 2.85 | 1986-03: 26.06 | 1985-03: 2.92 | 1984-03: 3.51 | 1983-03: 1.51 | 1982-03: 1.86.\nThe same calendar month deviated in the same direction (above 1) in 6 of these 6 years.\nThe same calendar month was also flagged as anomalous in: 1981-03, 1986-03.\nDetectors that flagged it: zscore, iforest (2 of 4); ensemble score 0.43 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1987-03 | 35 | 0.000713 | 0 | 0\n1987-04 | 40 | 0.000315 | 0 | 0\n1987-05 | 56 | 0.00036 | 0 | 0\n1987-06 | 54 | 0.000274 | 0 | 0\n1987-07 | 48 | 0.000283 | 0 | 0\n1987-08 | 50 | 0.000572 | 0 | 0\n1987-09 | 116 | 0.000613 | 0 | 0\n1987-10 | 127 | 0.00104 | 0 | 0\n1987-11 | 58 | 0.00448 | 1 | 0\n1987-12 | 179 | 0.00208 | 0 | 0\n1988-01 | 123 | 0.00312 | 0 | 0\n1988-02 | 170 | 0.00164 | 0 | 0\n1988-03 | 166 | 0.0203 | 0 | 0  <== anomaly\n1988-04 | 215 | 0.002 | 0 | 0\n1988-05 | 271 | 0.00703 | 0 | 0\n1988-06 | 258 | 0.00971 | 1 | 0\n1988-07 | 220 | 0.00635 | 1 | 0\n1988-08 | 276 | 0.0107 | 1 | 0\n1988-09 | 275 | 0.0132 | 0 | 0\n1988-10 | 327 | 0.0351 | 0 | 0\n1988-11 | 240 | 0.0232 | 0 | 0\n1988-12 | 67 | 0.00699 | 0 | 0\n1989-01 | 30 | 2 | 0 | 0\n1989-02 | 33 | 0.0689 | 0 | 0\n1989-03 | 58 | 0.259 | 0 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "2b09759cc4ef8ac32244404e6a0f59e01e07f541b8534580ecfbf4fabd54c928",
+  "judged_at": "2026-09-29T21:59:44+00:00"
+ },
+ "fine_total_brl:1989-01": {
+  "series": "fine_total_brl",
+  "month": "1989-01",
+  "category": "PDC",
+  "consistency": 1.0,
+  "review_level": "none",
+  "ensemble_score": 0.7747,
+  "votes": 4,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "PDC",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1989-01 is highly suggestive of a policy-driven change (PDC). The massive increase in fines (19489% above the median) coincides with a significant currency reform implemented in January 1989. The Plano Verao was a monetary reform that replaced the Cruzado with the Cruzado Novo. This reform likely led to a change in the way fines were calculated and reported, causing a surge in the total value. The other flagged anomalous months (1999-01, 2014-01, 2020-01, 2021-01, 2024-01) also appear to be linked to policy changes. The Page-Hinkley test confirms a sustained level shift within 2 months, further supporting this interpretation. While seasonality could play a role, the extreme magnitude of the change and the timing relative to the currency reform strongly indicate a policy-driven cause.",
+    "seed": 11,
+    "latency_s": 97.8
+   },
+   {
+    "category": "PDC",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1989-01 is driven by a significant increase in fines (195.89%) compared to the median, coupled with a Page-Hinkley test indicating a sustained level shift within two months. The anomaly was also flagged by multiple detectors (zscore, mad, iforest, lstm_ed). Crucially, this month coincides with a major currency reform (Plano Verao) in January 1989, where the Cruzado was replaced by the Cruzado Novo. This event, combined with the sudden spike in fines, suggests a policy-driven change (PDC). The other flagged months (1999-01, 2014-01, 2020-01, 2021-01, 2024-01) also show a similar pattern of significant increases in fines, further supporting the influence of the currency reform.",
+    "seed": 22,
+    "latency_s": 29.7
+   },
+   {
+    "category": "PDC",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1989-01 is highly suggestive of a policy-driven change (PDC). The massive increase in fines (19489% relative to the median) coincides precisely with the 1989 currency reform – the Plano Verao. This reform involved a complete monetary restructuring, and while the official rate was 1:1, the disruption of the existing system would likely have caused significant shifts in financial reporting, and thus, in the reporting of fines. The Page-Hinkley test confirms a sustained level shift within 2 months, further supporting this interpretation. The other flagged anomalies (1999-01, 2014-01, 2020-01, 2021-01, 2024-01) are likely due to the same underlying policy change. The records show a burst of notices followed by a clear shift in the value, which is typical of a significant policy intervention affecting financial reporting.",
+    "seed": 33,
+    "latency_s": 32.1
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 1989-01 (calendar month 1).\nValue: 2; median of the previous 12 months: 0.00837 (+19489%; ratio 195.89).\nSeasonality check - ratio of calendar month 1 to the median of its previous 12 months, in the previous years: 1988-01: 5.26 | 1987-01: 0.40 | 1986-01: 1.46 | 1985-01: 1.59 | 1984-01: 0.43 | 1983-01: 0.14 | 1982-01: 2.19.\nThe same calendar month deviated in the same direction (above 1) in 4 of these 7 years.\nThe same calendar month was also flagged as anomalous in: 1999-01, 2014-01, 2020-01, 2021-01, 2024-01.\nDetectors that flagged it: zscore, mad, iforest, lstm_ed (4 of 4); ensemble score 0.77 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: notices.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1988-01 | 123 | 0.00312 | 0 | 0\n1988-02 | 170 | 0.00164 | 0 | 0\n1988-03 | 166 | 0.0203 | 0 | 0\n1988-04 | 215 | 0.002 | 0 | 0\n1988-05 | 271 | 0.00703 | 0 | 0\n1988-06 | 258 | 0.00971 | 1 | 0\n1988-07 | 220 | 0.00635 | 1 | 0\n1988-08 | 276 | 0.0107 | 1 | 0\n1988-09 | 275 | 0.0132 | 0 | 0\n1988-10 | 327 | 0.0351 | 0 | 0\n1988-11 | 240 | 0.0232 | 0 | 0\n1988-12 | 67 | 0.00699 | 0 | 0\n1989-01 | 30 | 2 | 0 | 0  <== anomaly\n1989-02 | 33 | 0.0689 | 0 | 0\n1989-03 | 58 | 0.259 | 0 | 0\n1989-04 | 66 | 0.0503 | 1 | 0\n1989-05 | 103 | 0.0876 | 0 | 0\n1989-06 | 78 | 0.227 | 0 | 0\n1989-07 | 364 | 0.943 | 0 | 0\n1989-08 | 253 | 0.41 | 0 | 0\n1989-09 | 145 | 0.19 | 0 | 0\n1989-10 | 113 | 0.229 | 0 | 0\n1989-11 | 81 | 0.211 | 0 | 0\n1989-12 | 98 | 0.632 | 0 | 0\n1990-01 | 195 | 1 | 0 | 0\n\nKnown events within +-6 months:\n- 1989-01 (+0 months, monetary): Currency reform: Cruzado (Cz$) replaced by Cruzado Novo (NCz$) (1 new unit = 1,000 old units), Plano Verao\n- 1989-02 (+1 months, policy): IBAMA created (Law 7,735/1989), merging four federal bodies",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "43587ef49942cced8e69546558b8b455bff440dc8e42228b4d546a041570cda5",
+  "judged_at": "2026-09-29T21:54:56+00:00"
+ },
+ "fine_total_brl:1992-04": {
+  "series": "fine_total_brl",
+  "month": "1992-04",
+  "category": "SP",
+  "consistency": 0.667,
+  "review_level": "none",
+  "ensemble_score": 0.4323,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "SP",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1992-04 is characterized by a massive increase in fines (320 vs. median of 19) within a single month. Seasonality analysis reveals that this month has historically shown elevated values, with a ratio above 1 in 6 of the preceding 10 years. While there is no sustained level shift (Page-Hinkley test), the data records show a burst of notices (133) in April 1992, with a high fine total, and a few cancellations. There were no events to explain this, and no other series were flagged in the same month. Given the strong seasonal component and the magnitude of the change, a genuine enforcement shift (GES) is the most plausible explanation. The data doesn't suggest a policy change (PDC) or a data quality issue (DQE).",
+    "seed": 11,
+    "latency_s": 84.8
+   },
+   {
+    "category": "SP",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 1992-04 is driven by a massive increase in fines (1992-04: 320 vs. median 19 of previous 12 months). Seasonality analysis reveals a recurring tendency for calendar month 4 to exhibit a ratio above 1, observed in 6 of the 10 preceding years. There are no indications of a policy change, data quality issue, or genuine enforcement shift. The records show no unusual cancellations or missing identifiers. Therefore, the most likely explanation is a seasonal pattern (SP).",
+    "seed": 22,
+    "latency_s": 17.4
+   },
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1992-04 is driven by a significantly elevated fine total (320) compared to the median of the previous 12 months (19). Seasonality checks reveal a consistent ratio above 1 for calendar month 4 across several years, observed in 6 out of 10 years. There’s no evidence of a policy change or data quality event based on the provided records. The records themselves show no obvious issues like cancellations or missing identifiers. Although the Page-Hinkley test found no sustained level shift, the extreme deviation warrants a closer look. Given the lack of other explanations, a genuine enforcement shift is the most plausible category.",
+    "seed": 33,
+    "latency_s": 20.5
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 1992-04 (calendar month 4).\nValue: 320; median of the previous 12 months: 19 (+1557%; ratio 16.57).\nSeasonality check - ratio of calendar month 4 to the median of its previous 12 months, in the previous years: 1991-04: 10.88 | 1990-04: 27.85 | 1989-04: 4.22 | 1988-04: 2.42 | 1987-04: 0.94 | 1986-04: 13.25 | 1985-04: 0.87 | 1984-04: 1.29 | 1983-04: 0.73 | 1982-04: 0.59.\nThe same calendar month deviated in the same direction (above 1) in 6 of these 10 years.\nThe same calendar month was also flagged as anomalous in: no other year.\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.43 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1991-04 | 156 | 39 | 1 | 0\n1991-05 | 112 | 17 | 0 | 0\n1991-06 | 152 | 9 | 1 | 0\n1991-07 | 99 | 6 | 0 | 0\n1991-08 | 111 | 18 | 3 | 0\n1991-09 | 100 | 14 | 0 | 0\n1991-10 | 117 | 31 | 0 | 0\n1991-11 | 86 | 32 | 0 | 0\n1991-12 | 90 | 75 | 0 | 0\n1992-01 | 94 | 63 | 2 | 0\n1992-02 | 86 | 9 | 0 | 0\n1992-03 | 72 | 20 | 0 | 0\n1992-04 | 133 | 320 | 3 | 0  <== anomaly\n1992-05 | 91 | 48 | 6 | 0\n1992-06 | 82 | 24 | 3 | 0\n1992-07 | 103 | 38 | 3 | 0\n1992-08 | 87 | 2,465 | 1 | 0\n1992-09 | 88 | 504 | 1 | 0\n1992-10 | 73 | 1,063 | 0 | 0\n1992-11 | 67 | 42 | 3 | 0\n1992-12 | 65 | 493 | 0 | 0\n1993-01 | 58 | 1,137 | 0 | 0\n1993-02 | 34 | 38 | 1 | 0\n1993-03 | 72 | 934 | 0 | 0\n1993-04 | 46 | 172 | 0 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "d2a3a38e2db43ead0c9eb1bac532da5a344cf4ffa7165885a9698c8d9136bbc0",
+  "judged_at": "2026-09-29T21:42:27+00:00"
+ },
+ "fine_total_brl:1992-08": {
+  "series": "fine_total_brl",
+  "month": "1992-08",
+  "category": "SP",
+  "consistency": 1.0,
+  "review_level": "none",
+  "ensemble_score": 0.7166,
+  "votes": 4,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "SP",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1992-08 is highly suggestive of a seasonal pattern (SP). The fine total is significantly above the median of the previous 12 months, a ratio of 77.93%. This extreme deviation is consistent with a pattern observed across 9 of the 10 preceding years (August). Furthermore, the same month was flagged as anomalous in 1993-08, and multiple detection algorithms agreed. The Page-Hinkley test confirms a sustained level shift within two months, strengthening the seasonal interpretation. There are no obvious policy changes (PDC) or data quality issues (DQE) based on the provided records. While the value is unusually high, the historical context strongly supports a seasonal explanation.",
+    "seed": 11,
+    "latency_s": 84.6
+   },
+   {
+    "category": "SP",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1992-08 is highly suggestive of a seasonal pattern (SP) given the unusually high fine total compared to the median. The ratio of 77.93 is significantly above the median of 7.93 across the previous 10 years (9/10 years showing similar spikes). Furthermore, the same month was flagged as anomalous in 1993-08, reinforcing the seasonal aspect. The Page-Hinkley test confirming a sustained level shift within two months strengthens this interpretation. While the data quality indicators (cancelled notices, no_id) are relatively stable, the extreme seasonal deviation is the dominant factor. The large increase in fines is also consistent with broader enforcement increases in similar months, suggesting a recurring pattern.",
+    "seed": 22,
+    "latency_s": 24.6
+   },
+   {
+    "category": "SP",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1992-08 is highly suggestive of a seasonal pattern. The ratio of this month's fine total to the median of the previous 12 months is significantly elevated (77.93), exceeding the median by a massive 7693%. This is consistent with the behavior observed across 9 of the 10 preceding years. Furthermore, the same month was flagged as anomalous in 1993-08, and four different detection algorithms agreed on the anomaly. A sustained level shift was also detected within the 2 months prior. There are no known policy-driven events or data quality issues that could explain this. Therefore, the most likely explanation is a genuine seasonal pattern.",
+    "seed": 33,
+    "latency_s": 23.3
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 1992-08 (calendar month 8).\nValue: 2,465; median of the previous 12 months: 32 (+7693%; ratio 77.93).\nSeasonality check - ratio of calendar month 8 to the median of its previous 12 months, in the previous years: 1991-08: 3.52 | 1990-08: 0.60 | 1989-08: 6.88 | 1988-08: 4.10 | 1987-08: 1.70 | 1986-08: 2.08 | 1985-08: 4.73 | 1984-08: 2.21 | 1983-08: 1.98 | 1982-08: 3.13.\nThe same calendar month deviated in the same direction (above 1) in 9 of these 10 years.\nThe same calendar month was also flagged as anomalous in: 1993-08.\nDetectors that flagged it: zscore, mad, iforest, lstm_ed (4 of 4); ensemble score 0.72 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1991-08 | 111 | 18 | 3 | 0\n1991-09 | 100 | 14 | 0 | 0\n1991-10 | 117 | 31 | 0 | 0\n1991-11 | 86 | 32 | 0 | 0\n1991-12 | 90 | 75 | 0 | 0\n1992-01 | 94 | 63 | 2 | 0\n1992-02 | 86 | 9 | 0 | 0\n1992-03 | 72 | 20 | 0 | 0\n1992-04 | 133 | 320 | 3 | 0\n1992-05 | 91 | 48 | 6 | 0\n1992-06 | 82 | 24 | 3 | 0\n1992-07 | 103 | 38 | 3 | 0\n1992-08 | 87 | 2,465 | 1 | 0  <== anomaly\n1992-09 | 88 | 504 | 1 | 0\n1992-10 | 73 | 1,063 | 0 | 0\n1992-11 | 67 | 42 | 3 | 0\n1992-12 | 65 | 493 | 0 | 0\n1993-01 | 58 | 1,137 | 0 | 0\n1993-02 | 34 | 38 | 1 | 0\n1993-03 | 72 | 934 | 0 | 0\n1993-04 | 46 | 172 | 0 | 0\n1993-05 | 35 | 125 | 0 | 0\n1993-06 | 40 | 104 | 0 | 0\n1993-07 | 58 | 220 | 0 | 0\n1993-08 | 287 | 17,367 | 4 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "76378372776a4000ae7762a5625309a6a228fb14d13c0063e2b683ab207df8db",
+  "judged_at": "2026-09-29T21:40:24+00:00"
+ },
+ "fine_total_brl:1993-08": {
+  "series": "fine_total_brl",
+  "month": "1993-08",
+  "category": "PDC",
+  "consistency": 1.0,
+  "review_level": "none",
+  "ensemble_score": 0.4225,
+  "votes": 2,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "PDC",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1993-08 is driven by a massive increase in fines (17,367 BRL vs. median of 357 BRL). This is amplified by the fact that the same calendar month (August) deviated in the same direction (above 1) in 9 of the 10 years prior. Furthermore, a Page-Hinkley test indicated a sustained level shift within 2 months. Crucially, the month is flagged as anomalous by multiple detectors (zscore, iforest, ensemble). The most likely explanation is a policy-driven change: the currency reform in August 1993, where the Cruzeiro was replaced by the Cruzeiro Real, would have dramatically affected the reported fine values, which were previously in Cruzeiro. The sudden jump in fines is consistent with this event. The other series, notices, also shows a significant increase.",
+    "seed": 11,
+    "latency_s": 90.3
+   },
+   {
+    "category": "PDC",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1993-08 is driven by a massive increase in fines (17,367 Brl vs. median of 357 Brl). This is consistent with the currency reform that occurred in August 1993, where the value of fines was effectively multiplied by 1000. The Page-Hinkley test confirms a sustained level shift within 2 months, further supporting this explanation. The fact that the same calendar month was flagged in 1992-08 and 9 of the 10 preceding years strengthens the seasonal argument, though the currency reform is the dominant factor. The increase in the number of notices (287) alongside the fine spike also contributes to the observation.",
+    "seed": 22,
+    "latency_s": 23.4
+   },
+   {
+    "category": "PDC",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1993-08 is driven by a massive increase in fine_total_brl (17,367) compared to the median of the previous 12 months (357). This is exacerbated by the currency reform in 1993-08, which dramatically increased the value of fines, as the old currency was replaced by the new currency. The Page-Hinkley test confirms a sustained level shift. The high number of notices (287) and cancelled notices (4) further supports this. The seasonality analysis shows a consistent positive deviation in August across multiple years. The detection algorithms (zscore, iforest) also flagged the anomaly. Therefore, a policy-driven change due to the currency reform is the most plausible explanation.",
+    "seed": 33,
+    "latency_s": 24.8
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 1993-08 (calendar month 8).\nValue: 17,367; median of the previous 12 months: 357 (+4768%; ratio 48.68).\nSeasonality check - ratio of calendar month 8 to the median of its previous 12 months, in the previous years: 1992-08: 77.93 | 1991-08: 3.52 | 1990-08: 0.60 | 1989-08: 6.88 | 1988-08: 4.10 | 1987-08: 1.70 | 1986-08: 2.08 | 1985-08: 4.73 | 1984-08: 2.21 | 1983-08: 1.98.\nThe same calendar month deviated in the same direction (above 1) in 9 of these 10 years.\nThe same calendar month was also flagged as anomalous in: 1992-08.\nDetectors that flagged it: zscore, iforest (2 of 4); ensemble score 0.42 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: notices.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1992-08 | 87 | 2,465 | 1 | 0\n1992-09 | 88 | 504 | 1 | 0\n1992-10 | 73 | 1,063 | 0 | 0\n1992-11 | 67 | 42 | 3 | 0\n1992-12 | 65 | 493 | 0 | 0\n1993-01 | 58 | 1,137 | 0 | 0\n1993-02 | 34 | 38 | 1 | 0\n1993-03 | 72 | 934 | 0 | 0\n1993-04 | 46 | 172 | 0 | 0\n1993-05 | 35 | 125 | 0 | 0\n1993-06 | 40 | 104 | 0 | 0\n1993-07 | 58 | 220 | 0 | 0\n1993-08 | 287 | 17,367 | 4 | 0  <== anomaly\n1993-09 | 202 | 5,262 | 2 | 0\n1993-10 | 189 | 7,737 | 0 | 0\n1993-11 | 155 | 62,225 | 1 | 0\n1993-12 | 126 | 18,038 | 2 | 0\n1994-01 | 125 | 6,989 | 0 | 0\n1994-02 | 125 | 7,328 | 3 | 0\n1994-03 | 157 | 101,236 | 0 | 0\n1994-04 | 103 | 15,150 | 2 | 0\n1994-05 | 148 | 24,010 | 1 | 0\n1994-06 | 169 | 13,090 | 3 | 0\n1994-07 | 148 | 840,394 | 1 | 0\n1994-08 | 207 | 1.1M | 4 | 0\n\nKnown events within +-6 months:\n- 1993-08 (+0 months, monetary): Currency reform: Cruzeiro (Cr$) replaced by Cruzeiro Real (CR$) (1 new unit = 1,000 old units)",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "795077c232e68f2d2e974d79ad8679c0e3c890308be72825b7a68055a78d1518",
+  "judged_at": "2026-09-29T21:35:54+00:00"
+ },
  "fine_total_brl:1994-07": {
   "series": "fine_total_brl",
   "month": "1994-07",
@@ -445,6 +814,416 @@
    }
   ]
  },
+ "notices:1981-03": {
+  "series": "notices",
+  "month": "1981-03",
+  "category": "GES",
+  "consistency": 0.667,
+  "review_level": "none",
+  "ensemble_score": 0.3489,
+  "votes": 2,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1981-03 is characterized by zero notices, significantly below the 12-month median of 2. This month was also flagged as anomalous in 1989-03 and 1996-03. The Page-Hinkley test indicates a sustained level shift within 2 months. Furthermore, the fine_total_brl series also shows a zero value in the same month. Considering the absence of clear policy changes or seasonal patterns, and the recurrence of this anomaly in prior years, it's most likely a data quality event (DQE) or a genuine enforcement shift (GES). The recurrence in multiple years suggests a deeper issue than a simple seasonal fluctuation.",
+    "seed": 11,
+    "latency_s": 68.7
+   },
+   {
+    "category": "GES",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 1981-03 is highly suggestive of a genuine enforcement shift (GES). The notice count is zero, significantly below the median of -100% across the previous 12 months. Critically, this month was previously flagged as anomalous in 1989-03 and 1996-03. The Page-Hinkley test confirms a sustained level shift within the two months prior, and the fine_total_brl series also shows a change. There's no evidence of policy changes, seasonal patterns, or data quality issues to explain this sudden drop in notices. The fact that the same month was flagged in previous years further strengthens the GES hypothesis.",
+    "seed": 22,
+    "latency_s": 20.5
+   },
+   {
+    "category": "GES",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 1981-03 is highly suggestive of a genuine enforcement shift (GES). The value of 0 is significantly below the median of -100% across the previous 12 months, and has been flagged as anomalous in 1989-03 and 1996-03. Furthermore, a sustained level shift was detected within 2 months. The absence of seasonality and policy-driven changes, coupled with the repeated flagging by different algorithms, strongly suggests a real change in enforcement practices, rather than a data quality issue or seasonal variation. The concurrent drop in fine_total_brl also supports this interpretation.",
+    "seed": 33,
+    "latency_s": 19.2
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 1981-03 (calendar month 3).\nValue: 0; median of the previous 12 months: 2 (-100%; ratio 0.00).\nSeasonality check - ratio of calendar month 3 to the median of its previous 12 months, in the previous years: n/a.\nThe same calendar month deviated in the same direction (below 1) in 0 of these 0 years.\nThe same calendar month was also flagged as anomalous in: 1989-03, 1996-03.\nDetectors that flagged it: iforest, lstm_ed (2 of 4); ensemble score 0.35 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: fine_total_brl.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1980-11 | 0 | 0 | 0 | 0\n1980-12 | 2 | 4.31e-09 | 0 | 0\n1981-01 | 2 | 1.1e-07 | 0 | 0\n1981-02 | 5 | 2.38e-08 | 0 | 0\n1981-03 | 0 | 0 | 0 | 0  <== anomaly\n1981-04 | 3 | 4.26e-09 | 0 | 0\n1981-05 | 2 | 4.41e-09 | 0 | 0\n1981-06 | 4 | 9.08e-09 | 0 | 0\n1981-07 | 9 | 5.24e-08 | 0 | 0\n1981-08 | 10 | 1.61e-07 | 0 | 0\n1981-09 | 18 | 7.58e-08 | 0 | 0\n1981-10 | 19 | 1.39e-07 | 0 | 0\n1981-11 | 8 | 2.02e-08 | 0 | 0\n1981-12 | 18 | 1.34e-07 | 0 | 0\n1982-01 | 11 | 8.34e-08 | 0 | 0\n1982-02 | 22 | 1.33e-07 | 0 | 0\n1982-03 | 11 | 1.19e-07 | 0 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "1244ea7695cf903031f94f1863554be0a9070369cdc9103f827b023be9012f57",
+  "judged_at": "2026-09-29T22:12:49+00:00"
+ },
+ "notices:1983-01": {
+  "series": "notices",
+  "month": "1983-01",
+  "category": "SP",
+  "consistency": 0.667,
+  "review_level": "none",
+  "ensemble_score": 0.7524,
+  "votes": 4,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "SP",
+    "confidence": 0.95,
+    "reasoning": "The anomaly is likely seasonal (SP). The number of notices in January is unusually low compared to the median of the previous 12 months. Critically, this anomaly has been flagged repeatedly in January across multiple years (1989-2024), and confirmed by multiple detection algorithms (zscore, mad, iforest, lstm_ed). The Page-Hinkley test also indicated a sustained level shift within 2 months, supporting the idea of a recurring pattern. There is no evidence of a policy change or data quality event. Furthermore, the previous year’s January data shows a significantly higher number of notices, suggesting a seasonal drop.",
+    "seed": 11,
+    "latency_s": 82.8
+   },
+   {
+    "category": "SP",
+    "confidence": 0.95,
+    "reasoning": "The anomaly is highly likely to be seasonal (SP). The notice count in January is dramatically below the median of the previous 12 months (-91%). Critically, this deviation has been repeatedly flagged across multiple years (1989-2024), and the ensemble score confirms this. Furthermore, the Page-Hinkley test detected a sustained level shift within 2 months, which often accompanies seasonal patterns. The data doesn't suggest a policy change (PDC) or a data quality issue (DQE) given the consistent nature of the anomaly across years and the absence of other flagged series. The small number of notices in January 1983 does not appear to be a genuine enforcement shift (GES).",
+    "seed": 22,
+    "latency_s": 22.8
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1983-01 is highly unusual given the extremely low number of notices and a significant deviation from the median. Furthermore, this month has been flagged as anomalous in multiple prior years (1989, 1996, 1999, 2003, 2009, 2010, 2012, 2014, 2017, 2019, 2021, 2024). The Page-Hinkley test indicates a sustained level shift. While seasonality is possible, the fact that the same calendar month has been flagged repeatedly across decades and across different years suggests a more persistent issue than a typical seasonal fluctuation. The data quality event (DQE) category is the most plausible explanation, specifically related to a systemic issue or a change in reporting practices that consistently resulted in a low notice count in January.",
+    "seed": 33,
+    "latency_s": 28.3
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 1983-01 (calendar month 1).\nValue: 2; median of the previous 12 months: 22 (-91%; ratio 0.09).\nSeasonality check - ratio of calendar month 1 to the median of its previous 12 months, in the previous years: 1982-01: 1.69.\nThe same calendar month deviated in the same direction (below 1) in 0 of these 1 years.\nThe same calendar month was also flagged as anomalous in: 1989-01, 1996-01, 1999-01, 2003-01, 2009-01, 2010-01, 2012-01, 2014-01, 2017-01, 2019-01, 2021-01, 2024-01.\nDetectors that flagged it: zscore, mad, iforest, lstm_ed (4 of 4); ensemble score 0.75 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1982-01 | 11 | 8.34e-08 | 0 | 0\n1982-02 | 22 | 1.33e-07 | 0 | 0\n1982-03 | 11 | 1.19e-07 | 0 | 0\n1982-04 | 11 | 4.73e-08 | 0 | 0\n1982-05 | 23 | 3.67e-07 | 0 | 0\n1982-06 | 14 | 5.21e-07 | 0 | 0\n1982-07 | 21 | 2.03e-07 | 0 | 0\n1982-08 | 32 | 4.18e-07 | 0 | 0\n1982-09 | 49 | 7.73e-07 | 0 | 0\n1982-10 | 34 | 4.79e-07 | 1 | 0\n1982-11 | 44 | 7.94e-07 | 0 | 0\n1982-12 | 22 | 3.44e-07 | 0 | 0\n1983-01 | 2 | 4.9e-08 | 0 | 0  <== anomaly\n1983-02 | 15 | 2.72e-07 | 0 | 0\n1983-03 | 14 | 5.38e-07 | 0 | 0\n1983-04 | 10 | 2.87e-07 | 0 | 0\n1983-05 | 6 | 6.14e-08 | 0 | 0\n1983-06 | 15 | 5.99e-07 | 0 | 0\n1983-07 | 11 | 1.12e-06 | 0 | 0\n1983-08 | 14 | 8.88e-07 | 0 | 0\n1983-09 | 7 | 2.67e-07 | 0 | 0\n1983-10 | 19 | 2.52e-06 | 1 | 0\n1983-11 | 12 | 7.89e-07 | 0 | 0\n1983-12 | 9 | 4.51e-07 | 0 | 0\n1984-01 | 12 | 2.14e-07 | 1 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "62549de0dca6e7253647d74df376b8c6fc2de0ad2f40cfe7dd5714d0b243ed4f",
+  "judged_at": "2026-09-29T22:11:00+00:00"
+ },
+ "notices:1987-12": {
+  "series": "notices",
+  "month": "1987-12",
+  "category": "GES",
+  "consistency": 0.667,
+  "review_level": "none",
+  "ensemble_score": 0.4438,
+  "votes": 2,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "GES",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1987-12 is characterized by a massive increase (3.65x) in the number of infraction notices compared to the median of the previous 12 months. This is supported by a sustained level shift detected by the Page-Hinkley test. Crucially, this month has exhibited similar deviations in previous years (1986, 1988) and was flagged by multiple detectors. The seasonality analysis shows a recurring pattern of elevated notice counts in December across several years. While there are no immediate events to explain this, the combination of a persistent, unusually high value, historical repetition, and a sustained level shift strongly suggests a genuine enforcement shift (GES). The detection by multiple algorithms further reinforces this conclusion.",
+    "seed": 11,
+    "latency_s": 85.4
+   },
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1987-12 is significantly above the median of previous months (3.65x). This is further supported by the fact that the same calendar month deviated above 1 in 3 of the 6 years prior. The Page-Hinkley test confirmed a sustained level shift within 2 months. While 1988-12 also shows a high notice count, the 1987-12 anomaly's history and the level shift suggest a genuine enforcement shift. The detection by ‘mad’ and ‘iforest’ adds further weight to this conclusion. There are no indications of a data quality issue like a system migration or backlog.",
+    "seed": 22,
+    "latency_s": 22.5
+   },
+   {
+    "category": "SP",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1987-12 is driven by a significant increase in infraction notices (3.65x the median) compared to the previous 12 months.  This magnitude of increase is replicated in 3 out of 6 preceding years. The Page-Hinkley test confirms a sustained level shift within 2 months. Furthermore, the same month (1988-12) was also flagged as anomalous, indicating a persistent pattern. While a policy change might be possible, the evidence leans towards a seasonal pattern or a genuine enforcement shift. The lack of other flagged series in the same month and the sustained level shift within 2 months strengthen the seasonal argument. The high ratio (3.65) is also indicative of a sustained shift, rather than a simple outlier.",
+    "seed": 33,
+    "latency_s": 26.4
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 1987-12 (calendar month 12).\nValue: 179; median of the previous 12 months: 49 (+265%; ratio 3.65).\nSeasonality check - ratio of calendar month 12 to the median of its previous 12 months, in the previous years: 1986-12: 0.38 | 1985-12: 0.95 | 1984-12: 2.48 | 1983-12: 0.69 | 1982-12: 1.02 | 1981-12: 4.00.\nThe same calendar month deviated in the same direction (above 1) in 3 of these 6 years.\nThe same calendar month was also flagged as anomalous in: 1988-12.\nDetectors that flagged it: mad, iforest (2 of 4); ensemble score 0.44 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1986-12 | 20 | 3.09e-05 | 0 | 0\n1987-01 | 26 | 4.68e-05 | 0 | 0\n1987-02 | 39 | 0.00264 | 0 | 0\n1987-03 | 35 | 0.000713 | 0 | 0\n1987-04 | 40 | 0.000315 | 0 | 0\n1987-05 | 56 | 0.00036 | 0 | 0\n1987-06 | 54 | 0.000274 | 0 | 0\n1987-07 | 48 | 0.000283 | 0 | 0\n1987-08 | 50 | 0.000572 | 0 | 0\n1987-09 | 116 | 0.000613 | 0 | 0\n1987-10 | 127 | 0.00104 | 0 | 0\n1987-11 | 58 | 0.00448 | 1 | 0\n1987-12 | 179 | 0.00208 | 0 | 0  <== anomaly\n1988-01 | 123 | 0.00312 | 0 | 0\n1988-02 | 170 | 0.00164 | 0 | 0\n1988-03 | 166 | 0.0203 | 0 | 0\n1988-04 | 215 | 0.002 | 0 | 0\n1988-05 | 271 | 0.00703 | 0 | 0\n1988-06 | 258 | 0.00971 | 1 | 0\n1988-07 | 220 | 0.00635 | 1 | 0\n1988-08 | 276 | 0.0107 | 1 | 0\n1988-09 | 275 | 0.0132 | 0 | 0\n1988-10 | 327 | 0.0351 | 0 | 0\n1988-11 | 240 | 0.0232 | 0 | 0\n1988-12 | 67 | 0.00699 | 0 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "76898d6233b18ce45456db4135a4c35007ac36a895589936677d1aad91c6dac6",
+  "judged_at": "2026-09-29T22:01:58+00:00"
+ },
+ "notices:1988-12": {
+  "series": "notices",
+  "month": "1988-12",
+  "category": "SP",
+  "consistency": 0.667,
+  "review_level": "none",
+  "ensemble_score": 0.5262,
+  "votes": 3,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "SP",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1988-12 is highly suggestive of a seasonal pattern. The ratio to the median of the previous 12 months is extremely low (-71%), and this is consistent with deviations in 1987-12, 1981-12 and 1988-12. The Page-Hinkley test confirms a sustained level shift within 2 months, which is consistent with seasonal fluctuations. The fact that the same month was flagged anomalous in 1987-12 strengthens this hypothesis. The currency reform in 1989 (one month prior) is not relevant to this anomaly, and there are no other events that could explain this sudden drop in notices. The data quality indicators (no_id) show no issues.",
+    "seed": 11,
+    "latency_s": 90.8
+   },
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1988-12 is best explained by a genuine enforcement shift (GES). The extreme drop in notices (71% reduction) compared to the median of previous months is unusual. While there’s a history of similar deviations in 1987-12 and 1988-12, the magnitude of the drop is noteworthy. The Page-Hinkley test confirms a sustained level shift within the two months leading up to 1988-12, suggesting a change in enforcement. The currency reform in January 1989 (Plano Verao) could have influenced fine values, but the number of notices is the key anomaly. The fact that the month was flagged by multiple detectors (zscore, mad, iforest) further strengthens this assessment. Although 1987-12 was also flagged, the context of 1988-12 is more aligned with a shift in enforcement intensity.",
+    "seed": 22,
+    "latency_s": 31.6
+   },
+   {
+    "category": "SP",
+    "confidence": 0.95,
+    "reasoning": "The anomaly is most likely seasonal (SP). The 1988-12 value is significantly below the median of the previous 12 months (-71%), and this deviation has occurred in 3 out of 7 years. Further, the same month was flagged as anomalous in 1987-12. The ratio of 1988-12 to the median of its previous 12 months is -0.29. While the Page-Hinkley test detected a sustained level shift, this is consistent with a seasonal anomaly. The currency reform in 1989 and the creation of IBAMA in 1989 are not plausible explanations for the reduction in notices in December 1988. No other series were flagged in the same month, further supporting the seasonal explanation. The evidence strongly suggests a recurring enforcement cycle.",
+    "seed": 33,
+    "latency_s": 27.6
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 1988-12 (calendar month 12).\nValue: 67; median of the previous 12 months: 230 (-71%; ratio 0.29).\nSeasonality check - ratio of calendar month 12 to the median of its previous 12 months, in the previous years: 1987-12: 3.65 | 1986-12: 0.38 | 1985-12: 0.95 | 1984-12: 2.48 | 1983-12: 0.69 | 1982-12: 1.02 | 1981-12: 4.00.\nThe same calendar month deviated in the same direction (below 1) in 3 of these 7 years.\nThe same calendar month was also flagged as anomalous in: 1987-12.\nDetectors that flagged it: zscore, mad, iforest (3 of 4); ensemble score 0.53 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1987-12 | 179 | 0.00208 | 0 | 0\n1988-01 | 123 | 0.00312 | 0 | 0\n1988-02 | 170 | 0.00164 | 0 | 0\n1988-03 | 166 | 0.0203 | 0 | 0\n1988-04 | 215 | 0.002 | 0 | 0\n1988-05 | 271 | 0.00703 | 0 | 0\n1988-06 | 258 | 0.00971 | 1 | 0\n1988-07 | 220 | 0.00635 | 1 | 0\n1988-08 | 276 | 0.0107 | 1 | 0\n1988-09 | 275 | 0.0132 | 0 | 0\n1988-10 | 327 | 0.0351 | 0 | 0\n1988-11 | 240 | 0.0232 | 0 | 0\n1988-12 | 67 | 0.00699 | 0 | 0  <== anomaly\n1989-01 | 30 | 2 | 0 | 0\n1989-02 | 33 | 0.0689 | 0 | 0\n1989-03 | 58 | 0.259 | 0 | 0\n1989-04 | 66 | 0.0503 | 1 | 0\n1989-05 | 103 | 0.0876 | 0 | 0\n1989-06 | 78 | 0.227 | 0 | 0\n1989-07 | 364 | 0.943 | 0 | 0\n1989-08 | 253 | 0.41 | 0 | 0\n1989-09 | 145 | 0.19 | 0 | 0\n1989-10 | 113 | 0.229 | 0 | 0\n1989-11 | 81 | 0.211 | 0 | 0\n1989-12 | 98 | 0.632 | 0 | 0\n\nKnown events within +-6 months:\n- 1989-01 (+1 months, monetary): Currency reform: Cruzado (Cz$) replaced by Cruzado Novo (NCz$) (1 new unit = 1,000 old units), Plano Verao\n- 1989-02 (+2 months, policy): IBAMA created (Law 7,735/1989), merging four federal bodies",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "c7c41d6e36d67e321810d0ce465b78f7c338eaa43cc1caf9ef26f75198a2f2e2",
+  "judged_at": "2026-09-29T21:57:26+00:00"
+ },
+ "notices:1989-01": {
+  "series": "notices",
+  "month": "1989-01",
+  "category": "PDC",
+  "consistency": 1.0,
+  "review_level": "none",
+  "ensemble_score": 0.7,
+  "votes": 4,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "PDC",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1989-01 is highly suggestive of a policy-driven change. The timing coincides with the 1989 currency reform (Plano Verao), a significant event that would inherently impact fine values (as seen in the fine_total_brl series). Furthermore, the same month was flagged as anomalous in 1983, 1996, 1999, 2003, 2009, 2010, 2012, 2014, 2017, 2019, 2021, and 2024, reinforcing the idea of a persistent, non-seasonal issue. The Page-Hinkley test confirms a sustained level shift, supporting the notion that this isn't just a statistical blip. While the initial number of notices is low, the currency reform provides a plausible explanation for the significant deviation from the median.",
+    "seed": 11,
+    "latency_s": 98.5
+   },
+   {
+    "category": "PDC",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1989-01 is strongly suggestive of a policy-driven change. The timing aligns with the implementation of the Plano Verao (summer plan) and the currency reform (Cruzado to Cruzado Novo) in January 1989. The sudden drop in notices (from 230 to 30) is consistent with a major economic and regulatory shift.  The fact that the same calendar month was flagged in multiple years prior (1983, 1996, 1999, 2003, 2009, 2010, 2012, 2014, 2017, 2019, 2021, 2024) further supports this interpretation, as the enforcement likely adjusted to the new currency. The Page-Hinkley test confirming a sustained level shift within 2 months reinforces this conclusion. The concurrent flagging of the ‘fine_total_brl’ series adds further weight.",
+    "seed": 22,
+    "latency_s": 33.7
+   },
+   {
+    "category": "PDC",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1989-01 is highly suggestive of a policy-driven change. The timeframe coincides with the 1989 currency reform (Plano Verão) and the creation of IBAMA itself (Law 7,735/1989). The extreme drop in notices (a ratio of 0.13) compared to the median suggests a significant policy shift impacting enforcement activity. The other series, ‘fine_total_brl’, also saw a large change during this time, further supporting a policy-driven explanation, rather than a seasonal or data quality issue. The Page-Hinkley test confirms a sustained level shift within two months, aligning with the significant policy changes of the period.",
+    "seed": 33,
+    "latency_s": 23.4
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 1989-01 (calendar month 1).\nValue: 30; median of the previous 12 months: 230 (-87%; ratio 0.13).\nSeasonality check - ratio of calendar month 1 to the median of its previous 12 months, in the previous years: 1988-01: 2.37 | 1987-01: 0.55 | 1986-01: 0.60 | 1985-01: 2.21 | 1984-01: 1.04 | 1983-01: 0.09 | 1982-01: 1.69.\nThe same calendar month deviated in the same direction (below 1) in 3 of these 7 years.\nThe same calendar month was also flagged as anomalous in: 1983-01, 1996-01, 1999-01, 2003-01, 2009-01, 2010-01, 2012-01, 2014-01, 2017-01, 2019-01, 2021-01, 2024-01.\nDetectors that flagged it: zscore, mad, iforest, lstm_ed (4 of 4); ensemble score 0.70 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: fine_total_brl.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1988-01 | 123 | 0.00312 | 0 | 0\n1988-02 | 170 | 0.00164 | 0 | 0\n1988-03 | 166 | 0.0203 | 0 | 0\n1988-04 | 215 | 0.002 | 0 | 0\n1988-05 | 271 | 0.00703 | 0 | 0\n1988-06 | 258 | 0.00971 | 1 | 0\n1988-07 | 220 | 0.00635 | 1 | 0\n1988-08 | 276 | 0.0107 | 1 | 0\n1988-09 | 275 | 0.0132 | 0 | 0\n1988-10 | 327 | 0.0351 | 0 | 0\n1988-11 | 240 | 0.0232 | 0 | 0\n1988-12 | 67 | 0.00699 | 0 | 0\n1989-01 | 30 | 2 | 0 | 0  <== anomaly\n1989-02 | 33 | 0.0689 | 0 | 0\n1989-03 | 58 | 0.259 | 0 | 0\n1989-04 | 66 | 0.0503 | 1 | 0\n1989-05 | 103 | 0.0876 | 0 | 0\n1989-06 | 78 | 0.227 | 0 | 0\n1989-07 | 364 | 0.943 | 0 | 0\n1989-08 | 253 | 0.41 | 0 | 0\n1989-09 | 145 | 0.19 | 0 | 0\n1989-10 | 113 | 0.229 | 0 | 0\n1989-11 | 81 | 0.211 | 0 | 0\n1989-12 | 98 | 0.632 | 0 | 0\n1990-01 | 195 | 1 | 0 | 0\n\nKnown events within +-6 months:\n- 1989-01 (+0 months, monetary): Currency reform: Cruzado (Cz$) replaced by Cruzado Novo (NCz$) (1 new unit = 1,000 old units), Plano Verao\n- 1989-02 (+1 months, policy): IBAMA created (Law 7,735/1989), merging four federal bodies",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "43587ef49942cced8e69546558b8b455bff440dc8e42228b4d546a041570cda5",
+  "judged_at": "2026-09-29T21:52:17+00:00"
+ },
+ "notices:1989-02": {
+  "series": "notices",
+  "month": "1989-02",
+  "category": "GES",
+  "consistency": 1.0,
+  "review_level": "none",
+  "ensemble_score": 0.5852,
+  "votes": 2,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1989-02 is most likely a Genuine Enforcement Shift (GES). The ratio of notices is significantly below the median of previous years, and this deviation has occurred in multiple years (1989-02, 1993-02, 1996-02). The Page-Hinkley test confirmed a sustained level shift within 2 months. The currency reform (Plano Verao) in January 1989, coupled with the creation of IBAMA in February 1989, is a plausible explanation, although it doesn't fully account for the magnitude of the deviation. The fact that the same calendar month was flagged in other years, and the detection by multiple algorithms, strengthens the case for a shift in enforcement rather than a data quality issue or seasonality. The low number of notices in 1989-02 is unusual given the creation of IBAMA.",
+    "seed": 11,
+    "latency_s": 92.1
+   },
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1989-02 is best explained by a Genuine Enforcement Shift (GES). The significant deviation (-86% ratio) in the number of notices, coupled with a sustained level shift detected by the Page-Hinkley test, suggests a real change in enforcement intensity. The historical context reveals that this month (February) has consistently exhibited lower notice counts compared to the median of previous years, observed in 2 out of 7 years. Further, the same calendar month was flagged as anomalous in 1993-02 and 1996-02. The timing coincides with the creation of IBAMA in 1989, a policy change, but the magnitude and sustained nature of the deviation don't align with a policy-driven shift. The currency reform in January 1989 also doesn't provide a clear explanation. Therefore, a genuine shift in enforcement practices is the most plausible explanation.",
+    "seed": 22,
+    "latency_s": 29.3
+   },
+   {
+    "category": "GES",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 1989-02 is most likely a Genuine Enforcement Shift (GES). The extremely low notice count (-86% relative to the median) is not explained by seasonality; only 2 out of 7 previous years showed similar deviation (1988-02 and 1993-02). The Page-Hinkley test confirms a sustained level shift. The timing coincides with the creation of IBAMA (1989), a significant policy change, but the magnitude of the shift suggests a change in enforcement intensity, rather than a direct consequence of the new agency. Furthermore, the 1989 currency reform could have influenced fine values, but the raw notice count is the key anomaly. The fact that 1993-02 was also flagged as anomalous strengthens the case for a genuine shift.",
+    "seed": 33,
+    "latency_s": 26.0
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 1989-02 (calendar month 2).\nValue: 33; median of the previous 12 months: 230 (-86%; ratio 0.14).\nSeasonality check - ratio of calendar month 2 to the median of its previous 12 months, in the previous years: 1988-02: 3.09 | 1987-02: 0.82 | 1986-02: 1.14 | 1985-02: 2.14 | 1984-02: 1.33 | 1983-02: 0.68 | 1982-02: 2.59.\nThe same calendar month deviated in the same direction (below 1) in 2 of these 7 years.\nThe same calendar month was also flagged as anomalous in: 1993-02, 1996-02.\nDetectors that flagged it: mad, iforest (2 of 4); ensemble score 0.59 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1988-02 | 170 | 0.00164 | 0 | 0\n1988-03 | 166 | 0.0203 | 0 | 0\n1988-04 | 215 | 0.002 | 0 | 0\n1988-05 | 271 | 0.00703 | 0 | 0\n1988-06 | 258 | 0.00971 | 1 | 0\n1988-07 | 220 | 0.00635 | 1 | 0\n1988-08 | 276 | 0.0107 | 1 | 0\n1988-09 | 275 | 0.0132 | 0 | 0\n1988-10 | 327 | 0.0351 | 0 | 0\n1988-11 | 240 | 0.0232 | 0 | 0\n1988-12 | 67 | 0.00699 | 0 | 0\n1989-01 | 30 | 2 | 0 | 0\n1989-02 | 33 | 0.0689 | 0 | 0  <== anomaly\n1989-03 | 58 | 0.259 | 0 | 0\n1989-04 | 66 | 0.0503 | 1 | 0\n1989-05 | 103 | 0.0876 | 0 | 0\n1989-06 | 78 | 0.227 | 0 | 0\n1989-07 | 364 | 0.943 | 0 | 0\n1989-08 | 253 | 0.41 | 0 | 0\n1989-09 | 145 | 0.19 | 0 | 0\n1989-10 | 113 | 0.229 | 0 | 0\n1989-11 | 81 | 0.211 | 0 | 0\n1989-12 | 98 | 0.632 | 0 | 0\n1990-01 | 195 | 1 | 0 | 0\n1990-02 | 344 | 3 | 1 | 0\n\nKnown events within +-6 months:\n- 1989-01 (-1 months, monetary): Currency reform: Cruzado (Cz$) replaced by Cruzado Novo (NCz$) (1 new unit = 1,000 old units), Plano Verao\n- 1989-02 (+0 months, policy): IBAMA created (Law 7,735/1989), merging four federal bodies",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "7516082b4dcd669012cd4a3386db2296cc828de4bae6e7844322bebb45d9f701",
+  "judged_at": "2026-09-29T21:49:41+00:00"
+ },
+ "notices:1989-03": {
+  "series": "notices",
+  "month": "1989-03",
+  "category": "GES",
+  "consistency": 0.667,
+  "review_level": "none",
+  "ensemble_score": 0.4118,
+  "votes": 2,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1989-03 is highly suggestive of a genuine enforcement shift (GES). The month's notice count is significantly below the median and has been consistently low for the previous years, with several other months in the same calendar period also flagged as anomalous. The Page-Hinkley test confirms a sustained level shift. Crucially, the timing coincides with the creation of IBAMA (1989-02) and a significant currency reform (1989-01) which could have influenced enforcement strategies or reporting practices. The ensemble score (0.41) is below the threshold, further suggesting a genuine shift rather than a data quality event. The fact that this month was flagged in 1981-03 and 1996-03 adds weight to the possibility of a sustained change.",
+    "seed": 11,
+    "latency_s": 90.8
+   },
+   {
+    "category": "GES",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 1989-03 is strongly suggestive of a genuine enforcement shift (GES). The unusually low number of notices (75% below the median) is consistent with previous deviations in 1988-03 and 1981-03. The Page-Hinkley test confirmed a sustained level shift within two months. Furthermore, the currency reform of January 1989 and the creation of IBAMA in February 1989, occurring within the relevant timeframe, could have influenced enforcement strategies. While seasonal patterns are possible, the significant deviation from the median and the recurrence in multiple years point to a deeper change. The detection by mad and iforest further supports an unusual enforcement pattern.",
+    "seed": 22,
+    "latency_s": 23.4
+   },
+   {
+    "category": "PDC",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1989-03 is characterized by a significant drop in notices (75% reduction) compared to the median of the previous 12 months. This value is outside the expected range of seasonal variation, as shown by the fact that it has been flagged in other years and in the same direction (below 1) in 4 of the 7 years available. The Page-Hinkley test confirms a sustained level shift. The timing coincides with a major currency reform (1989-01) and the creation of IBAMA (1989-02), which suggests a policy-driven change. The 1981-03 anomaly is also a key indicator. Therefore, the most likely explanation is a policy-driven change, specifically related to the newly established IBAMA and the currency reform.",
+    "seed": 33,
+    "latency_s": 27.1
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 1989-03 (calendar month 3).\nValue: 58; median of the previous 12 months: 230 (-75%; ratio 0.25).\nSeasonality check - ratio of calendar month 3 to the median of its previous 12 months, in the previous years: 1988-03: 2.91 | 1987-03: 0.86 | 1986-03: 0.76 | 1985-03: 2.35 | 1984-03: 0.75 | 1983-03: 0.65 | 1982-03: 1.16.\nThe same calendar month deviated in the same direction (below 1) in 4 of these 7 years.\nThe same calendar month was also flagged as anomalous in: 1981-03, 1996-03.\nDetectors that flagged it: mad, iforest (2 of 4); ensemble score 0.41 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1988-03 | 166 | 0.0203 | 0 | 0\n1988-04 | 215 | 0.002 | 0 | 0\n1988-05 | 271 | 0.00703 | 0 | 0\n1988-06 | 258 | 0.00971 | 1 | 0\n1988-07 | 220 | 0.00635 | 1 | 0\n1988-08 | 276 | 0.0107 | 1 | 0\n1988-09 | 275 | 0.0132 | 0 | 0\n1988-10 | 327 | 0.0351 | 0 | 0\n1988-11 | 240 | 0.0232 | 0 | 0\n1988-12 | 67 | 0.00699 | 0 | 0\n1989-01 | 30 | 2 | 0 | 0\n1989-02 | 33 | 0.0689 | 0 | 0\n1989-03 | 58 | 0.259 | 0 | 0  <== anomaly\n1989-04 | 66 | 0.0503 | 1 | 0\n1989-05 | 103 | 0.0876 | 0 | 0\n1989-06 | 78 | 0.227 | 0 | 0\n1989-07 | 364 | 0.943 | 0 | 0\n1989-08 | 253 | 0.41 | 0 | 0\n1989-09 | 145 | 0.19 | 0 | 0\n1989-10 | 113 | 0.229 | 0 | 0\n1989-11 | 81 | 0.211 | 0 | 0\n1989-12 | 98 | 0.632 | 0 | 0\n1990-01 | 195 | 1 | 0 | 0\n1990-02 | 344 | 3 | 1 | 0\n1990-03 | 162 | 2 | 0 | 0\n\nKnown events within +-6 months:\n- 1989-01 (-2 months, monetary): Currency reform: Cruzado (Cz$) replaced by Cruzado Novo (NCz$) (1 new unit = 1,000 old units), Plano Verao\n- 1989-02 (-1 months, policy): IBAMA created (Law 7,735/1989), merging four federal bodies",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "2630b1cdbc6caf711f3ab99a62ac6609ca3b18ab4cbf190e95ee2406332bd433",
+  "judged_at": "2026-09-29T21:47:14+00:00"
+ },
+ "notices:1989-07": {
+  "series": "notices",
+  "month": "1989-07",
+  "category": "GES",
+  "consistency": 0.667,
+  "review_level": "none",
+  "ensemble_score": 0.3905,
+  "votes": 2,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly is most likely due to a Genuine Enforcement Shift (GES). The July 1989 notice count (364) represents a 4.02x increase over the median of the previous 12 months (90), which is a significant deviation. While the seasonality check shows a tendency for July to be above average, this is only true in 5 out of 7 years, and the magnitude of the increase is far greater than any of those previous years. Furthermore, the Page-Hinkley test confirms a sustained level shift. The key event is the creation of IBAMA in February 1989, coinciding with the spike in notices. While the currency reform in January 1989 could theoretically influence fine values, the number of notices is not directly related to monetary changes. The fact that the anomaly was not flagged in any other year strengthens the argument for a genuine shift in enforcement activity following the agency's establishment.",
+    "seed": 11,
+    "latency_s": 91.6
+   },
+   {
+    "category": "GES",
+    "confidence": 0.9,
+    "reasoning": "The anomaly is most likely a Genuine Enforcement Shift (GES). The July 1989 notice count (364) is a 4.02 times increase from the median of the previous 12 months (90), which is a massive spike. While there’s a seasonal component (5 of 7 years in July showed an increase), the magnitude of the change is far beyond a typical seasonal pattern. The Page-Hinkley test confirms a sustained level shift. Furthermore, the currency reform (1989-01) and the creation of IBAMA (1989-02) – both within six months of this anomaly – represent plausible policy events that could have triggered a surge in enforcement activity. The sudden increase in notices, combined with these policy changes, suggests a deliberate shift in enforcement intensity, not simply a seasonal fluctuation.",
+    "seed": 22,
+    "latency_s": 27.6
+   },
+   {
+    "category": "PDC",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1989-07 is driven by a significant increase in the number of infraction notices (364 vs. median of 90). While the previous 12 months showed a consistent ratio above 1, this month’s ratio was dramatically higher (4.02). Furthermore, the Page-Hinkley test identified a sustained level shift within two months. The timing coincides with the creation of IBAMA (1989-02) and the currency reform (1989-01), suggesting a policy-driven change. The high number of notices could be a result of increased enforcement activity following the new agency’s establishment and the impact of the currency reform on fine values, although this requires further investigation into the fine values themselves. The ensemble score of 0.39 supports this assessment.",
+    "seed": 33,
+    "latency_s": 26.4
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 1989-07 (calendar month 7).\nValue: 364; median of the previous 12 months: 90 (+302%; ratio 4.02).\nSeasonality check - ratio of calendar month 7 to the median of its previous 12 months, in the previous years: 1988-07: 1.50 | 1987-07: 1.22 | 1986-07: 0.74 | 1985-07: 1.28 | 1984-07: 1.42 | 1983-07: 0.61 | 1982-07: 1.68.\nThe same calendar month deviated in the same direction (above 1) in 5 of these 7 years.\nThe same calendar month was also flagged as anomalous in: no other year.\nDetectors that flagged it: iforest, lstm_ed (2 of 4); ensemble score 0.39 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1988-07 | 220 | 0.00635 | 1 | 0\n1988-08 | 276 | 0.0107 | 1 | 0\n1988-09 | 275 | 0.0132 | 0 | 0\n1988-10 | 327 | 0.0351 | 0 | 0\n1988-11 | 240 | 0.0232 | 0 | 0\n1988-12 | 67 | 0.00699 | 0 | 0\n1989-01 | 30 | 2 | 0 | 0\n1989-02 | 33 | 0.0689 | 0 | 0\n1989-03 | 58 | 0.259 | 0 | 0\n1989-04 | 66 | 0.0503 | 1 | 0\n1989-05 | 103 | 0.0876 | 0 | 0\n1989-06 | 78 | 0.227 | 0 | 0\n1989-07 | 364 | 0.943 | 0 | 0  <== anomaly\n1989-08 | 253 | 0.41 | 0 | 0\n1989-09 | 145 | 0.19 | 0 | 0\n1989-10 | 113 | 0.229 | 0 | 0\n1989-11 | 81 | 0.211 | 0 | 0\n1989-12 | 98 | 0.632 | 0 | 0\n1990-01 | 195 | 1 | 0 | 0\n1990-02 | 344 | 3 | 1 | 0\n1990-03 | 162 | 2 | 0 | 0\n1990-04 | 259 | 9 | 1 | 0\n1990-05 | 286 | 15 | 0 | 0\n1990-06 | 228 | 4 | 0 | 0\n1990-07 | 305 | 2 | 2 | 0\n\nKnown events within +-6 months:\n- 1989-01 (-6 months, monetary): Currency reform: Cruzado (Cz$) replaced by Cruzado Novo (NCz$) (1 new unit = 1,000 old units), Plano Verao\n- 1989-02 (-5 months, policy): IBAMA created (Law 7,735/1989), merging four federal bodies",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "17d489657e7fd728a018d1e1e58b4e6d996b3faa757a8add9c4f426fd6b958f0",
+  "judged_at": "2026-09-29T21:44:52+00:00"
+ },
+ "notices:1993-02": {
+  "series": "notices",
+  "month": "1993-02",
+  "category": "SP",
+  "consistency": 0.667,
+  "review_level": "none",
+  "ensemble_score": 0.4807,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "SP",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1993-02 is characterized by a significant drop in the number of notices (60% below the median) and a relatively low value. Crucially, this month has a history of deviation (4/10 years), and was flagged as anomalous in 1989-02 and 1996-02. The seasonal check shows a consistent downward trend in February across multiple years. The currency reform in August 1993, six months later, could have impacted fine values but doesn’t explain the dramatic reduction in notice numbers. The data doesn't show any other series flagged at the same time, and no sustained level shift was detected. Therefore, a seasonal pattern is the most plausible explanation given the historical context and the calendar month's consistent deviation.",
+    "seed": 11,
+    "latency_s": 87.5
+   },
+   {
+    "category": "PDC",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1993-02 is driven by a significant drop in the number of infraction notices (60% below the median). While seasonality is a factor (the month has historically been below average), the consistent deviation over multiple years (4 out of 10) and the previous flagging in 1989-02 and 1996-02 suggest it’s not purely seasonal. The currency reform in August 1993, six months prior, introduces a possible explanation. The reform drastically changed the monetary unit, potentially impacting the reporting and valuation of fines, leading to a decrease in the number of notices. The data quality issues are not apparent from this data.",
+    "seed": 22,
+    "latency_s": 23.4
+   },
+   {
+    "category": "SP",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 1993-02 is characterized by a significantly lower number of notices (34) compared to the median of the previous 12 months (84), a 58% drop. This deviation is amplified by the historical context, showing a similar pattern in other years (1989, 1996). The ratio of the current month to the median is 0.40, indicating a substantial underperformance. While a currency reform occurred 6 months prior, this event primarily affects monetary values, not the number of notices. The records themselves show no immediate data quality issues – no cancelled notices, no missing identifiers. Therefore, the most plausible explanation is a seasonal pattern (SP) given the consistent negative deviation in previous years and the fact that it was flagged in other years.",
+    "seed": 33,
+    "latency_s": 26.3
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 1993-02 (calendar month 2).\nValue: 34; median of the previous 12 months: 84 (-60%; ratio 0.40).\nSeasonality check - ratio of calendar month 2 to the median of its previous 12 months, in the previous years: 1992-02: 0.77 | 1991-02: 1.44 | 1990-02: 3.42 | 1989-02: 0.14 | 1988-02: 3.09 | 1987-02: 0.82 | 1986-02: 1.14 | 1985-02: 2.14 | 1984-02: 1.33 | 1983-02: 0.68.\nThe same calendar month deviated in the same direction (below 1) in 4 of these 10 years.\nThe same calendar month was also flagged as anomalous in: 1989-02, 1996-02.\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.48 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1992-02 | 86 | 9 | 0 | 0\n1992-03 | 72 | 20 | 0 | 0\n1992-04 | 133 | 320 | 3 | 0\n1992-05 | 91 | 48 | 6 | 0\n1992-06 | 82 | 24 | 3 | 0\n1992-07 | 103 | 38 | 3 | 0\n1992-08 | 87 | 2,465 | 1 | 0\n1992-09 | 88 | 504 | 1 | 0\n1992-10 | 73 | 1,063 | 0 | 0\n1992-11 | 67 | 42 | 3 | 0\n1992-12 | 65 | 493 | 0 | 0\n1993-01 | 58 | 1,137 | 0 | 0\n1993-02 | 34 | 38 | 1 | 0  <== anomaly\n1993-03 | 72 | 934 | 0 | 0\n1993-04 | 46 | 172 | 0 | 0\n1993-05 | 35 | 125 | 0 | 0\n1993-06 | 40 | 104 | 0 | 0\n1993-07 | 58 | 220 | 0 | 0\n1993-08 | 287 | 17,367 | 4 | 0\n1993-09 | 202 | 5,262 | 2 | 0\n1993-10 | 189 | 7,737 | 0 | 0\n1993-11 | 155 | 62,225 | 1 | 0\n1993-12 | 126 | 18,038 | 2 | 0\n1994-01 | 125 | 6,989 | 0 | 0\n1994-02 | 125 | 7,328 | 3 | 0\n\nKnown events within +-6 months:\n- 1993-08 (+6 months, monetary): Currency reform: Cruzeiro (Cr$) replaced by Cruzeiro Real (CR$) (1 new unit = 1,000 old units)",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "07294ecf13e2e1cefb2fa4c432514749835dd8f9e89b7b59aeeeace569769697",
+  "judged_at": "2026-09-29T21:38:12+00:00"
+ },
+ "notices:1993-08": {
+  "series": "notices",
+  "month": "1993-08",
+  "category": "PDC",
+  "consistency": 0.667,
+  "review_level": "none",
+  "ensemble_score": 0.6835,
+  "votes": 4,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "PDC",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1993-08 is driven by a massive increase in the number of infraction notices (287 vs. median of 62) and a significant spike in the total fine value (17,367 BRL vs. median of 1,063 BRL). The seasonality check reveals that August consistently shows a high ratio compared to the median of its previous 12 months, occurring in 7 of the 10 years examined. Furthermore, a sustained level shift was detected within 2 months. The concurrent spike in fine_total_brl, coupled with the currency reform implemented in August 1993, strongly suggests a policy-driven change. The currency reform would have dramatically increased the monetary value of fines, explaining the dramatic shift in the data.",
+    "seed": 11,
+    "latency_s": 92.4
+   },
+   {
+    "category": "PDC",
+    "confidence": 0.95,
+    "reasoning": "The anomaly in 1993-08 is highly suggestive of a policy-driven change (PDC). The notice count increased dramatically (4.67x the median) – a ratio of 4.67 is unusual. The currency reform, implemented in August 1993, directly impacts the value of fines, as the monetary values in the `fine_total_brl` series show a massive increase. The Page-Hinkley test confirms a sustained level shift, further supporting this. While there's a seasonal component (7 of 10 years above median), the magnitude of the change is far greater than typical seasonal variation. The data quality issues (cancelled notices) are not sufficient to account for the overall dramatic shift. The currency reform is the most plausible explanation for the sharp increase in fines.",
+    "seed": 22,
+    "latency_s": 25.2
+   },
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly is most likely a Genuine Enforcement Shift (GES). The number of notices in August 1993 (287) is dramatically higher than the median of the previous 12 months (62, a 4.67x increase). This extreme deviation is not explained by seasonality, as the ratio for August in the preceding years was generally lower and more variable. Moreover, the same calendar month was not flagged as anomalous in any other year. The Page-Hinkley test confirmed a sustained level shift within 2 months, and the fine_total_brl series also shows a significant increase, supporting a genuine change in enforcement intensity. The currency reform occurring in August 1993, which would have increased the monetary value of fines, is a plausible driver for the spike in notices. The cancellation of 4 notices also suggests a potential issue with the data collection process around this time.",
+    "seed": 33,
+    "latency_s": 27.4
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 1993-08 (calendar month 8).\nValue: 287; median of the previous 12 months: 62 (+367%; ratio 4.67).\nSeasonality check - ratio of calendar month 8 to the median of its previous 12 months, in the previous years: 1992-08: 0.94 | 1991-08: 0.43 | 1990-08: 1.25 | 1989-08: 2.80 | 1988-08: 1.64 | 1987-08: 1.14 | 1986-08: 1.06 | 1985-08: 1.40 | 1984-08: 1.62 | 1983-08: 0.93.\nThe same calendar month deviated in the same direction (above 1) in 7 of these 10 years.\nThe same calendar month was also flagged as anomalous in: no other year.\nDetectors that flagged it: zscore, mad, iforest, lstm_ed (4 of 4); ensemble score 0.68 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: fine_total_brl.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1992-08 | 87 | 2,465 | 1 | 0\n1992-09 | 88 | 504 | 1 | 0\n1992-10 | 73 | 1,063 | 0 | 0\n1992-11 | 67 | 42 | 3 | 0\n1992-12 | 65 | 493 | 0 | 0\n1993-01 | 58 | 1,137 | 0 | 0\n1993-02 | 34 | 38 | 1 | 0\n1993-03 | 72 | 934 | 0 | 0\n1993-04 | 46 | 172 | 0 | 0\n1993-05 | 35 | 125 | 0 | 0\n1993-06 | 40 | 104 | 0 | 0\n1993-07 | 58 | 220 | 0 | 0\n1993-08 | 287 | 17,367 | 4 | 0  <== anomaly\n1993-09 | 202 | 5,262 | 2 | 0\n1993-10 | 189 | 7,737 | 0 | 0\n1993-11 | 155 | 62,225 | 1 | 0\n1993-12 | 126 | 18,038 | 2 | 0\n1994-01 | 125 | 6,989 | 0 | 0\n1994-02 | 125 | 7,328 | 3 | 0\n1994-03 | 157 | 101,236 | 0 | 0\n1994-04 | 103 | 15,150 | 2 | 0\n1994-05 | 148 | 24,010 | 1 | 0\n1994-06 | 169 | 13,090 | 3 | 0\n1994-07 | 148 | 840,394 | 1 | 0\n1994-08 | 207 | 1.1M | 4 | 0\n\nKnown events within +-6 months:\n- 1993-08 (+0 months, monetary): Currency reform: Cruzeiro (Cr$) replaced by Cruzeiro Real (CR$) (1 new unit = 1,000 old units)",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "795077c232e68f2d2e974d79ad8679c0e3c890308be72825b7a68055a78d1518",
+  "judged_at": "2026-09-29T21:33:36+00:00"
+ },
  "notices:1996-01": {
   "series": "notices",
   "month": "1996-01",
@@ -845,7 +1624,8 @@
     "data_fingerprint": null,
     "judged_at": "2026-09-29T18:42:30+00:00"
    }
-  ]
+  ],
+  "issue_notified_judged_at": "2026-09-29T19:24:44+00:00"
  },
  "notices:2010-01": {
   "series": "notices",

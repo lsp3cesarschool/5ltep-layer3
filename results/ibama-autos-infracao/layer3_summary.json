@@ -1,6 +1,6 @@
 {
  "toolkit": "5ltep-layer3 v0.1.0",
- "generated_at": "2026-09-29T19:48:51+00:00",
+ "generated_at": "2026-09-29T22:14:41+00:00",
  "profile": {
   "id": "ibama-autos-infracao",
   "title": "IBAMA infraction notices (Autos de Infração), Brazil",
@@ -98,8 +98,8 @@
    "notices": 26,
    "fine_total_brl": 18
   },
-  "judged": 25,
-  "pending_judgment": 19,
+  "judged": 44,
+  "pending_judgment": 0,
   "drift_points": {
    "notices": 14,
    "fine_total_brl": 12
@@ -109,17 +109,21 @@
   "model": "gemma3:4b",
   "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
   "categories": {
-   "SP": 14,
-   "GES": 10,
-   "PDC": 1
+   "SP": 20,
+   "GES": 17,
+   "PDC": 5,
+   "DQE": 2
   },
-  "mean_consistency": 0.84,
-  "unanimous_rate": 0.56
+  "mean_consistency": 0.818,
+  "unanimous_rate": 0.477
  },
  "hitl": {
-  "issues": 0,
+  "issues": 3,
   "decided": 0,
-  "open_by_level": {},
+  "open_by_level": {
+   "mandatory": 2,
+   "advisory": 1
+  },
   "human_llm_agreement": null
  },
  "layer3": {
