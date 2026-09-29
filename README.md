@@ -158,6 +158,14 @@ months keep arriving. It is judged again only when:
 In both cases the previous judgment is kept in the entry's `history`, never overwritten, and no
 issue is ever duplicated. Events added to the calendar do not trigger new judgments on their own.
 
+**Which model.** The model is chosen by measurement, not by feel: the
+[model benchmark](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest) runs every month on the
+free runner, discovers new small models, tests them on the production prompt against a gold set whose
+answers are known by construction, and publishes a recommendation. The *Model check* workflow of this
+repository reads it and opens an issue only when another model is clearly better (paired bootstrap);
+switching is a steward decision (repository variables `LLM_MODEL` and, for models with a thinking
+mode, `LLM_THINK`).
+
 The LLM is a decision-support tool, not ground truth: every prompt and every reasoning is stored,
 and the steward's decision replaces the LLM label wherever there is one.
 
@@ -400,6 +408,7 @@ Then open `docs/index.html` through a local server (`python -m http.server -d do
 |---|---|---|
 | [`layer3.yml`](.github/workflows/layer3.yml) | 5th of every month, 06:00 UTC, and **manual** (*Run workflow*, with profile, batch size, "continue" and "detectors only" inputs) | detect → judge a batch → open issues → report → commit → next batch, until nothing is pending |
 | [`reviews.yml`](.github/workflows/reviews.yml) | whenever a `layer3` issue is labelled, closed or reopened | sync steward decisions, refresh the L3 score and dashboard |
+| [`model-check.yml`](.github/workflows/model-check.yml) | 22nd of every month, and manual | compare `LLM_MODEL` with the model benchmark's recommendation; issue if a switch is recommended |
 | [`events.yml`](.github/workflows/events.yml) | **manual** (dashboard button *Suggest events*), with profile, online/offline and years inputs | LLM suggestions for the event calendar → pull request for review |
 | [`tests.yml`](.github/workflows/tests.yml) | push / pull request | test suite on Python 3.10–3.12 |
 
