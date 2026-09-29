@@ -1,6 +1,6 @@
 {
  "toolkit": "5ltep-layer3 v0.1.0",
- "generated_at": "2026-09-29T23:12:34+00:00",
+ "generated_at": "2026-09-29T23:14:57+00:00",
  "profile": {
   "id": "ibama-autos-infracao",
   "title": "IBAMA infraction notices (Autos de Infração), Brazil",
@@ -118,10 +118,10 @@
   "unanimous_rate": 0.477
  },
  "hitl": {
-  "issues": 26,
+  "issues": 28,
   "decided": 0,
   "open_by_level": {
-   "level-shift": 23,
+   "level-shift": 25,
    "mandatory": 2,
    "advisory": 1
   },

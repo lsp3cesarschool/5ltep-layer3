@@ -140,6 +140,32 @@
   "closed_at": null,
   "updated_at": "2026-09-29T23:10:57Z"
  },
+ "notices:1981-03": {
+  "profile": "ibama-autos-infracao",
+  "anomaly_id": "notices:1981-03",
+  "issue": 48,
+  "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/48",
+  "state": "open",
+  "status": "pending",
+  "steward_category": null,
+  "review_level": "level-shift",
+  "via_level_shift": "notices:1980-12",
+  "closed_at": null,
+  "updated_at": "2026-09-29T23:14:55Z"
+ },
+ "notices:1983-01": {
+  "profile": "ibama-autos-infracao",
+  "anomaly_id": "notices:1983-01",
+  "issue": 47,
+  "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/47",
+  "state": "open",
+  "status": "pending",
+  "steward_category": null,
+  "review_level": "level-shift",
+  "via_level_shift": "notices:1983-01",
+  "closed_at": null,
+  "updated_at": "2026-09-29T23:14:53Z"
+ },
  "notices:1987-12": {
   "profile": "ibama-autos-infracao",
   "anomaly_id": "notices:1987-12",
