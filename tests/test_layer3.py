@@ -60,13 +60,15 @@ def synthetic_rows(months: int = 60, per_month: int = 10, start: str = "2020-01"
 # --- profiles ----------------------------------------------------------------
 
 def test_shipped_profiles_are_valid():
+    """Whatever profiles an instance ships (IBAMA here, others in forks) must load."""
     ps = profiles.available()
-    assert {"ibama-autos-infracao", "ibama-autos-infracao-amazonia-legal"} <= {p.id for p in ps}
+    assert ps
+    assert profiles.default_id() in {p.id for p in ps}
     for p in ps:
-        assert p.events(), p.id
+        assert p.paths.series.name == "monthly_series.csv"
         for ev in p.events():
             pd.Period(ev["month"], freq="M")
-            assert ev["source"]
+            assert ev["source"] and ev["status"] in ("verified", "suggested")
 
 
 @pytest.mark.parametrize("breakage", [
