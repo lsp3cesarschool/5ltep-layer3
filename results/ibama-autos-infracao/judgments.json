@@ -1,0 +1,682 @@
+{
+ "fine_total_brl:2005-10": {
+  "series": "fine_total_brl",
+  "month": "2005-10",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.4327,
+  "votes": 2,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 2005-10 is highly unusual, with a fine total 514% above the 12-month median. The Page-Hinkley test confirms a sustained level shift within 2 months, suggesting a genuine change in the series. There are no other series flagged in the same month. The sudden spike in fines, combined with the level shift detection, points strongly to a data quality issue (DQE) rather than seasonal or policy-driven changes. The lack of other flagged series further supports this conclusion.",
+    "seed": 11,
+    "latency_s": 72.1
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 2005-10 is characterized by a massive increase in fines (514% above the median) and a significant increase in the number of notices issued. The Page-Hinkley test confirms a sustained level shift. While there are no other series flagged in the same month, the magnitude of the increase combined with the level shift strongly suggests a data quality issue (DQE). The large increase in notices and fines is not consistent with a seasonal pattern or a policy change, and the data quality event explanation best fits the observed characteristics. The zscore and MAD detectors also support this conclusion.",
+    "seed": 22,
+    "latency_s": 15.6
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2005-10 is characterized by a massive increase in fine totals (514% above the median) and a sustained level shift detected by the Page-Hinkley test. While there are no other series flagged in the same month, the sudden jump in fines is highly unusual given the typical seasonal patterns and median values observed in previous years. The data quality event category seems most plausible, potentially indicating a change in enforcement practices or a system error leading to an unusually large number of notices issued and/or a misreporting of fines. The zscore and mad detectors also support this conclusion.",
+    "seed": 33,
+    "latency_s": 15.7
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled); nominal values in the currency of the time: no inflation adjustment, and Brazil changed currency five times before the Real (July 1994).\nAnomalous month: 2005-10 (calendar month 10).\nValue: 686.1M; median of the previous 12 months: 111.7M (+514%).\nTypical ratio of calendar month 10 to its trailing 12-month median, over all years: 1.3 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.43 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2004-10 | 1,382 | 33.9M | 46 | 0\n2004-11 | 2,478 | 74.6M | 91 | 0\n2004-12 | 2,386 | 133.1M | 87 | 0\n2005-01 | 1,708 | 71.9M | 46 | 0\n2005-02 | 1,958 | 41.2M | 55 | 0\n2005-03 | 2,615 | 81.5M | 88 | 0\n2005-04 | 2,618 | 116.1M | 99 | 0\n2005-05 | 2,661 | 107.4M | 108 | 0\n2005-06 | 2,634 | 160.5M | 94 | 0\n2005-07 | 2,887 | 217.8M | 71 | 0\n2005-08 | 3,156 | 185.6M | 132 | 0\n2005-09 | 3,064 | 152.0M | 138 | 0\n2005-10 | 3,045 | 686.1M | 93 | 0  <== anomaly\n2005-11 | 3,409 | 159.4M | 67 | 0\n2005-12 | 2,279 | 113.2M | 79 | 0\n2006-01 | 1,432 | 29.7M | 51 | 0\n2006-02 | 2,125 | 93.4M | 108 | 0\n2006-03 | 2,027 | 81.5M | 95 | 0\n2006-04 | 1,563 | 130.7M | 74 | 0\n2006-05 | 942 | 68.4M | 29 | 0\n2006-06 | 1,574 | 155.6M | 75 | 0\n2006-07 | 1,992 | 91.8M | 120 | 0\n2006-08 | 3,005 | 132.6M | 130 | 0\n2006-09 | 2,635 | 261.6M | 116 | 0\n2006-10 | 2,779 | 124.5M | 131 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:47:54+00:00"
+ },
+ "fine_total_brl:2008-06": {
+  "series": "fine_total_brl",
+  "month": "2008-06",
+  "category": "DQE",
+  "consistency": 0.333,
+  "review_level": "mandatory",
+  "ensemble_score": 0.5219,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "PDC",
+    "confidence": 0.8,
+    "reasoning": "The anomaly in 2008-06 is characterized by a massive increase in fine total (352% above the median) with no other series exhibiting similar spikes. The context shows a significant jump in fine total only in June 2008. The detection methods (zscore, MAD) confirm an anomaly. The timing of the anomaly coincides with the introduction of a new decree on administrative environmental infractions in July 2008, which might have triggered a change in enforcement practices and consequently, increased fines. While a data quality event (DQE) is possible, the policy shift seems more plausible given the timing and the new decree.",
+    "seed": 11,
+    "latency_s": 77.0
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 2008-06 is highly suggestive of a data quality event (DQE). The fine total increased by 352% compared to the median of the previous 12 months, which is an extremely large and unexpected jump. There are no other series flagged in the same month, and no sustained level shift detected by the Page-Hinkley test. The timing aligns with the introduction of a new decree on environmental infractions in July 2008 (GES), but this is not a strong enough signal given the magnitude of the change. The high number of cancelled notices in 2008-06 (112) and the presence of ‘no_id’ records (0) suggest a possible system issue or data correction process that significantly impacted the fine total in that month.",
+    "seed": 22,
+    "latency_s": 20.7
+   },
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2008-06 is driven by a massive increase in fines (352% above the 12-month median). While a seasonal pattern is suggested by a typical ratio of 1.11, the extreme value in June 2008 is significantly higher than any other month. The newly implemented decree in July 2008 provides a potential policy driver. The sudden jump in fines coincides with this policy change, suggesting a potential enforcement shift, rather than a purely seasonal effect. The large number of cancelled notices in the same month (112) could be related to the new decree, requiring re-evaluation of prior notices. The other series flagged were not in the same month, further suggesting a specific event or data issue.",
+    "seed": 33,
+    "latency_s": 20.0
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled); nominal values in the currency of the time: no inflation adjustment, and Brazil changed currency five times before the Real (July 1994).\nAnomalous month: 2008-06 (calendar month 6).\nValue: 891.5M; median of the previous 12 months: 197.1M (+352%).\nTypical ratio of calendar month 6 to its trailing 12-month median, over all years: 1.11 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.52 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2007-06 | 1,742 | 184.1M | 72 | 0\n2007-07 | 1,905 | 108.5M | 69 | 0\n2007-08 | 2,839 | 203.0M | 135 | 0\n2007-09 | 2,574 | 145.4M | 93 | 0\n2007-10 | 3,513 | 235.1M | 127 | 0\n2007-11 | 3,060 | 263.8M | 94 | 0\n2007-12 | 2,166 | 193.3M | 95 | 0\n2008-01 | 1,807 | 109.5M | 51 | 0\n2008-02 | 2,069 | 167.4M | 68 | 0\n2008-03 | 2,419 | 277.0M | 74 | 0\n2008-04 | 2,804 | 200.9M | 86 | 0\n2008-05 | 2,514 | 257.2M | 74 | 0\n2008-06 | 2,668 | 891.5M | 112 | 0  <== anomaly\n2008-07 | 2,621 | 372.6M | 79 | 0\n2008-08 | 2,652 | 312.4M | 79 | 0\n2008-09 | 2,887 | 371.2M | 109 | 0\n2008-10 | 3,167 | 321.8M | 122 | 0\n2008-11 | 2,703 | 312.5M | 119 | 0\n2008-12 | 1,952 | 316.1M | 80 | 0\n2009-01 | 957 | 64.5M | 53 | 0\n2009-02 | 1,334 | 206.0M | 53 | 0\n2009-03 | 2,287 | 178.0M | 96 | 0\n2009-04 | 1,894 | 249.0M | 69 | 0\n2009-05 | 2,031 | 686.9M | 56 | 0\n2009-06 | 2,297 | 254.9M | 74 | 0\n\nKnown events within +-6 months:\n- 2008-07 (+1 months, policy): New decree on administrative environmental infractions and sanctions (replaces Decree 3,179/1999)",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:44:28+00:00"
+ },
+ "fine_total_brl:2011-11": {
+  "series": "fine_total_brl",
+  "month": "2011-11",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.4206,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in November 2011 is highly suspicious due to the dramatically increased fine total (755.4M vs. median of 227.1M, a 233% increase). While the seasonal pattern is not strongly seasonal (ratio of 1.18), the magnitude of the increase is far beyond typical seasonal fluctuations. The increase in notices (1796 vs 2028 in 2010-11) is also noteworthy. Considering the Page-Hinkley test found no sustained level shift, a data quality event seems most likely. The 2012-05 policy change (New Forest Code) is a potential trigger, but its timing is too far out to be a direct cause. The spike could be due to a backlog, a correction in reporting, or a system change that caused a surge in identified infractions. The lack of other flagged months further supports a localized data issue.",
+    "seed": 11,
+    "latency_s": 82.8
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in November 2011 is highly suspect due to a massive increase in fine totals (233% above the median). There's no other series flagged in the same month, and the data shows no signs of seasonality (typical ratio of 1.18). The zscore and MAD detectors also picked this up. While the Page-Hinkley test found no sustained level shift, the sheer magnitude of the increase suggests a data quality issue rather than a genuine enforcement change. The timing of the new Forest Code (2012-05) is too far out to be a contributing factor. Given the large increase and lack of related events, a DQE (Data-Quality Event) explanation is the most plausible. It’s possible there was a backlog of notices processed and reported during this month, or a data correction made that wasn't reflected in the earlier months' statistics.",
+    "seed": 22,
+    "latency_s": 21.8
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in November 2011 is highly suggestive of a data quality issue. The fine total is dramatically higher (+233%) than the median of the previous 12 months, a level unseen in prior years.  There's no evidence of seasonality (typical 11th month ratio is 1.18). No other series are flagged in the same month, and the Page-Hinkley test found no sustained level shift. The sudden spike in November 2011, coupled with the lack of other anomalies, points to a DQE event – likely a backlog or correction in data collection or reporting. The 2012-05 policy event might be a distant, unrelated factor. The high number of cancelled notices (44) in November 2011 could also be related to the issue.",
+    "seed": 33,
+    "latency_s": 20.4
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled); nominal values in the currency of the time: no inflation adjustment, and Brazil changed currency five times before the Real (July 1994).\nAnomalous month: 2011-11 (calendar month 11).\nValue: 755.4M; median of the previous 12 months: 227.1M (+233%).\nTypical ratio of calendar month 11 to its trailing 12-month median, over all years: 1.18 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.42 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2010-11 | 2,028 | 271.2M | 39 | 0\n2010-12 | 1,488 | 115.9M | 62 | 0\n2011-01 | 1,031 | 202.5M | 35 | 0\n2011-02 | 1,783 | 286.8M | 30 | 0\n2011-03 | 2,023 | 264.8M | 55 | 0\n2011-04 | 1,907 | 181.5M | 61 | 0\n2011-05 | 1,707 | 210.5M | 48 | 0\n2011-06 | 1,715 | 386.9M | 27 | 0\n2011-07 | 1,668 | 451.9M | 34 | 0\n2011-08 | 1,498 | 182.8M | 35 | 0\n2011-09 | 1,884 | 176.4M | 28 | 0\n2011-10 | 1,755 | 243.7M | 36 | 0\n2011-11 | 1,796 | 755.4M | 44 | 0  <== anomaly\n2011-12 | 1,285 | 153.0M | 31 | 0\n2012-01 | 851 | 66.1M | 27 | 0\n2012-02 | 1,160 | 151.4M | 25 | 0\n2012-03 | 1,997 | 215.5M | 54 | 0\n2012-04 | 1,735 | 149.5M | 47 | 0\n2012-05 | 2,064 | 346.4M | 30 | 0\n2012-06 | 1,767 | 133.7M | 57 | 0\n2012-07 | 1,464 | 161.2M | 50 | 0\n2012-08 | 1,859 | 225.6M | 37 | 0\n2012-09 | 1,368 | 424.0M | 25 | 0\n2012-10 | 1,655 | 675.0M | 22 | 0\n2012-11 | 1,496 | 377.7M | 27 | 0\n\nKnown events within +-6 months:\n- 2012-05 (+6 months, policy): New Forest Code",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:38:58+00:00"
+ },
+ "fine_total_brl:2014-01": {
+  "series": "fine_total_brl",
+  "month": "2014-01",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.6321,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2014-01 is characterized by a significantly lower fine total (39.7M) compared to the median of the previous 12 months (258.3M), representing an 85% reduction. This is unusual considering the typical ratio of calendar month 1 to its trailing 12-month median is 0.44. The number of notices is also unusually low. There are no policy changes or external events that could explain this drop. The data quality explanation (DQE) is the most plausible given the sudden and substantial change in fine values with no apparent external cause.",
+    "seed": 11,
+    "latency_s": 73.3
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The fine total for January 2014 is significantly lower than the median of the previous 12 months (-85%). The typical ratio for January is 0.44, indicating a minor seasonal effect. The volume of notices in January 2014 is also substantially lower than the median. There are no known policy changes or data quality events within the relevant timeframe. The anomaly is most likely a data quality event (DQE) - specifically, a backlog or a reporting issue leading to a reduced fine total. The 2-month sustained level shift detected by the Page-Hinkley test also supports this interpretation.",
+    "seed": 22,
+    "latency_s": 15.5
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The fine total for January 2014 is significantly lower than the median of the previous 12 months (-85%). The typical ratio for January is 0.44, indicating a small seasonal component. There’s no sustained level shift detected by the Page-Hinkley test. The anomaly is accompanied by a high volume of notices in the same month. The data quality event (DQE) category is most likely, given the sudden drop in fine value with no clear policy or seasonal driver and the presence of other anomalies. The high volume of notices suggests a potential reporting issue or system change.",
+    "seed": 33,
+    "latency_s": 15.0
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled); nominal values in the currency of the time: no inflation adjustment, and Brazil changed currency five times before the Real (July 1994).\nAnomalous month: 2014-01 (calendar month 1).\nValue: 39.7M; median of the previous 12 months: 258.3M (-85%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.44 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.63 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: notices.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2013-01 | 695 | 116.9M | 10 | 0\n2013-02 | 711 | 157.8M | 21 | 0\n2013-03 | 1,152 | 280.5M | 15 | 0\n2013-04 | 1,485 | 340.3M | 20 | 0\n2013-05 | 1,737 | 260.6M | 27 | 0\n2013-06 | 1,676 | 256.1M | 29 | 0\n2013-07 | 1,257 | 320.3M | 10 | 0\n2013-08 | 1,319 | 224.7M | 28 | 0\n2013-09 | 1,270 | 299.2M | 19 | 0\n2013-10 | 1,449 | 248.5M | 13 | 0\n2013-11 | 1,515 | 279.9M | 27 | 0\n2013-12 | 1,652 | 135.0M | 47 | 0\n2014-01 | 471 | 39.7M | 7 | 0  <== anomaly\n2014-02 | 1,143 | 155.8M | 59 | 0\n2014-03 | 1,208 | 181.0M | 61 | 0\n2014-04 | 1,194 | 286.7M | 39 | 0\n2014-05 | 1,019 | 196.4M | 16 | 0\n2014-06 | 1,277 | 269.1M | 47 | 0\n2014-07 | 1,060 | 329.1M | 32 | 0\n2014-08 | 1,382 | 257.0M | 36 | 0\n2014-09 | 1,634 | 292.9M | 73 | 0\n2014-10 | 1,684 | 224.4M | 59 | 0\n2014-11 | 1,592 | 326.8M | 52 | 0\n2014-12 | 1,110 | 275.0M | 37 | 0\n2015-01 | 678 | 48.8M | 29 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:35:06+00:00"
+ },
+ "fine_total_brl:2020-01": {
+  "series": "fine_total_brl",
+  "month": "2020-01",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.5087,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in January 2020 is marked by a significant drop in fine total compared to the median of the previous 12 months (-75%). This is unusual given the typical seasonality of these fines, which usually peak around calendar month 1. While the COVID-19 pandemic (occurring in March 2020) could have influenced enforcement, the data shows a shift *before* that event. The zscore and MAD detectors flagged the anomaly, indicating an unusual deviation. The data quality event (DQE) category is the most appropriate explanation, suggesting a potential issue with reporting or data collection, possibly related to the pandemic-induced operational changes or backlog. The sudden drop in value is not consistent with a seasonal pattern or a policy change.",
+    "seed": 11,
+    "latency_s": 76.7
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2020-01 is characterized by a dramatic drop in fine total compared to the 12-month median (-75%). The typical ratio for January is 0.44, but in 2020-01 it’s 0.13. This is a significant deviation and there are no other series flagged in the same month. The timing coincides with the start of the COVID-19 pandemic (2020-03), which likely caused a shift in enforcement priorities and reduced the number of inspections and therefore infractions. Given the lack of other flagged series and the external event, the most plausible explanation is DQE (Data-Quality Event) due to a change in enforcement driven by the pandemic.",
+    "seed": 22,
+    "latency_s": 18.0
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2020-01 is characterized by a massive drop in fine total (75% below the median) and a significantly lower number of notices compared to the previous year. While the pandemic (2020-03) could introduce some general disruption, the specific drop in fines in January is not explained by this event, which occurred two months later. The data-quality event (DQE) category is most appropriate, as the extreme deviation likely stems from a problem with the reporting or data collection process, possibly exacerbated by the pandemic-related disruptions. The low number of notices also suggests a potential issue with record generation.",
+    "seed": 33,
+    "latency_s": 15.5
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled); nominal values in the currency of the time: no inflation adjustment, and Brazil changed currency five times before the Real (July 1994).\nAnomalous month: 2020-01 (calendar month 1).\nValue: 59.7M; median of the previous 12 months: 241.4M (-75%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.44 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.51 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2019-01 | 370 | 288.2M | 127 | 0\n2019-02 | 979 | 177.4M | 35 | 0\n2019-03 | 1,076 | 232.2M | 192 | 0\n2019-04 | 1,300 | 171.8M | 431 | 0\n2019-05 | 1,865 | 231.9M | 220 | 0\n2019-06 | 1,194 | 396.2M | 439 | 0\n2019-07 | 796 | 189.1M | 150 | 0\n2019-08 | 1,259 | 376.0M | 146 | 1\n2019-09 | 1,191 | 392.5M | 127 | 2\n2019-10 | 777 | 305.0M | 92 | 35\n2019-11 | 840 | 232.8M | 63 | 35\n2019-12 | 833 | 250.0M | 28 | 14\n2020-01 | 461 | 59.7M | 21 | 5  <== anomaly\n2020-02 | 862 | 168.6M | 36 | 18\n2020-03 | 847 | 173.2M | 44 | 26\n2020-04 | 726 | 103.1M | 34 | 27\n2020-05 | 742 | 78.1M | 48 | 29\n2020-06 | 819 | 328.3M | 35 | 27\n2020-07 | 705 | 180.6M | 25 | 18\n2020-08 | 706 | 134.6M | 45 | 31\n2020-09 | 815 | 274.2M | 43 | 39\n2020-10 | 751 | 321.0M | 39 | 32\n2020-11 | 842 | 210.9M | 41 | 40\n2020-12 | 786 | 156.0M | 60 | 51\n2021-01 | 288 | 21.0M | 11 | 10\n\nKnown events within +-6 months:\n- 2020-03 (+2 months, external): COVID-19 pandemic declared; public-health emergency measures in Brazil",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:28:01+00:00"
+ },
+ "fine_total_brl:2021-01": {
+  "series": "fine_total_brl",
+  "month": "2021-01",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.5355,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The fine total for January 2021 (21.0M) is significantly below the 12-month median (170.9M, -88%). This is far outside the typical seasonal variation observed (ratio of 0.44). The number of notices is also unusually low. While there’s no immediate policy change or known event, the substantial drop in fines alongside a reduction in notices suggests a potential data quality issue, specifically a backlog or correction in reporting. The Page-Hinkley test found no sustained level shift, supporting this hypothesis. The other series (notices) are also flagged in the same month, reinforcing the suspicion of a data anomaly.",
+    "seed": 11,
+    "latency_s": 73.6
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in January 2021 is characterized by a significantly lower fine total (21.0M) compared to the median of the previous 12 months (170.9M), representing an 88% decrease. The ratio of calendar month 1 to the trailing 12-month median is also much lower than the typical 0.44. While other series like notices also show some variation, the drastic reduction in fines is the most notable feature. There are no known policy changes or system migrations. The small number of cancelled notices and records without identifiers doesn't seem to explain the anomaly.",
+    "seed": 22,
+    "latency_s": 15.5
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in January 2021 is characterized by a significantly lower fine total (21.0M) compared to the median of the previous 12 months (170.9M), representing an 88% reduction. This is unusual given the typical seasonal patterns observed in calendar month 1, which usually exhibits a ratio around 0.44. The number of notices issued in January 2021 (288) is also considerably lower than the typical value. Examination of the surrounding months reveals no clear seasonal shift or sustained level shift. There are no policy changes or known events within the relevant timeframe. The data quality explanation (DQE) is most likely, as the drop in fine total appears to be a data anomaly rather than a policy change or seasonal effect.",
+    "seed": 33,
+    "latency_s": 19.3
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled); nominal values in the currency of the time: no inflation adjustment, and Brazil changed currency five times before the Real (July 1994).\nAnomalous month: 2021-01 (calendar month 1).\nValue: 21.0M; median of the previous 12 months: 170.9M (-88%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.44 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.54 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: notices.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2020-01 | 461 | 59.7M | 21 | 5\n2020-02 | 862 | 168.6M | 36 | 18\n2020-03 | 847 | 173.2M | 44 | 26\n2020-04 | 726 | 103.1M | 34 | 27\n2020-05 | 742 | 78.1M | 48 | 29\n2020-06 | 819 | 328.3M | 35 | 27\n2020-07 | 705 | 180.6M | 25 | 18\n2020-08 | 706 | 134.6M | 45 | 31\n2020-09 | 815 | 274.2M | 43 | 39\n2020-10 | 751 | 321.0M | 39 | 32\n2020-11 | 842 | 210.9M | 41 | 40\n2020-12 | 786 | 156.0M | 60 | 51\n2021-01 | 288 | 21.0M | 11 | 10  <== anomaly\n2021-02 | 520 | 45.3M | 23 | 19\n2021-03 | 810 | 136.2M | 42 | 28\n2021-04 | 602 | 189.3M | 37 | 31\n2021-05 | 715 | 147.5M | 55 | 39\n2021-06 | 743 | 256.1M | 43 | 26\n2021-07 | 642 | 229.7M | 44 | 38\n2021-08 | 847 | 314.0M | 47 | 39\n2021-09 | 1,033 | 232.0M | 47 | 26\n2021-10 | 767 | 258.6M | 30 | 28\n2021-11 | 1,146 | 595.4M | 70 | 54\n2021-12 | 1,050 | 221.1M | 50 | 35\n2022-01 | 389 | 71.0M | 11 | 9\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:26:11+00:00"
+ },
+ "fine_total_brl:2024-01": {
+  "series": "fine_total_brl",
+  "month": "2024-01",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.6053,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in January 2024 is characterized by a significantly lower fine total (43.4M) compared to the median of the previous 12 months (385.8M, -89%). The typical ratio for January is 0.44, but in 2024 it's only 0.09. Looking at the surrounding months, there's a general increase in fine totals. The sudden drop in January 2024, coupled with a reduction in the number of notices, and the increase in records without an identifier (no_id) suggests a data quality issue. Specifically, the reduction in notices and identifiers might indicate a system issue or a correction in the data, rather than a genuine change in enforcement.",
+    "seed": 11,
+    "latency_s": 78.7
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in January 2024 is characterized by a significantly lower fine total (43.4M) compared to the median of the previous 12 months (385.8M), representing an 89% reduction. The typical ratio for January is 0.44, and the current value is much lower. Examining the surrounding months, we see a general increase in activity following January 2024. The number of notices also decreased in January. The small number of cancelled notices (21) and records without an identifier (17) suggests a possible data quality issue, perhaps a temporary disruption in reporting or a backlog in processing. The other series, notices, shows a similar dip. The low fine total with a large decrease in notices points to a data quality event rather than a policy change or seasonal shift.",
+    "seed": 22,
+    "latency_s": 21.2
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in January 2024 is characterized by a significantly lower fine total (43.4M) compared to the median of the previous 12 months (385.8M, -89%). This represents a large deviation from the typical seasonal pattern (ratio of 0.44). Furthermore, the volume of notices in January 2024 (454) is substantially lower than the average. While the Page-Hinkley test didn't detect a sustained level shift, the combination of a low fine total and volume, coupled with the zscore and MAD detections, points strongly to a data quality issue. Specifically, the small number of cancelled notices and records without identifiers in January 2024 suggests a possible backlog or correction process that may have affected the data collection and reporting for that month. Therefore, the most plausible explanation is DQE: Data-Quality Event.",
+    "seed": 33,
+    "latency_s": 22.5
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled); nominal values in the currency of the time: no inflation adjustment, and Brazil changed currency five times before the Real (July 1994).\nAnomalous month: 2024-01 (calendar month 1).\nValue: 43.4M; median of the previous 12 months: 385.8M (-89%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.44 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.61 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: notices.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2023-01 | 1,036 | 136.5M | 64 | 58\n2023-02 | 1,120 | 227.1M | 31 | 30\n2023-03 | 1,464 | 305.3M | 79 | 66\n2023-04 | 1,549 | 751.8M | 71 | 72\n2023-05 | 1,930 | 530.2M | 92 | 79\n2023-06 | 1,445 | 723.4M | 58 | 70\n2023-07 | 1,327 | 451.5M | 58 | 71\n2023-08 | 1,301 | 483.3M | 72 | 61\n2023-09 | 1,114 | 328.6M | 56 | 59\n2023-10 | 1,409 | 384.5M | 77 | 62\n2023-11 | 1,673 | 387.1M | 88 | 99\n2023-12 | 1,018 | 262.7M | 60 | 56\n2024-01 | 454 | 43.4M | 21 | 17  <== anomaly\n2024-02 | 432 | 198.4M | 9 | 10\n2024-03 | 608 | 176.3M | 38 | 57\n2024-04 | 630 | 197.0M | 60 | 65\n2024-05 | 1,056 | 361.8M | 95 | 107\n2024-06 | 892 | 308.1M | 33 | 47\n2024-07 | 685 | 183.2M | 25 | 37\n2024-08 | 964 | 404.3M | 60 | 78\n2024-09 | 1,627 | 826.3M | 91 | 108\n2024-10 | 1,633 | 734.2M | 92 | 100\n2024-11 | 1,432 | 827.0M | 62 | 74\n2024-12 | 1,255 | 395.2M | 54 | 64\n2025-01 | 659 | 122.2M | 33 | 40\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:22:41+00:00"
+ },
+ "notices:2003-01": {
+  "series": "notices",
+  "month": "2003-01",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.51,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2003-01 is characterized by a massive drop in notices (61% below the median). While a political change occurred in January 2003, this change is unlikely to explain the large drop, as there are no other series flagged in the same month. The sudden drop in notices, coupled with the data-quality indicators (zscore, MAD, ensemble score) suggests a data quality issue. The Page-Hinkley test didn't find a sustained level shift, further strengthening the data quality explanation. The close timing with a political change adds a layer of complexity but doesn't directly explain the magnitude of the anomaly.",
+    "seed": 11,
+    "latency_s": 72.9
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2003-01 is characterized by a dramatically reduced number of notices compared to the 12-month median (-61%). The ratio to the median is also unusually low (0.64). While a change of administration occurred in January 2003, the Page-Hinkley test indicated no sustained level shift. The data suggests a data quality issue, likely a backlog or reporting failure, given the abrupt drop and lack of other coinciding events. The small number of cancelled notices and records without identifiers also supports this hypothesis.",
+    "seed": 22,
+    "latency_s": 14.4
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2003-01 is characterized by a massive drop in notices (61% below the 12-month median). The typical ratio for January is 0.64, indicating a low seasonal effect. The detection by zscore and MAD supports the anomaly. While a political change occurred in January 2003, the timing aligns with the drop in notices and there's no sustained level shift. The data-quality event (DQE) category appears most likely due to the sudden, unexplained drop in volume coupled with the lack of other influencing factors.",
+    "seed": 33,
+    "latency_s": 15.0
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2003-01 (calendar month 1).\nValue: 1,223; median of the previous 12 months: 3,168 (-61%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.64 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.51 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2002-01 | 2,220 | 98.9M | 54 | 0\n2002-02 | 2,141 | 34.3M | 63 | 0\n2002-03 | 2,819 | 51.6M | 64 | 0\n2002-04 | 2,930 | 21.8M | 79 | 0\n2002-05 | 3,206 | 40.5M | 73 | 0\n2002-06 | 3,131 | 32.0M | 90 | 0\n2002-07 | 3,585 | 39.4M | 92 | 0\n2002-08 | 3,591 | 56.3M | 91 | 0\n2002-09 | 3,600 | 69.0M | 148 | 0\n2002-10 | 4,183 | 82.0M | 120 | 0\n2002-11 | 3,404 | 32.6M | 103 | 0\n2002-12 | 1,799 | 61.1M | 60 | 0\n2003-01 | 1,223 | 18.0M | 41 | 0  <== anomaly\n2003-02 | 1,266 | 16.8M | 42 | 0\n2003-03 | 1,251 | 26.6M | 68 | 0\n2003-04 | 1,452 | 25.0M | 94 | 0\n2003-05 | 1,706 | 31.1M | 65 | 0\n2003-06 | 1,793 | 52.7M | 55 | 0\n2003-07 | 1,728 | 24.3M | 57 | 0\n2003-08 | 1,891 | 48.6M | 57 | 0\n2003-09 | 2,697 | 70.5M | 93 | 0\n2003-10 | 3,114 | 91.6M | 82 | 0\n2003-11 | 1,347 | 29.8M | 95 | 0\n2003-12 | 1,785 | 47.3M | 54 | 0\n2004-01 | 1,712 | 20.5M | 44 | 0\n\nKnown events within +-6 months:\n- 2003-01 (+0 months, political): Change of federal administration",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:49:37+00:00"
+ },
+ "notices:2006-05": {
+  "series": "notices",
+  "month": "2006-05",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.5053,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2006-05 is characterized by a massive drop in notices (64% below the 12-month median). This is unusual given the typical seasonal patterns and other series don't show a similar reduction. The data quality indicators (zscore, MAD) support the anomaly. There are no evidence of policy changes or system issues. The sudden drop suggests a data quality issue, likely a backlog or correction in the reporting of notices for May 2006.",
+    "seed": 11,
+    "latency_s": 69.2
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2006-05 is characterized by a significant drop in the number of notices (64% below the 12-month median). This is unusual given the typical seasonal patterns and the fact that no other series were affected in the same month. The median value is substantially lower than the previous 12 months. The data quality indicators (zscore, MAD) support the anomaly. A Page-Hinkley test did not find a sustained level shift. Considering these factors, a data quality event (DQE) is the most plausible explanation, likely due to a reporting issue or system change impacting notice generation in May 2006.",
+    "seed": 22,
+    "latency_s": 16.8
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2006-05 is characterized by a massive drop in notices (64% below the median) compared to the previous 12 months. This is not a typical seasonal pattern, as the ratio to the median is 1.1. The data shows no other series flagged in the same month, and the Page-Hinkley test found no sustained level shift. While there are no immediate policy changes or other events, the drastic reduction suggests a potential data quality issue, specifically related to record creation or reporting, possibly a backlog or system migration. Confidence in this assessment is high due to the magnitude of the drop and the lack of other explanations.",
+    "seed": 33,
+    "latency_s": 16.8
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2006-05 (calendar month 5).\nValue: 942; median of the previous 12 months: 2,648 (-64%).\nTypical ratio of calendar month 5 to its trailing 12-month median, over all years: 1.1 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.51 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2005-05 | 2,661 | 107.4M | 108 | 0\n2005-06 | 2,634 | 160.5M | 94 | 0\n2005-07 | 2,887 | 217.8M | 71 | 0\n2005-08 | 3,156 | 185.6M | 132 | 0\n2005-09 | 3,064 | 152.0M | 138 | 0\n2005-10 | 3,045 | 686.1M | 93 | 0\n2005-11 | 3,409 | 159.4M | 67 | 0\n2005-12 | 2,279 | 113.2M | 79 | 0\n2006-01 | 1,432 | 29.7M | 51 | 0\n2006-02 | 2,125 | 93.4M | 108 | 0\n2006-03 | 2,027 | 81.5M | 95 | 0\n2006-04 | 1,563 | 130.7M | 74 | 0\n2006-05 | 942 | 68.4M | 29 | 0  <== anomaly\n2006-06 | 1,574 | 155.6M | 75 | 0\n2006-07 | 1,992 | 91.8M | 120 | 0\n2006-08 | 3,005 | 132.6M | 130 | 0\n2006-09 | 2,635 | 261.6M | 116 | 0\n2006-10 | 2,779 | 124.5M | 131 | 0\n2006-11 | 2,607 | 197.6M | 90 | 0\n2006-12 | 2,209 | 79.5M | 74 | 0\n2007-01 | 1,764 | 96.4M | 55 | 0\n2007-02 | 1,727 | 86.3M | 140 | 0\n2007-03 | 2,248 | 186.9M | 149 | 0\n2007-04 | 2,383 | 300.4M | 183 | 0\n2007-05 | 1,790 | 140.9M | 69 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:46:11+00:00"
+ },
+ "notices:2009-01": {
+  "series": "notices",
+  "month": "2009-01",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.6791,
+  "votes": 2,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2009-01 is driven by a significant drop in notice volume (-64% compared to the 12-month median). The Page-Hinkley test detected a sustained level shift within two months. While there were changes in legislation (2008-07), this was six months prior and doesn't directly explain the immediate drop in 2009-01. The data quality indicators (zscore, MAD, ensemble score) also support a data quality issue. The relative small change in fine total is not a driver. Therefore, DQE (Data-Quality Event) is the most likely explanation, potentially due to a backlog or correction in the data following the 2008 policy change.",
+    "seed": 11,
+    "latency_s": 76.3
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 2009-01 is characterized by a significant drop in the number of infraction notices (-64% compared to the 12-month median) and a corresponding decrease in fine revenue. The Page-Hinkley test confirmed a sustained level shift within 2 months. While the new decree in 2008-07 might influence enforcement, the magnitude of the change and the detection by multiple anomaly detectors (zscore, MAD, ensemble score) strongly suggest a data quality issue. The sudden reduction in notices, coupled with the level shift, points to a potential backlog or correction in the data, likely related to the implementation of the new decree. The data quality event (DQE) category is therefore the most appropriate.",
+    "seed": 22,
+    "latency_s": 17.6
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.9,
+    "reasoning": "The anomaly in 2009-01 is characterized by a massive drop in notices (64% below the 12-month median) and a significant reduction in fine revenue. The Page-Hinkley test detected a sustained level shift within 2 months, suggesting a fundamental change. The timing aligns with the implementation of a new decree (2008-07) which likely changed enforcement priorities and procedures. While a genuine enforcement shift (GES) is possible, the immediate drop in numbers and the detection of a level shift strongly point to a data quality issue stemming from the new policy implementation. The lack of other series flagged in the same month further supports this.",
+    "seed": 33,
+    "latency_s": 16.1
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2009-01 (calendar month 1).\nValue: 957; median of the previous 12 months: 2,636 (-64%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.64 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.68 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2008-01 | 1,807 | 109.5M | 51 | 0\n2008-02 | 2,069 | 167.4M | 68 | 0\n2008-03 | 2,419 | 277.0M | 74 | 0\n2008-04 | 2,804 | 200.9M | 86 | 0\n2008-05 | 2,514 | 257.2M | 74 | 0\n2008-06 | 2,668 | 891.5M | 112 | 0\n2008-07 | 2,621 | 372.6M | 79 | 0\n2008-08 | 2,652 | 312.4M | 79 | 0\n2008-09 | 2,887 | 371.2M | 109 | 0\n2008-10 | 3,167 | 321.8M | 122 | 0\n2008-11 | 2,703 | 312.5M | 119 | 0\n2008-12 | 1,952 | 316.1M | 80 | 0\n2009-01 | 957 | 64.5M | 53 | 0  <== anomaly\n2009-02 | 1,334 | 206.0M | 53 | 0\n2009-03 | 2,287 | 178.0M | 96 | 0\n2009-04 | 1,894 | 249.0M | 69 | 0\n2009-05 | 2,031 | 686.9M | 56 | 0\n2009-06 | 2,297 | 254.9M | 74 | 0\n2009-07 | 1,901 | 430.4M | 72 | 0\n2009-08 | 2,193 | 302.5M | 82 | 0\n2009-09 | 2,210 | 332.1M | 71 | 0\n2009-10 | 1,958 | 188.3M | 85 | 0\n2009-11 | 1,871 | 200.2M | 57 | 0\n2009-12 | 1,546 | 318.6M | 38 | 0\n2010-01 | 786 | 54.0M | 38 | 0\n\nKnown events within +-6 months:\n- 2008-07 (-6 months, policy): New decree on administrative environmental infractions and sanctions (replaces Decree 3,179/1999)",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:42:30+00:00"
+ },
+ "notices:2010-01": {
+  "series": "notices",
+  "month": "2010-01",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.5088,
+  "votes": 2,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2010-01 is characterized by a significantly lower number of notices (786) compared to the median of the previous 12 months (1930), representing a -59% reduction. The Page-Hinkley test identified a sustained level shift within 2 months, suggesting a change in the underlying process. Furthermore, the zscore and MAD detectors confirmed the anomaly. There are no other series flagged in the same month. The data quality event (DQE) category best explains this, likely due to a backlog or reporting issue that affected the issuance of notices in January 2010.",
+    "seed": 11,
+    "latency_s": 72.0
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2010-01 is characterized by a significant drop in the number of notices (-59% compared to the 12-month median). This is further supported by a sustained level shift detected by the Page-Hinkley test. The fact that no other series were flagged in the same month and the consistent low values in subsequent months suggest a data quality issue rather than a seasonal pattern or policy change. The relatively small fine value also doesn't immediately point to a policy shift. The high number of cancellations in subsequent months also doesn't immediately suggest a policy change.",
+    "seed": 22,
+    "latency_s": 14.6
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2010-01 is characterized by a significantly lower number of notices (786) compared to the median of the previous 12 months (1930), representing a 59% reduction. The Page-Hinkley test confirms a sustained level shift within two months. While there are no other series flagged in the same month, the data quality indicators (zscore, MAD) support the anomaly. The reduction in notices is not driven by a clear seasonal pattern and there are no known policy changes or events within the timeframe. The sustained shift suggests a data quality issue, likely a backlog or correction.",
+    "seed": 33,
+    "latency_s": 15.6
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2010-01 (calendar month 1).\nValue: 786; median of the previous 12 months: 1,930 (-59%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.64 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.51 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2009-01 | 957 | 64.5M | 53 | 0\n2009-02 | 1,334 | 206.0M | 53 | 0\n2009-03 | 2,287 | 178.0M | 96 | 0\n2009-04 | 1,894 | 249.0M | 69 | 0\n2009-05 | 2,031 | 686.9M | 56 | 0\n2009-06 | 2,297 | 254.9M | 74 | 0\n2009-07 | 1,901 | 430.4M | 72 | 0\n2009-08 | 2,193 | 302.5M | 82 | 0\n2009-09 | 2,210 | 332.1M | 71 | 0\n2009-10 | 1,958 | 188.3M | 85 | 0\n2009-11 | 1,871 | 200.2M | 57 | 0\n2009-12 | 1,546 | 318.6M | 38 | 0\n2010-01 | 786 | 54.0M | 38 | 0  <== anomaly\n2010-02 | 1,445 | 75.2M | 62 | 0\n2010-03 | 2,589 | 504.2M | 106 | 0\n2010-04 | 1,238 | 132.8M | 45 | 0\n2010-05 | 1,295 | 107.4M | 46 | 0\n2010-06 | 1,819 | 267.3M | 56 | 0\n2010-07 | 1,642 | 195.3M | 51 | 0\n2010-08 | 1,859 | 212.7M | 57 | 0\n2010-09 | 2,403 | 401.1M | 62 | 0\n2010-10 | 2,126 | 228.6M | 42 | 0\n2010-11 | 2,028 | 271.2M | 39 | 0\n2010-12 | 1,488 | 115.9M | 62 | 0\n2011-01 | 1,031 | 202.5M | 35 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:40:40+00:00"
+ },
+ "notices:2012-01": {
+  "series": "notices",
+  "month": "2012-01",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.5426,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.7,
+    "reasoning": "The anomaly in 2012-01 is characterized by a significant drop in the number of infraction notices (-51% compared to the median). The typical ratio for this month is 0.64, indicating a minor seasonal effect. While the Page-Hinkley test didn't detect a sustained level shift, the sudden drop in notices is notable. The timing of the 'New Forest Code' policy change (+4 months) is potentially relevant, though a direct causal link isn't immediately apparent. The fact that no other series were flagged in the same month suggests this is a specific anomaly. The small number of cancelled notices and no_id records does not point to a data quality issue.",
+    "seed": 11,
+    "latency_s": 73.9
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2012-01 is characterized by a massive drop in notices (51% below the median) compared to the previous 12 months. This is not consistent with a seasonal pattern (typical ratio of 0.64) or a change in other series. While the ‘New Forest Code’ policy event occurred in 2012-05, it’s too distant to explain the immediate drop. The data quality indicators (zscore, MAD) and ensemble score also suggest an anomaly. The absence of other series flagged in the same month further strengthens the suspicion of a data quality issue. The small number of cancelled notices and no_id records suggests a potential issue with data entry or processing immediately preceding January 2012.",
+    "seed": 22,
+    "latency_s": 18.4
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2012-01 is characterized by a significant drop in the number of infraction notices (-51% compared to the median). This is far outside typical seasonal patterns (ratio of 0.64), and no other series flagged in the same month. While the 'New Forest Code' policy change occurred four months prior, the magnitude of the drop suggests a data quality issue, potentially related to a system migration or backlog. The small number of cancelled notices and records without an identifier doesn’t fully explain the drop. Therefore, DQE is the most plausible category.",
+    "seed": 33,
+    "latency_s": 14.5
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2012-01 (calendar month 1).\nValue: 851; median of the previous 12 months: 1,735 (-51%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.64 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.54 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2011-01 | 1,031 | 202.5M | 35 | 0\n2011-02 | 1,783 | 286.8M | 30 | 0\n2011-03 | 2,023 | 264.8M | 55 | 0\n2011-04 | 1,907 | 181.5M | 61 | 0\n2011-05 | 1,707 | 210.5M | 48 | 0\n2011-06 | 1,715 | 386.9M | 27 | 0\n2011-07 | 1,668 | 451.9M | 34 | 0\n2011-08 | 1,498 | 182.8M | 35 | 0\n2011-09 | 1,884 | 176.4M | 28 | 0\n2011-10 | 1,755 | 243.7M | 36 | 0\n2011-11 | 1,796 | 755.4M | 44 | 0\n2011-12 | 1,285 | 153.0M | 31 | 0\n2012-01 | 851 | 66.1M | 27 | 0  <== anomaly\n2012-02 | 1,160 | 151.4M | 25 | 0\n2012-03 | 1,997 | 215.5M | 54 | 0\n2012-04 | 1,735 | 149.5M | 47 | 0\n2012-05 | 2,064 | 346.4M | 30 | 0\n2012-06 | 1,767 | 133.7M | 57 | 0\n2012-07 | 1,464 | 161.2M | 50 | 0\n2012-08 | 1,859 | 225.6M | 37 | 0\n2012-09 | 1,368 | 424.0M | 25 | 0\n2012-10 | 1,655 | 675.0M | 22 | 0\n2012-11 | 1,496 | 377.7M | 27 | 0\n2012-12 | 1,147 | 110.8M | 15 | 0\n2013-01 | 695 | 116.9M | 10 | 0\n\nKnown events within +-6 months:\n- 2012-05 (+4 months, policy): New Forest Code",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:36:53+00:00"
+ },
+ "notices:2014-01": {
+  "series": "notices",
+  "month": "2014-01",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.5955,
+  "votes": 3,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2014-01 is characterized by a significantly lower number of notices (471) compared to the median of the previous 12 months (1384), representing a -66% reduction. This is unusual considering the other series, fine_total_brl, also shows a drop. The ratio of calendar month 1 to its trailing 12-month median is also unusually low (0.64). The detection methods (zscore, MAD, iforest) agree on the anomaly. There’s no sustained level shift detected by the Page-Hinkley test. Given the context, a data quality event (DQE) is the most plausible explanation, likely due to a system issue or backlog affecting notice generation that month.",
+    "seed": 11,
+    "latency_s": 75.7
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2014-01 is characterized by a dramatic drop in the number of notices (66% below the median), coupled with a significant reduction in fine revenue. This contrasts sharply with typical seasonal patterns and the overall trend. The fact that the `fine_total_brl` series also shows a decrease suggests a potential data quality issue. The low number of cancelled notices and no-id records further points away from a policy change or genuine enforcement shift. Considering the detection algorithms flagged this month, a data quality event is the most plausible explanation.",
+    "seed": 22,
+    "latency_s": 14.4
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2014-01 is characterized by a massive drop in notices (66% below the median) and a significant decrease in fine revenue. The fine_total_brl series also shows a marked decline. While there's no immediate policy event, the combination of this dramatic shift in volume and value, coupled with the simultaneous change in the fine_total_brl series, strongly suggests a data quality issue, likely a reporting failure or system migration impacting the recording and reporting of notices in January 2014. The fact that other series also dropped in the same month reinforces this suspicion.",
+    "seed": 33,
+    "latency_s": 15.7
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2014-01 (calendar month 1).\nValue: 471; median of the previous 12 months: 1,384 (-66%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.64 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad, iforest (3 of 4); ensemble score 0.60 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: fine_total_brl.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2013-01 | 695 | 116.9M | 10 | 0\n2013-02 | 711 | 157.8M | 21 | 0\n2013-03 | 1,152 | 280.5M | 15 | 0\n2013-04 | 1,485 | 340.3M | 20 | 0\n2013-05 | 1,737 | 260.6M | 27 | 0\n2013-06 | 1,676 | 256.1M | 29 | 0\n2013-07 | 1,257 | 320.3M | 10 | 0\n2013-08 | 1,319 | 224.7M | 28 | 0\n2013-09 | 1,270 | 299.2M | 19 | 0\n2013-10 | 1,449 | 248.5M | 13 | 0\n2013-11 | 1,515 | 279.9M | 27 | 0\n2013-12 | 1,652 | 135.0M | 47 | 0\n2014-01 | 471 | 39.7M | 7 | 0  <== anomaly\n2014-02 | 1,143 | 155.8M | 59 | 0\n2014-03 | 1,208 | 181.0M | 61 | 0\n2014-04 | 1,194 | 286.7M | 39 | 0\n2014-05 | 1,019 | 196.4M | 16 | 0\n2014-06 | 1,277 | 269.1M | 47 | 0\n2014-07 | 1,060 | 329.1M | 32 | 0\n2014-08 | 1,382 | 257.0M | 36 | 0\n2014-09 | 1,634 | 292.9M | 73 | 0\n2014-10 | 1,684 | 224.4M | 59 | 0\n2014-11 | 1,592 | 326.8M | 52 | 0\n2014-12 | 1,110 | 275.0M | 37 | 0\n2015-01 | 678 | 48.8M | 29 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:33:23+00:00"
+ },
+ "notices:2017-01": {
+  "series": "notices",
+  "month": "2017-01",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.6016,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2017-01 is characterized by a significantly lower number of notices than the median of the previous 12 months (67% reduction). This is not explained by seasonal patterns (the ratio is near the historical average), nor by other flagged months. The data quality indicators (zscore, MAD) and ensemble score support the anomaly. The lack of a sustained level shift and the absence of other concurrent anomalies further suggest a data quality issue rather than a policy change or enforcement shift. The number of cancelled notices and records without an identifier is low and does not appear to explain the change.",
+    "seed": 11,
+    "latency_s": 71.0
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2017-01 is characterized by a massive drop in notices compared to the median of the previous 12 months (-67%). The typical ratio for January is 0.64, significantly lower than the observed 0.20. No other series were affected in the same month, and there’s no evidence of a policy change or seasonal pattern. The data quality indicators (zscore, MAD) also flagged the anomaly. The small number of cancelled notices and no_id records doesn't explain the drop. Therefore, a data quality issue is the most plausible explanation.",
+    "seed": 22,
+    "latency_s": 15.1
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2017-01 is characterized by a significantly lower number of notices (67% below the median) compared to the previous 12 months. The typical ratio for this month is 0.64, indicating a small seasonal effect. The detection methods (zscore, MAD) support the anomaly, but the Page-Hinkley test found no sustained level shift. There are no other series flagged in the same month. Given this evidence, the most likely explanation is a Data-Quality Event (DQE), potentially related to a backlog or reporting issues affecting the issuance of notices in January 2017.",
+    "seed": 33,
+    "latency_s": 15.7
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2017-01 (calendar month 1).\nValue: 505; median of the previous 12 months: 1,550 (-67%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.64 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.60 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2016-01 | 724 | 60.1M | 24 | 0\n2016-02 | 1,100 | 172.0M | 44 | 0\n2016-03 | 1,581 | 240.7M | 59 | 0\n2016-04 | 1,635 | 311.8M | 68 | 0\n2016-05 | 1,670 | 240.3M | 76 | 0\n2016-06 | 1,525 | 280.0M | 60 | 0\n2016-07 | 1,806 | 431.6M | 84 | 0\n2016-08 | 1,696 | 482.1M | 60 | 0\n2016-09 | 1,572 | 281.7M | 71 | 0\n2016-10 | 1,527 | 430.7M | 80 | 0\n2016-11 | 1,364 | 409.1M | 61 | 0\n2016-12 | 884 | 132.3M | 52 | 0\n2017-01 | 505 | 82.8M | 28 | 0  <== anomaly\n2017-02 | 1,157 | 274.6M | 58 | 0\n2017-03 | 1,644 | 459.5M | 81 | 0\n2017-04 | 1,014 | 208.4M | 69 | 0\n2017-05 | 1,411 | 245.0M | 135 | 0\n2017-06 | 1,344 | 189.0M | 296 | 0\n2017-07 | 1,051 | 264.4M | 151 | 0\n2017-08 | 1,158 | 299.9M | 195 | 0\n2017-09 | 1,674 | 298.9M | 119 | 0\n2017-10 | 2,191 | 189.8M | 126 | 0\n2017-11 | 1,276 | 178.9M | 168 | 1\n2017-12 | 933 | 161.9M | 101 | 0\n2018-01 | 540 | 94.5M | 86 | 0\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:31:37+00:00"
+ },
+ "notices:2019-01": {
+  "series": "notices",
+  "month": "2019-01",
+  "category": "DQE",
+  "consistency": 0.667,
+  "review_level": "mandatory",
+  "ensemble_score": 0.6752,
+  "votes": 3,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in January 2019 is characterized by a massive drop in notices compared to the 12-month median (-71%). This is further supported by a significantly higher ratio of 1:0.64 compared to the typical ratio of 1:0.64. The Page-Hinkley test confirms a sustained level shift. While a political change occurred in January, the timing aligns with the data quality event explanation. The fact that no other series were flagged in the same month further suggests a systematic issue rather than a broader enforcement shift. The change of administration might have created a backlog or system issue, and the 2019-04 policy change could have been a contributing factor, although the timing is less direct.",
+    "seed": 11,
+    "latency_s": 77.5
+   },
+   {
+    "category": "PDC",
+    "confidence": 0.8,
+    "reasoning": "The anomaly in 2019-01 is driven by a massive drop in the number of infraction notices issued, a decrease of 71% compared to the 12-month median. This is significantly outside the typical seasonal pattern (0.64 ratio) and no other series were flagged in the same month. The Page-Hinkley test identified a sustained level shift within 2 months, suggesting a change in the underlying process. The timing aligns with a change of federal administration (PDC) which could have impacted enforcement priorities and resource allocation. The environmental conciliation stage added in April (policy) might also have contributed, though the immediate drop is more suggestive of a systemic shift.",
+    "seed": 22,
+    "latency_s": 17.3
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2019-01 is characterized by a massive drop in notice volume (-71% compared to the 12-month median) and a sustained level shift detected by the Page-Hinkley test. The sudden drop is significantly outside the typical seasonal pattern (ratio of 0.64). While the change of federal administration in January 2019 is a potential factor, the timing aligns with the policy change in April 2019. Given the data quality indicators (zscore, MAD, iforest), the DQE category is the most plausible explanation, suggesting a system issue or data correction coinciding with the policy change. The large number of cancelled notices (127) in January further supports a data quality issue.",
+    "seed": 33,
+    "latency_s": 18.8
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2019-01 (calendar month 1).\nValue: 370; median of the previous 12 months: 1,273 (-71%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.64 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad, iforest (3 of 4); ensemble score 0.68 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2018-01 | 540 | 94.5M | 86 | 0\n2018-02 | 1,014 | 127.2M | 100 | 0\n2018-03 | 1,483 | 356.3M | 71 | 0\n2018-04 | 1,454 | 426.3M | 455 | 0\n2018-05 | 1,375 | 664.6M | 396 | 0\n2018-06 | 1,387 | 252.6M | 232 | 0\n2018-07 | 1,298 | 272.0M | 354 | 0\n2018-08 | 1,462 | 305.5M | 473 | 0\n2018-09 | 1,248 | 247.1M | 300 | 0\n2018-10 | 1,160 | 123.8M | 345 | 0\n2018-11 | 1,217 | 292.0M | 249 | 0\n2018-12 | 939 | 221.7M | 246 | 0\n2019-01 | 370 | 288.2M | 127 | 0  <== anomaly\n2019-02 | 979 | 177.4M | 35 | 0\n2019-03 | 1,076 | 232.2M | 192 | 0\n2019-04 | 1,300 | 171.8M | 431 | 0\n2019-05 | 1,865 | 231.9M | 220 | 0\n2019-06 | 1,194 | 396.2M | 439 | 0\n2019-07 | 796 | 189.1M | 150 | 0\n2019-08 | 1,259 | 376.0M | 146 | 1\n2019-09 | 1,191 | 392.5M | 127 | 2\n2019-10 | 777 | 305.0M | 92 | 35\n2019-11 | 840 | 232.8M | 63 | 35\n2019-12 | 833 | 250.0M | 28 | 14\n2020-01 | 461 | 59.7M | 21 | 5\n\nKnown events within +-6 months:\n- 2019-01 (+0 months, political): Change of federal administration\n- 2019-04 (+3 months, policy): Environmental conciliation stage added to the sanctioning process",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:29:55+00:00"
+ },
+ "notices:2021-01": {
+  "series": "notices",
+  "month": "2021-01",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.6872,
+  "votes": 3,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2021-01 is characterized by a significantly lower number of notices (288) compared to the median of the previous 12 months (768), representing a -63% difference. Furthermore, the fine_total_brl also decreased substantially. The fact that this is flagged by multiple detectors (zscore, mad, iforest) and correlated with a decrease in fine_total_brl strengthens the suspicion of a data quality issue. The small number of cancelled notices and no_id records doesn't provide additional information. The data quality event is the most likely explanation.",
+    "seed": 11,
+    "latency_s": 71.2
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2021-01 is characterized by a dramatically lower number of notices (288) compared to the median of -63% across the previous 12 months. This is further supported by the fact that the fine_total_brl also decreased significantly. While other series were flagged, the sudden shift and the low value are more indicative of a data quality issue than a seasonal or policy-driven change. The presence of records with no identifier (`no_id`) increasing alongside this drop suggests a possible data migration or correction process.",
+    "seed": 22,
+    "latency_s": 14.0
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in 2021-01 is characterized by a significantly lower number of notices (288) compared to the 12-month median (768), representing a -63% deviation. Furthermore, the fine total (21.0M) is considerably lower than the median. The related fine_total_brl series also shows a decrease. While the detectors flagged the anomaly, the Page-Hinkley test didn’t reveal a sustained level shift. Given this, a data quality event is the most likely explanation, potentially due to reporting issues or a system change impacting notice issuance in January 2021.",
+    "seed": 33,
+    "latency_s": 16.1
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2021-01 (calendar month 1).\nValue: 288; median of the previous 12 months: 768 (-63%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.64 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad, iforest (3 of 4); ensemble score 0.69 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: fine_total_brl.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2020-01 | 461 | 59.7M | 21 | 5\n2020-02 | 862 | 168.6M | 36 | 18\n2020-03 | 847 | 173.2M | 44 | 26\n2020-04 | 726 | 103.1M | 34 | 27\n2020-05 | 742 | 78.1M | 48 | 29\n2020-06 | 819 | 328.3M | 35 | 27\n2020-07 | 705 | 180.6M | 25 | 18\n2020-08 | 706 | 134.6M | 45 | 31\n2020-09 | 815 | 274.2M | 43 | 39\n2020-10 | 751 | 321.0M | 39 | 32\n2020-11 | 842 | 210.9M | 41 | 40\n2020-12 | 786 | 156.0M | 60 | 51\n2021-01 | 288 | 21.0M | 11 | 10  <== anomaly\n2021-02 | 520 | 45.3M | 23 | 19\n2021-03 | 810 | 136.2M | 42 | 28\n2021-04 | 602 | 189.3M | 37 | 31\n2021-05 | 715 | 147.5M | 55 | 39\n2021-06 | 743 | 256.1M | 43 | 26\n2021-07 | 642 | 229.7M | 44 | 38\n2021-08 | 847 | 314.0M | 47 | 39\n2021-09 | 1,033 | 232.0M | 47 | 26\n2021-10 | 767 | 258.6M | 30 | 28\n2021-11 | 1,146 | 595.4M | 70 | 54\n2021-12 | 1,050 | 221.1M | 50 | 35\n2022-01 | 389 | 71.0M | 11 | 9\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:24:23+00:00"
+ },
+ "notices:2024-01": {
+  "series": "notices",
+  "month": "2024-01",
+  "category": "DQE",
+  "consistency": 1.0,
+  "review_level": "mandatory",
+  "ensemble_score": 0.592,
+  "votes": 3,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in January 2024 is marked by a significant drop in the number of notices (454) compared to the median of the previous 12 months (1,368), representing a -67% reduction. This is compounded by a much lower fine total (43.4M BRL) compared to the median. The other series, fine_total_brl, also shows a decrease. While there’s no evidence of a policy change or a sustained level shift, the extreme deviation in the number of notices combined with a change in the fine total suggests a potential data quality issue, possibly related to a system migration or a backlog in processing. The relatively low number of cancelled notices and records without identifiers also doesn’t support a policy-driven shift.",
+    "seed": 11,
+    "latency_s": 80.2
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in January 2024 is characterized by a significantly reduced number of notices (454) compared to the median of the previous 12 months (1368), representing a -67% reduction. The fine total also decreased substantially. While other series show some fluctuation, the sharp drop in notices is the primary anomaly. The fact that the number of cancelled notices and records without an identifier decreased simultaneously supports a data quality issue rather than a genuine enforcement shift or seasonal pattern. The detection by multiple anomaly detectors (zscore, MAD, iforest) strengthens the suspicion of a data quality event.",
+    "seed": 22,
+    "latency_s": 15.5
+   },
+   {
+    "category": "DQE",
+    "confidence": 0.85,
+    "reasoning": "The anomaly in January 2024 (454 notices) is significantly lower than the 12-month median (1368 notices, -67%). This is exacerbated by the fact that the fine total is also much lower. Examining the surrounding months reveals a gradual decrease in notices and fines starting in late 2023 and continuing into 2024. The increased number of cancelled notices and records without identifiers in January 2024 might be a key factor. A data quality event, specifically a backlog or reporting issue, could explain this sharp drop in activity. The fact that the fine_total_brl series is also affected strengthens this hypothesis.",
+    "seed": 33,
+    "latency_s": 17.4
+   }
+  ],
+  "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2024-01 (calendar month 1).\nValue: 454; median of the previous 12 months: 1,368 (-67%).\nTypical ratio of calendar month 1 to its trailing 12-month median, over all years: 0.64 (1.00 = no seasonal effect).\nDetectors that flagged it: zscore, mad, iforest (3 of 4); ensemble score 0.59 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: fine_total_brl.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2023-01 | 1,036 | 136.5M | 64 | 58\n2023-02 | 1,120 | 227.1M | 31 | 30\n2023-03 | 1,464 | 305.3M | 79 | 66\n2023-04 | 1,549 | 751.8M | 71 | 72\n2023-05 | 1,930 | 530.2M | 92 | 79\n2023-06 | 1,445 | 723.4M | 58 | 70\n2023-07 | 1,327 | 451.5M | 58 | 71\n2023-08 | 1,301 | 483.3M | 72 | 61\n2023-09 | 1,114 | 328.6M | 56 | 59\n2023-10 | 1,409 | 384.5M | 77 | 62\n2023-11 | 1,673 | 387.1M | 88 | 99\n2023-12 | 1,018 | 262.7M | 60 | 56\n2024-01 | 454 | 43.4M | 21 | 17  <== anomaly\n2024-02 | 432 | 198.4M | 9 | 10\n2024-03 | 608 | 176.3M | 38 | 57\n2024-04 | 630 | 197.0M | 60 | 65\n2024-05 | 1,056 | 361.8M | 95 | 107\n2024-06 | 892 | 308.1M | 33 | 47\n2024-07 | 685 | 183.2M | 25 | 37\n2024-08 | 964 | 404.3M | 60 | 78\n2024-09 | 1,627 | 826.3M | 91 | 108\n2024-10 | 1,633 | 734.2M | 92 | 100\n2024-11 | 1,432 | 827.0M | 62 | 74\n2024-12 | 1,255 | 395.2M | 54 | 64\n2025-01 | 659 | 122.2M | 33 | 40\n\nNo known events within +-6 months.",
+  "model": "gemma3:4b",
+  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "ollama_version": "0.34.4",
+  "temperature": 0.7,
+  "prompt_version": "v1",
+  "judged_at": "2026-09-29T18:20:39+00:00"
+ }
+}
