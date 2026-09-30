@@ -1,5 +1,7 @@
 # 5LTEP-L3: 5L-TEP Layer 3 Anomaly Detection Toolkit
 
+**English** · [Português](LEIAME.md)
+
 **Ensemble anomaly detection + local LLM-as-a-Judge + human-in-the-loop review for CKAN-based Open Government Data portals.**
 
 [![Tests](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml)
@@ -30,22 +32,6 @@ a backlog, a burst of records without an identifier), is sent to people first. I
 records at random, the team starts with the periods that nothing explains, and the people who make
 the manual corrections are allocated where they matter most. The AI only proposes; a data steward
 confirms or corrects every decision that leads to action.
-
-<details>
-<summary>Em português</summary>
-
-Dado um conjunto de dados, por exemplo os autos de infração do IBAMA, imagine que queiramos corrigir
-o que estiver incorreto, mas não sabemos por onde começar. Esta terceira camada detecta os
-**períodos** em que o volume ou os valores fogem do padrão (por exemplo, um mês com o triplo de autos
-do normal) e usa inteligência artificial para verificar quais desses desvios têm explicação conhecida.
-Mais autos num mês de estação seca, quando isso se repete todo ano, é **sazonal**; uma queda que
-coincide com uma nova lei é **mudança de política**. O que sobra, e principalmente o que parece
-**problema nos dados** (migração de sistema, represamento, rajada de registros sem identificador), vai
-primeiro para as pessoas. Em vez de revisar registros ao acaso, a equipe começa pelos períodos que
-nada explica, e os recursos humanos que farão as correções manuais são alocados onde mais importam.
-A IA apenas propõe; um gestor de dados confirma ou corrige toda decisão que leve a uma ação.
-
-</details>
 
 ## Key terms
 
