@@ -158,8 +158,15 @@ categoria (ver [Termos-chave](#termos-chave)) e uma confiança.
 
 **Três execuções, sementes fixas, T = 0,7.** Com temperatura 0, as três execuções seriam idênticas por
 construção e a "consistência" não mediria nada. Amostrar com sementes fixas (11, 22, 33) permite que as
-execuções discordem, e cada execução continua reproduzível com o mesmo *digest* do modelo. Fica o
-rótulo da maioria; a consistência do rótulo é *C = execuções que concordam com a maioria / 3*.
+execuções discordem. Fica o rótulo da maioria; a consistência do rótulo é *C = execuções que
+concordam com a maioria / 3*.
+
+**Sementes fixas não fazem uma nova execução repetir as respostas.** No runner de CPU, duas
+execuções do benchmark com o mesmo digest do modelo, a mesma versão do Ollama, o mesmo prompt e as
+mesmas sementes não produziram nenhuma resposta idêntica (0 de 90, tanto no `qwen3:4b` quanto no
+`gemma3:4b`), e o mesmo rótulo majoritário em apenas 73–77% dos casos (medição do próprio benchmark,
+30/09/2026). Um julgamento é, portanto, **registrado, não rederivado**: cada resposta fica guardada
+com sua semente, o digest do modelo e a versão do Ollama, e é esse registro que o torna auditável.
 
 **Orçamento.** A inferência em CPU no runner do Actions é lenta, então cada execução julga no máximo
 `MAX_JUDGMENTS` anomalias novas (as mais recentes primeiro) dentro de `MAX_JUDGE_MINUTES`, salvando
@@ -324,9 +331,10 @@ python main.py detect --from-series --profile ibama-autos-infracao   # mesmos si
 python evaluation/judge_report.py --profile ibama-autos-infracao     # estatísticas do LLM a partir das respostas guardadas
 ```
 
-A detecção é determinística sobre a mesma série. Rodar o juiz de novo exige o mesmo digest do modelo
-(registrado) e dá as mesmas respostas para as mesmas sementes na mesma versão do Ollama; as respostas
-guardadas tornam a classificação auditável mesmo sem rodá-la de novo. O SHA-256 permite que quem
+A detecção é determinística sobre a mesma série. O juiz não é: rodá-lo de novo, mesmo com o mesmo
+digest do modelo, a mesma versão do Ollama e as mesmas sementes, dá respostas diferentes para parte
+das anomalias (ver [Etapa 2](#etapa-2-llm-as-a-judge)); são as respostas guardadas que tornam a
+classificação auditável. O SHA-256 permite que quem
 guardou uma cópia do arquivo de origem prove que é o que foi analisado.
 
 ## Adaptação a outros conjuntos, recortes e portais

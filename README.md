@@ -154,8 +154,15 @@ constrained by a schema (Ollama structured outputs), with a step-by-step reasoni
 
 **Three runs, fixed seeds, T = 0.7.** At temperature 0 the three runs would be identical by
 construction and "consistency" would measure nothing. Sampling with fixed seeds (11, 22, 33) lets
-the runs disagree, while every run remains reproducible with the same model digest. The majority
-label is kept; the label consistency is *C = runs agreeing with the majority / 3*.
+the runs disagree. The majority label is kept; the label consistency is *C = runs agreeing with the
+majority / 3*.
+
+**Fixed seeds do not make a re-run repeat the answers.** On the CPU runner, two benchmark runs with
+the same model digest, Ollama version, prompt and seeds produced no identical answer (0 of 90 for
+both `qwen3:4b` and `gemma3:4b`), and the same majority label in only 73–77% of the cases (the
+benchmark's own measurement, 30/09/2026). A judgment is therefore **recorded, not re-derived**:
+every answer is stored with its seed, model digest and Ollama version, and that record is what makes
+it auditable.
 
 **Budget.** CPU inference on the Actions runner is slow, so each run judges at most
 `MAX_JUDGMENTS` new anomalies (most recent first) within `MAX_JUDGE_MINUTES`, saving after each
@@ -315,9 +322,9 @@ python main.py detect --from-series --profile ibama-autos-infracao   # same flag
 python evaluation/judge_report.py --profile ibama-autos-infracao     # LLM statistics from the stored answers
 ```
 
-Detection is deterministic on the same series. Re-running the judge needs the same model digest
-(recorded) and gives the same answers for the same seeds on the same Ollama build; the stored answers
-make the classification auditable even without re-running it. The SHA-256 lets anyone who kept a
+Detection is deterministic on the same series. The judge is not: re-running it, even with the same
+model digest, Ollama version and seeds, gives different answers for part of the anomalies (see
+[Stage 2](#stage-2-llm-as-a-judge)); the stored answers are what make the classification auditable. The SHA-256 lets anyone who kept a
 copy of the source file prove it is the one that was analysed.
 
 ## Adapting to other datasets, cuts and portals
