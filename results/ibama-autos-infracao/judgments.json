@@ -663,7 +663,7 @@
   "series": "fine_total_brl",
   "month": "2020-01",
   "category": "SP",
-  "consistency": 1.0,
+  "consistency": 0.667,
   "review_level": "none",
   "ensemble_score": 0.5089,
   "votes": 2,
@@ -672,33 +672,33 @@
    {
     "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2020-01 is highly suggestive of a seasonal pattern. The ratio of the fine total to the median of the previous 12 months is 0.25, which is far below the median. Crucially, this same calendar month has deviated significantly below the median in 9 out of the last 10 years. The fact that the same month was flagged as anomalous in 1989-01, 1999-01, 2014-01, 2021-01 and 2024-01 strengthens this hypothesis. The COVID-19 pandemic (2020-03) occurred two months later, so it's unlikely to be the primary driver. The records show a normal volume of notices and no significant data quality issues. Therefore, a seasonal pattern is the most plausible explanation.",
+    "reasoning": "Seasonality check shows 2020-01 ratio (0.25) is below 1 in all previous years (median ratio 0.42), and 9 of 10 years had below-1 ratios. The same calendar month was flagged in 1989, 1999, 2014, 2021, 2024, indicating recurring low activity. This pattern fits SP (seasonal pattern) as it's a consistent annual low, not explained by policy events. The pandemic event was in March 2020 (2 months later), too late to affect January. Data quality issues like cancellations (21) and no_id (5) are present but not the primary cause; the pattern is stable across years.",
     "seed": 11,
-    "latency_s": 60.2
+    "latency_s": 88.8
    },
    {
-    "category": "SP",
-    "confidence": 0.95,
-    "reasoning": "The anomaly in 2020-01 is driven by a recurring seasonal pattern. The fine total for January has consistently been significantly below the median for the previous 12 months across multiple years (9 out of 10 years). The current value (59.7M) is a substantial drop compared to the median (241.4M). Furthermore, this month was flagged as anomalous in previous years (1989-01, 1999-01, 2014-01, 2021-01, 2024-01) and by multiple anomaly detection methods (zscore, MAD, ensemble score).  The data shows no evidence of a policy shift or a data quality event. While the COVID-19 pandemic occurred around the same time, it doesn't directly explain the consistent low value for January. The data indicates a genuine enforcement shift, most likely a seasonal pattern.",
+    "category": "GES",
+    "confidence": 0.9,
+    "reasoning": "Seasonality check shows the same calendar month (Jan) consistently deviates below 1 in the ratio to the prior 12 months' median across 9 of 10 years (2010-2019), indicating a long-term downward trend, not a seasonal pattern. The anomaly was flagged in 1989, 1999, 2014, 2021, 2024, suggesting a recurring pattern. Events: the only known event (2020-03 pandemic) occurred 2 months after the anomaly (2020-01), so it doesn't explain the timing. Records: the 2020-01 data shows 5 cancelled notices and 5 no_id records, but the high ratio (0.25) is below the median of prior years, not a data problem. The burst of cancelled notices and no_id records could indicate data quality issues, but the pattern of low fines across years points to a genuine enforcement shift (e.g., reduced activity post-2020) rather than a data problem.",
     "seed": 22,
-    "latency_s": 38.3
+    "latency_s": 40.8
    },
    {
     "category": "SP",
-    "confidence": 0.95,
-    "reasoning": "The anomaly in 2020-01 is highly consistent with past trends. The ratio to the median of the previous 12 months is extremely low (0.25), and has been low in 9 of the 10 years prior to 2020. Furthermore, the same calendar month was flagged as anomalous in 1989-01, 1999-01, 2014-01, 2021-01, 2024-01. No sustained level shift was detected, and there were no other series flagged in the same month. While the COVID-19 pandemic (2020-03) occurred nearby, it's unlikely to directly explain the large drop in fines in January, given the longer-term seasonal pattern. The fact that the same calendar month has been flagged as anomalous for so many years reinforces the seasonal explanation.",
+    "confidence": 0.9,
+    "reasoning": "Seasonality check: The ratio for Jan (month 1) has been below 1 for 9 of 10 years (2010-2020), indicating a persistent downward trend. The same month was flagged in 2014, 2019, 2021, 2024, and 1989/1999, suggesting recurring low activity. This pattern matches seasonal patterns (SP). Events (e.g., pandemic) occurred later (2020-03), but Jan 2020 was already flagged before the pandemic's impact. Data-quality signs (e.g., 5 no_id records in Jan 2020) are present but not the primary driver. The anomaly is consistent with seasonal patterns, not policy-driven or data issues.",
     "seed": 33,
-    "latency_s": 37.2
+    "latency_s": 31.1
    }
   ],
   "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 2020-01 (calendar month 1).\nValue: 59.7M; median of the previous 12 months: 241.4M (-75%; ratio 0.25).\nSeasonality check - ratio of calendar month 1 to the median of its previous 12 months, in the previous years: 2019-01: 1.10 | 2018-01: 0.42 | 2017-01: 0.29 | 2016-01: 0.29 | 2015-01: 0.19 | 2014-01: 0.15 | 2013-01: 0.62 | 2012-01: 0.29 | 2011-01: 0.99 | 2010-01: 0.21.\nThe same calendar month deviated in the same direction (below 1) in 9 of these 10 years.\nThe same calendar month was also flagged as anomalous in: 1989-01, 1999-01, 2014-01, 2021-01, 2024-01.\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.51 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2019-01 | 370 | 288.2M | 127 | 0\n2019-02 | 979 | 177.4M | 35 | 0\n2019-03 | 1,076 | 232.2M | 192 | 0\n2019-04 | 1,300 | 171.8M | 431 | 0\n2019-05 | 1,865 | 231.9M | 220 | 0\n2019-06 | 1,194 | 396.2M | 439 | 0\n2019-07 | 796 | 189.1M | 150 | 0\n2019-08 | 1,259 | 376.0M | 146 | 1\n2019-09 | 1,191 | 392.5M | 127 | 2\n2019-10 | 777 | 305.0M | 92 | 35\n2019-11 | 840 | 232.8M | 63 | 35\n2019-12 | 833 | 250.0M | 28 | 14\n2020-01 | 461 | 59.7M | 21 | 5  <== anomaly\n2020-02 | 862 | 168.6M | 36 | 18\n2020-03 | 847 | 173.2M | 44 | 26\n2020-04 | 726 | 103.1M | 34 | 27\n2020-05 | 742 | 78.1M | 48 | 29\n2020-06 | 819 | 328.3M | 35 | 27\n2020-07 | 705 | 180.6M | 25 | 18\n2020-08 | 706 | 134.6M | 45 | 31\n2020-09 | 815 | 274.2M | 43 | 39\n2020-10 | 751 | 321.0M | 39 | 32\n2020-11 | 842 | 210.9M | 41 | 40\n2020-12 | 786 | 156.0M | 60 | 51\n2021-01 | 288 | 21.0M | 11 | 10\n\nKnown events within +-6 months:\n- 2020-03 (+2 months, external): COVID-19 pandemic declared; public-health emergency measures in Brazil",
-  "model": "gemma3:4b",
-  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
-  "ollama_version": "0.34.4",
+  "model": "qwen3:4b",
+  "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "ollama_version": "0.35.0",
   "temperature": 0.7,
   "prompt_version": "v2",
   "data_fingerprint": "b29f3f7943247416889e3823e40667104cdc131de7a9e23d3f6a24dd4b3be411",
-  "judged_at": "2026-09-29T19:08:50+00:00",
+  "judged_at": "2026-09-30T10:52:35+00:00",
   "rejudge_reason": "model or prompt version changed",
   "history": [
    {
@@ -708,6 +708,14 @@
     "prompt_version": "v1",
     "data_fingerprint": null,
     "judged_at": "2026-09-29T18:28:01+00:00"
+   },
+   {
+    "category": "SP",
+    "consistency": 1.0,
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "data_fingerprint": "b29f3f7943247416889e3823e40667104cdc131de7a9e23d3f6a24dd4b3be411",
+    "judged_at": "2026-09-29T19:08:50+00:00"
    }
   ]
  },
@@ -723,34 +731,34 @@
   "runs": [
    {
     "category": "SP",
-    "confidence": 0.95,
-    "reasoning": "The anomaly in 2021-01 is consistent with a historical pattern observed across multiple years (9 of 10 years). The ratio to the median is significantly low (-88%), and this direction of deviation (below 1) has been common in previous January months. The fact that it was flagged by multiple detectors (zscore, mad, iforest) and the ensemble score supports the anomaly. While there's no clear policy event, the repeated seasonal pattern and the detection by multiple algorithms point to a genuine enforcement shift. The other series, ‘notices’, also increased in this month, which could be related to the enforcement activity.",
+    "confidence": 0.75,
+    "reasoning": "Seasonality check shows 2021-01's ratio (0.12) is below 1, and 9 of 10 previous years also had ratios <1 (2020-01: 0.25, 2019-01: 1.10, etc.). The same calendar month was flagged in 1989-01, 1999-01, 2014-01, 2020-01, 2024-01, indicating recurring low activity. However, the ratio for 2021-01 is unusually low (0.12) compared to the median of previous 12 months (170.9M). The Page-Hinkley test shows no sustained level shift, so it's not a structural change. The data quality indicators (cancelled=11, no_id=10) are present but not the primary issue. Since the anomaly is recurring and not explained by events or data quality, it's likely a seasonal pattern (SP) but the low ratio is atypical. The data quality category (DQE) doesn't fit because the values aren't implausible (21M is plausible) and there's no burst of cancellations. Given the recurring pattern, SP is the best fit.",
     "seed": 11,
-    "latency_s": 53.8
+    "latency_s": 106.0
    },
    {
     "category": "SP",
-    "confidence": 0.95,
-    "reasoning": "The anomaly in 2021-01 is significantly below the median of previous years (0.12 ratio).  This is consistent with the historical trend observed across 9 of the last 10 years. Furthermore, this month was flagged as anomalous in multiple years (1989, 1999, 2014, 2020, 2024), and detected by multiple anomaly detectors. The unusually low fine total is consistent with previous years. There are no indicators of a policy change or data quality event. The other series flagged in the same month is notices, which is consistent with a lower value for fines in January. Therefore, the most likely explanation is a seasonal pattern (SP).",
+    "confidence": 0.85,
+    "reasoning": "Seasonality check shows the same calendar month (Jan) consistently deviated below median (ratio <1) in 9 of 10 years, with a 2021-01 ratio of 0.12 vs median 170.9M. The historical pattern of low Jan values across decades (e.g., 2019-01: 1.10, 2020-01: 0.25) indicates a recurring seasonal pattern. No known events explain the timing, and data quality indicators (cancelled/no_id) are moderate (11/288 cancelled, 10/288 no_id) but not extreme. The Page-Hinkley test confirms no sustained level shift, ruling out structural changes. Given the long-term seasonal trend aligns with low Jan enforcement in Brazil's context, the anomaly is seasonal (SP).",
     "seed": 22,
-    "latency_s": 32.3
+    "latency_s": 33.4
    },
    {
     "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2021-01 is consistent with a historical pattern. The ratio of the calendar month's fine total to the median of its previous 12 months has consistently been below 1 in 9 of the past 10 years. The fact that the same month was flagged as anomalous in 1989-01, 1999-01, 2014-01, 2020-01, and 2024-01 further strengthens this seasonal argument. While there’s a large deviation from the median, the historical context suggests a recurring pattern. The detection methods (zscore, mad, iforest) also support this, with an ensemble score of 0.54 indicating a moderate anomaly. The small number of cancelled notices and records without identifiers doesn’t provide a strong argument for a data quality issue.",
+    "reasoning": "Seasonality check: The ratio for Jan (month 1) in previous years (2013-2020) was below 1 for 9 out of 10 years, showing consistent underperformance in Jan. The same calendar month was flagged as anomalous in 1989, 1999, 2014, 2020, 2024, indicating recurring seasonal underperformance. The median of previous 12 months in 2021-01 was 170.9M, but the value was 21.0M (ratio 0.12), which aligns with the historical pattern. The Page-Hinkley test shows no sustained level shift. Data quality indicators: cancelled records (11) and no_id (10) are present but not unusually high compared to other months. No known events explain the timing. The deviation is large but explained by historical seasonality. Thus, it's SP (Seasonal Pattern).",
     "seed": 33,
-    "latency_s": 36.2
+    "latency_s": 37.6
    }
   ],
   "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 2021-01 (calendar month 1).\nValue: 21.0M; median of the previous 12 months: 170.9M (-88%; ratio 0.12).\nSeasonality check - ratio of calendar month 1 to the median of its previous 12 months, in the previous years: 2020-01: 0.25 | 2019-01: 1.10 | 2018-01: 0.42 | 2017-01: 0.29 | 2016-01: 0.29 | 2015-01: 0.19 | 2014-01: 0.15 | 2013-01: 0.62 | 2012-01: 0.29 | 2011-01: 0.99.\nThe same calendar month deviated in the same direction (below 1) in 9 of these 10 years.\nThe same calendar month was also flagged as anomalous in: 1989-01, 1999-01, 2014-01, 2020-01, 2024-01.\nDetectors that flagged it: zscore, mad, iforest (3 of 4); ensemble score 0.54 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: notices.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2020-01 | 461 | 59.7M | 21 | 5\n2020-02 | 862 | 168.6M | 36 | 18\n2020-03 | 847 | 173.2M | 44 | 26\n2020-04 | 726 | 103.1M | 34 | 27\n2020-05 | 742 | 78.1M | 48 | 29\n2020-06 | 819 | 328.3M | 35 | 27\n2020-07 | 705 | 180.6M | 25 | 18\n2020-08 | 706 | 134.6M | 45 | 31\n2020-09 | 815 | 274.2M | 43 | 39\n2020-10 | 751 | 321.0M | 39 | 32\n2020-11 | 842 | 210.9M | 41 | 40\n2020-12 | 786 | 156.0M | 60 | 51\n2021-01 | 288 | 21.0M | 11 | 10  <== anomaly\n2021-02 | 520 | 45.3M | 23 | 19\n2021-03 | 810 | 136.2M | 42 | 28\n2021-04 | 602 | 189.3M | 37 | 31\n2021-05 | 715 | 147.5M | 55 | 39\n2021-06 | 743 | 256.1M | 43 | 26\n2021-07 | 642 | 229.7M | 44 | 38\n2021-08 | 847 | 314.0M | 47 | 39\n2021-09 | 1,033 | 232.0M | 47 | 26\n2021-10 | 767 | 258.6M | 30 | 28\n2021-11 | 1,146 | 595.4M | 70 | 54\n2021-12 | 1,050 | 221.1M | 50 | 35\n2022-01 | 389 | 71.0M | 11 | 9\n\nNo known events within +-6 months.",
-  "model": "gemma3:4b",
-  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
-  "ollama_version": "0.34.4",
+  "model": "qwen3:4b",
+  "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "ollama_version": "0.35.0",
   "temperature": 0.7,
   "prompt_version": "v2",
   "data_fingerprint": "974fe3a610d4251b1cced3f772a79f415a345968dde9418baebe47cb6992f4b0",
-  "judged_at": "2026-09-29T19:06:34+00:00",
+  "judged_at": "2026-09-30T10:49:54+00:00",
   "rejudge_reason": "model or prompt version changed",
   "history": [
    {
@@ -760,6 +768,14 @@
     "prompt_version": "v1",
     "data_fingerprint": null,
     "judged_at": "2026-09-29T18:26:11+00:00"
+   },
+   {
+    "category": "SP",
+    "consistency": 1.0,
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "data_fingerprint": "974fe3a610d4251b1cced3f772a79f415a345968dde9418baebe47cb6992f4b0",
+    "judged_at": "2026-09-29T19:06:34+00:00"
    }
   ]
  },
@@ -775,34 +791,34 @@
   "runs": [
    {
     "category": "SP",
-    "confidence": 0.95,
-    "reasoning": "The anomaly in 2024-01 is highly suggestive of a seasonal pattern. The ratio of the value in January to the median of the previous 12 months (0.11) is significantly low, consistent with observations from previous years (9 out of 10 years). Furthermore, this month was flagged as anomalous in 2020-01 and 2021-01. The other series, ‘notices’, also show a similar trend. While there were no policy-driven events or data quality issues evident from the provided records, the consistent low value in January across multiple years strongly indicates a seasonal pattern. The fact that the same calendar month was flagged in other years further reinforces this conclusion.",
+    "confidence": 0.9,
+    "reasoning": "Seasonality check shows the ratio of calendar month 1 to the median of previous 12 months has been below 1 for 9 of 10 years (2014-2023), indicating a consistent downward trend in this month. The same calendar month was flagged in 1989, 1999, 2014, 2020, 2021, suggesting recurring seasonal patterns. No events within +-6 months, so PDC and events are unlikely. The data shows no sudden changes in system or duplication (no_id, cancelled values are plausible). The anomaly is a consistent seasonal pattern, not a data quality issue or genuine enforcement shift.",
     "seed": 11,
-    "latency_s": 54.1
+    "latency_s": 88.2
    },
    {
     "category": "SP",
-    "confidence": 0.95,
-    "reasoning": "The anomaly in 2024-01 is significantly below the median of previous years (89% reduction).  This is consistent with a historical trend observed across 9 of the last 10 years. The value is markedly lower than previous months and years. Furthermore, 2024-01 was flagged as anomalous by multiple detectors (zscore, mad, iforest). Considering this historical context, the most likely explanation is a seasonal pattern (SP). While other months were also flagged, the consistency of this low value in January across multiple years strongly suggests a recurring enforcement cycle.",
+    "confidence": 0.9,
+    "reasoning": "Seasonality check shows the same calendar month (Jan) consistently deviates below 1 in the ratio to median of previous 12 months across 9 of 10 years (2014-2023). This pattern is repeated in 1989, 1999, 2014, 2020, 2021. The zscore, mad, iforest detectors flagged Jan 2024 as anomalous (ensemble score 0.60), but the Page-Hinkley test shows no sustained level shift. Data quality indicators: cancelled (21) and no_id (17) are low relative to other months but not extreme outliers. No known policy events within +-6 months. The anomaly aligns with historical seasonal patterns for Jan, making it likely a seasonal pattern (SP) rather than a data-quality event (DQE) or policy change (PDC).",
     "seed": 22,
-    "latency_s": 25.0
+    "latency_s": 35.3
    },
    {
     "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2024-01 is highly suggestive of a seasonal pattern. The ratio of this month's fine total to the median of the previous 12 months is 0.11, which is significantly below 1 and observed in 9 of the last 10 years. The same calendar month has been flagged as anomalous in 1989-01, 1999-01, 2014-01, 2020-01, and 2021-01. While there are no specific policy events noted, the consistent low value in January across many years strongly indicates a recurring seasonal enforcement pattern. The fact that other series (notices) also showed a similar trend further supports this interpretation. The Page-Hinkley test found no sustained level shift, ruling out a sudden policy change.",
+    "reasoning": "Seasonality check: The ratio for Jan (month 1) in previous years (2014-2023) is consistently below 1 (0.12-0.50), with 9/10 years showing deviation in same direction (below 1). The same calendar month was flagged in 1989, 1999, 2014, 2020, 2021 (all below median). This persistent pattern across years indicates a seasonal pattern (SP) rather than a one-off anomaly. Events: No known policy changes within ±6 months. Data quality: No signs of burst cancellations (cancelled < 21% of notices), no_id is plausible (17), and values are not implausibly low (43.4M is within historical range). Genuine shift: No sustained level shift (Page-Hinkley test negative). Thus, anomaly is seasonal.",
     "seed": 33,
-    "latency_s": 35.1
+    "latency_s": 35.3
    }
   ],
   "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 2024-01 (calendar month 1).\nValue: 43.4M; median of the previous 12 months: 385.8M (-89%; ratio 0.11).\nSeasonality check - ratio of calendar month 1 to the median of its previous 12 months, in the previous years: 2023-01: 0.50 | 2022-01: 0.31 | 2021-01: 0.12 | 2020-01: 0.25 | 2019-01: 1.10 | 2018-01: 0.42 | 2017-01: 0.29 | 2016-01: 0.29 | 2015-01: 0.19 | 2014-01: 0.15.\nThe same calendar month deviated in the same direction (below 1) in 9 of these 10 years.\nThe same calendar month was also flagged as anomalous in: 1989-01, 1999-01, 2014-01, 2020-01, 2021-01.\nDetectors that flagged it: zscore, mad, iforest (3 of 4); ensemble score 0.60 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: notices.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2023-01 | 1,036 | 136.5M | 64 | 58\n2023-02 | 1,120 | 227.1M | 31 | 30\n2023-03 | 1,464 | 305.3M | 79 | 66\n2023-04 | 1,549 | 751.8M | 71 | 72\n2023-05 | 1,930 | 530.2M | 92 | 79\n2023-06 | 1,445 | 723.4M | 58 | 70\n2023-07 | 1,327 | 451.5M | 58 | 71\n2023-08 | 1,301 | 483.3M | 72 | 61\n2023-09 | 1,114 | 328.6M | 56 | 59\n2023-10 | 1,409 | 384.5M | 77 | 62\n2023-11 | 1,673 | 387.1M | 88 | 99\n2023-12 | 1,018 | 262.7M | 60 | 56\n2024-01 | 454 | 43.4M | 21 | 17  <== anomaly\n2024-02 | 432 | 198.4M | 9 | 10\n2024-03 | 608 | 176.3M | 38 | 57\n2024-04 | 630 | 197.0M | 60 | 65\n2024-05 | 1,056 | 361.8M | 95 | 107\n2024-06 | 892 | 308.1M | 33 | 47\n2024-07 | 685 | 183.2M | 25 | 37\n2024-08 | 964 | 404.3M | 60 | 78\n2024-09 | 1,627 | 826.3M | 91 | 108\n2024-10 | 1,633 | 734.2M | 92 | 100\n2024-11 | 1,432 | 827.0M | 62 | 74\n2024-12 | 1,255 | 395.2M | 54 | 64\n2025-01 | 659 | 122.2M | 33 | 40\n\nNo known events within +-6 months.",
-  "model": "gemma3:4b",
-  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
-  "ollama_version": "0.34.4",
+  "model": "qwen3:4b",
+  "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "ollama_version": "0.35.0",
   "temperature": 0.7,
   "prompt_version": "v2",
   "data_fingerprint": "b2181362f3c738de27d962351eb074988bf4a90f5f4ba5550adaf4fb3e42e857",
-  "judged_at": "2026-09-29T19:02:17+00:00",
+  "judged_at": "2026-09-30T10:44:18+00:00",
   "rejudge_reason": "model or prompt version changed",
   "history": [
    {
@@ -812,6 +828,14 @@
     "prompt_version": "v1",
     "data_fingerprint": null,
     "judged_at": "2026-09-29T18:22:41+00:00"
+   },
+   {
+    "category": "SP",
+    "consistency": 1.0,
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "data_fingerprint": "b2181362f3c738de27d962351eb074988bf4a90f5f4ba5550adaf4fb3e42e857",
+    "judged_at": "2026-09-29T19:02:17+00:00"
    }
   ]
  },
@@ -1789,7 +1813,7 @@
   "series": "notices",
   "month": "2017-01",
   "category": "SP",
-  "consistency": 1.0,
+  "consistency": 0.667,
   "review_level": "none",
   "ensemble_score": 0.5725,
   "votes": 2,
@@ -1798,33 +1822,33 @@
    {
     "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2017-01 is highly suggestive of a seasonal pattern. The ratio to the median of the previous 12 months (0.33) is significantly below the median, and this has happened in 10 of the 10 years examined. Furthermore, the same calendar month was flagged as anomalous in multiple prior years, including 2019-01, 2021-01 and 2024-01. There is no evidence of a policy change or a data quality event. The records themselves show no immediate problems (no cancelled notices, no missing identifiers). The Page-Hinkley test did not detect a sustained level shift. Therefore, the most plausible explanation is a genuine seasonal pattern.",
+    "reasoning": "Seasonality check shows 2017-01 deviated below median in 10 of 10 previous years (ratio 0.33 vs median 1550). The same calendar month (Jan) consistently had ratios below 1 for 10 years, indicating a long-term downward trend, not a one-time anomaly. No policy events in +-6 months. Records show no cancellations or missing IDs (cancelled=28, no_id=0) for 2017-01. The drop aligns with historical patterns, ruling out DQE (no data issues) and PDC (no events). GES is unlikely as it's a recurring seasonal pattern.",
     "seed": 11,
-    "latency_s": 55.2
+    "latency_s": 88.5
    },
    {
-    "category": "SP",
-    "confidence": 0.95,
-    "reasoning": "The anomaly in 2017-01 is strongly suggestive of a seasonal pattern. The notice count is significantly below the median of the previous 12 months (67% reduction), a deviation observed in 10 of the past 10 years. Furthermore, this month has been flagged as anomalous in numerous past instances (13 total), including several years prior. There's no evidence of a policy change (PDC), a data quality event (DQE), or a genuine enforcement shift (GES) given the consistent historical pattern. The lack of a sustained level shift (Page-Hinkley test) further supports the seasonal interpretation. The presence of cancelled notices in later years does not account for the drastically lower counts in 2017-01.",
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "Seasonality check shows the 2017-01 ratio (0.33) is below median of previous 12 months (1,550) by 67%. The same calendar month deviated below 1 in 10 of 10 years (2011-2016), indicating a consistent downward trend. The same month was flagged as anomalous in multiple years (1983-2024), suggesting a recurring pattern. No policy events within ±6 months. Data quality indicators: no cancellations or missing IDs (no_id=0) and no abrupt system changes. The anomaly persists beyond the initial month but is not explained by policy or data quality issues, so it's likely a genuine enforcement shift (GES).",
     "seed": 22,
-    "latency_s": 30.9
+    "latency_s": 29.5
    },
    {
     "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2017-01 is primarily driven by a strong seasonal pattern. The ratio to the median of the previous 12 months is a remarkably low 0.33, significantly below all previous years (10 out of 10). This historical repetition across many years strongly suggests a recurring seasonal effect.  The fact that the same month was flagged as anomalous in numerous previous years, including 1983-01, reinforces this conclusion. There is no evidence of a policy change (PDC), a data quality event (DQE), or a genuine enforcement shift (GES) given the consistent seasonal pattern observed over decades. The number of cancelled notices and records without identifiers (no_id) is low, suggesting no immediate issue with data collection or reporting.",
+    "reasoning": "Seasonality check shows the same calendar month (Jan) has consistently deviated below the median in previous years (10/10 years), with ratios ranging from 0.34 to 0.85. This pattern matches the anomalous month's behavior. The fact that multiple years (including 2017-01 itself) were flagged for the same month suggests a recurring seasonal pattern rather than a one-time event. No data-quality issues (cancelled records, no IDs) are prominent, and no policy events are known. The sustained level shift test (Page-Hinkley) was negative, ruling out recent changes. Thus, the anomaly aligns with seasonal patterns.",
     "seed": 33,
-    "latency_s": 31.4
+    "latency_s": 25.7
    }
   ],
   "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2017-01 (calendar month 1).\nValue: 505; median of the previous 12 months: 1,550 (-67%; ratio 0.33).\nSeasonality check - ratio of calendar month 1 to the median of its previous 12 months, in the previous years: 2016-01: 0.48 | 2015-01: 0.56 | 2014-01: 0.34 | 2013-01: 0.44 | 2012-01: 0.49 | 2011-01: 0.60 | 2010-01: 0.41 | 2009-01: 0.36 | 2008-01: 0.82 | 2007-01: 0.85.\nThe same calendar month deviated in the same direction (below 1) in 10 of these 10 years.\nThe same calendar month was also flagged as anomalous in: 1983-01, 1989-01, 1996-01, 1999-01, 2003-01, 2009-01, 2010-01, 2012-01, 2014-01, 2019-01, 2021-01, 2024-01.\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.57 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2016-01 | 724 | 60.1M | 24 | 0\n2016-02 | 1,100 | 172.0M | 44 | 0\n2016-03 | 1,581 | 240.7M | 59 | 0\n2016-04 | 1,635 | 311.8M | 68 | 0\n2016-05 | 1,670 | 240.3M | 76 | 0\n2016-06 | 1,525 | 280.0M | 60 | 0\n2016-07 | 1,806 | 431.6M | 84 | 0\n2016-08 | 1,696 | 482.1M | 60 | 0\n2016-09 | 1,572 | 281.7M | 71 | 0\n2016-10 | 1,527 | 430.7M | 80 | 0\n2016-11 | 1,364 | 409.1M | 61 | 0\n2016-12 | 884 | 132.3M | 52 | 0\n2017-01 | 505 | 82.8M | 28 | 0  <== anomaly\n2017-02 | 1,157 | 274.6M | 58 | 0\n2017-03 | 1,644 | 459.5M | 81 | 0\n2017-04 | 1,014 | 208.4M | 69 | 0\n2017-05 | 1,411 | 245.0M | 135 | 0\n2017-06 | 1,344 | 189.0M | 296 | 0\n2017-07 | 1,051 | 264.4M | 151 | 0\n2017-08 | 1,158 | 299.9M | 195 | 0\n2017-09 | 1,674 | 298.9M | 119 | 0\n2017-10 | 2,191 | 189.8M | 126 | 0\n2017-11 | 1,276 | 178.9M | 168 | 1\n2017-12 | 933 | 161.9M | 101 | 0\n2018-01 | 540 | 94.5M | 86 | 0\n\nNo known events within +-6 months.",
-  "model": "gemma3:4b",
-  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
-  "ollama_version": "0.34.4",
+  "model": "qwen3:4b",
+  "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "ollama_version": "0.35.0",
   "temperature": 0.7,
   "prompt_version": "v2",
   "data_fingerprint": "efaea8561f12d240316b4dc8428492ebc09b0a0389f0055ba142be10c56e2577",
-  "judged_at": "2026-09-29T19:12:46+00:00",
+  "judged_at": "2026-09-30T10:57:24+00:00",
   "rejudge_reason": "model or prompt version changed",
   "history": [
    {
@@ -1834,14 +1858,22 @@
     "prompt_version": "v1",
     "data_fingerprint": null,
     "judged_at": "2026-09-29T18:31:37+00:00"
+   },
+   {
+    "category": "SP",
+    "consistency": 1.0,
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "data_fingerprint": "efaea8561f12d240316b4dc8428492ebc09b0a0389f0055ba142be10c56e2577",
+    "judged_at": "2026-09-29T19:12:46+00:00"
    }
   ]
  },
  "notices:2019-01": {
   "series": "notices",
   "month": "2019-01",
-  "category": "GES",
-  "consistency": 0.667,
+  "category": "SP",
+  "consistency": 1.0,
   "review_level": "none",
   "ensemble_score": 0.6389,
   "votes": 3,
@@ -1850,33 +1882,33 @@
    {
     "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2019-01 is highly suggestive of a seasonal pattern (SP). The ratio to the median of the previous 12 months is extremely low (-71%), and this has been consistent across 10 years. The Page-Hinkley test confirms a sustained level shift within 2 months, which is often associated with seasonal fluctuations. While a change of federal administration occurred in January 2019 (PDC), this event occurred too far in the past to explain the current anomaly, and the other events are not closely related to the time period. The data also shows that the same calendar month deviated in the same direction (below 1) in 10 of these 10 years, strengthening the seasonal argument.",
+    "reasoning": "Seasonality check shows 2019-01 ratio (0.29) is below 1, consistent with 10/10 years having similar deviations. Multiple years also flagged 2019-01 as anomalous, indicating a recurring pattern. The Page-Hinkley test confirms a level shift within 2 months, but the data quality indicators (cancelled=127, no_id=0) are normal. Known events include a political change in 2019-01, but the anomaly is a drop in notices, not a rise. Seasonal patterns are strong (same month deviated below 1 in 10 years), so SP (Seasonal Pattern) fits best.",
     "seed": 11,
-    "latency_s": 54.3
+    "latency_s": 93.2
    },
    {
-    "category": "GES",
+    "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2019-01 is strongly indicative of a genuine enforcement shift (GES). The consistent negative deviation in this month across multiple years (10 of 10) combined with detection by multiple anomaly detectors (zscore, MAD, iforest, ensemble) and a sustained level shift identified by the Page-Hinkley test, points to a real change in enforcement intensity. The recent change of federal administration (2019-01) and the addition of an environmental conciliation stage (2019-04) provide plausible context for this shift. While the low notice count is unusual, the historical pattern and the detection methods strongly favor a genuine change in enforcement rather than a seasonal or data-related event.",
+    "reasoning": "Seasonality check shows 2019-01 ratio (0.29) is below median (1) in all prior years (2013-2018), with same calendar month deviating below 1 in 10/10 years. The consistent downward trend (ratio <1) over multiple years indicates a seasonal pattern, not a one-time event. The ensemble flag (0.64) and Page-Hinkley test confirm a level shift but the data shows no unusual cancellations or missing IDs (no_id=0). Known events (political change in Jan 2019) are too recent to explain a monthly pattern. Seasonal pattern fits best.",
     "seed": 22,
-    "latency_s": 28.6
+    "latency_s": 26.9
    },
    {
-    "category": "GES",
+    "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2019-01 is strongly indicative of a genuine enforcement shift (GES). The month's value is significantly below the median of previous years (71% reduction), a pattern seen in 10 of the last 12 years. Furthermore, the same month has been flagged as anomalous in numerous prior years, including multiple recent years (2012, 2014, 2017, 2021, 2024), and detected by multiple anomaly detectors. The Page-Hinkley test also confirms a sustained level shift. While a change of federal administration occurred in January 2019, the data suggests this was not the driving factor. The environmental conciliation stage added in April 2019 is unlikely to explain the sustained low values in January, given the time lag. The overall historical pattern and multiple detections point to a genuine change in enforcement intensity.",
+    "reasoning": "Seasonality check: The ratio for Jan (2019) is 0.29, below 1 in all previous years (2013-2018), with 10/10 years showing same direction (below 1). The same calendar month was flagged anomalous in 12 previous years (1983-2024), confirming a recurring pattern. This meets SP (Seasonal Pattern) criteria. No policy events (only political change at exact time) or data issues (cancelled/no_id are low, no duplicates). The sustained level shift (Page-Hinkley) is consistent with seasonal pattern.",
     "seed": 33,
-    "latency_s": 35.3
+    "latency_s": 25.2
    }
   ],
   "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2019-01 (calendar month 1).\nValue: 370; median of the previous 12 months: 1,273 (-71%; ratio 0.29).\nSeasonality check - ratio of calendar month 1 to the median of its previous 12 months, in the previous years: 2018-01: 0.44 | 2017-01: 0.33 | 2016-01: 0.48 | 2015-01: 0.56 | 2014-01: 0.34 | 2013-01: 0.44 | 2012-01: 0.49 | 2011-01: 0.60 | 2010-01: 0.41 | 2009-01: 0.36.\nThe same calendar month deviated in the same direction (below 1) in 10 of these 10 years.\nThe same calendar month was also flagged as anomalous in: 1983-01, 1989-01, 1996-01, 1999-01, 2003-01, 2009-01, 2010-01, 2012-01, 2014-01, 2017-01, 2021-01, 2024-01.\nDetectors that flagged it: zscore, mad, iforest (3 of 4); ensemble score 0.64 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2018-01 | 540 | 94.5M | 86 | 0\n2018-02 | 1,014 | 127.2M | 100 | 0\n2018-03 | 1,483 | 356.3M | 71 | 0\n2018-04 | 1,454 | 426.3M | 455 | 0\n2018-05 | 1,375 | 664.6M | 396 | 0\n2018-06 | 1,387 | 252.6M | 232 | 0\n2018-07 | 1,298 | 272.0M | 354 | 0\n2018-08 | 1,462 | 305.5M | 473 | 0\n2018-09 | 1,248 | 247.1M | 300 | 0\n2018-10 | 1,160 | 123.8M | 345 | 0\n2018-11 | 1,217 | 292.0M | 249 | 0\n2018-12 | 939 | 221.7M | 246 | 0\n2019-01 | 370 | 288.2M | 127 | 0  <== anomaly\n2019-02 | 979 | 177.4M | 35 | 0\n2019-03 | 1,076 | 232.2M | 192 | 0\n2019-04 | 1,300 | 171.8M | 431 | 0\n2019-05 | 1,865 | 231.9M | 220 | 0\n2019-06 | 1,194 | 396.2M | 439 | 0\n2019-07 | 796 | 189.1M | 150 | 0\n2019-08 | 1,259 | 376.0M | 146 | 1\n2019-09 | 1,191 | 392.5M | 127 | 2\n2019-10 | 777 | 305.0M | 92 | 35\n2019-11 | 840 | 232.8M | 63 | 35\n2019-12 | 833 | 250.0M | 28 | 14\n2020-01 | 461 | 59.7M | 21 | 5\n\nKnown events within +-6 months:\n- 2019-01 (+0 months, political): Change of federal administration\n- 2019-04 (+3 months, policy): Environmental conciliation stage added to the sanctioning process",
-  "model": "gemma3:4b",
-  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
-  "ollama_version": "0.34.4",
+  "model": "qwen3:4b",
+  "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "ollama_version": "0.35.0",
   "temperature": 0.7,
   "prompt_version": "v2",
   "data_fingerprint": "6f4f18cdccd3b15280b4436039a34cd189a76cd0acb4de74ae1025e858a4b190",
-  "judged_at": "2026-09-29T19:10:48+00:00",
+  "judged_at": "2026-09-30T10:55:00+00:00",
   "rejudge_reason": "model or prompt version changed",
   "history": [
    {
@@ -1886,9 +1918,16 @@
     "prompt_version": "v1",
     "data_fingerprint": null,
     "judged_at": "2026-09-29T18:29:55+00:00"
+   },
+   {
+    "category": "GES",
+    "consistency": 0.667,
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "data_fingerprint": "6f4f18cdccd3b15280b4436039a34cd189a76cd0acb4de74ae1025e858a4b190",
+    "judged_at": "2026-09-29T19:10:48+00:00"
    }
-  ],
-  "issue_notified_judged_at": "2026-09-29T19:10:48+00:00"
+  ]
  },
  "notices:2021-01": {
   "series": "notices",
@@ -1903,33 +1942,33 @@
    {
     "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2021-01 is highly suggestive of a seasonal pattern. The ratio of notices to the median of the previous 12 months (0.37) is exceptionally low, and has been consistent across 10 of the previous 12 years. Furthermore, the same calendar month was flagged as anomalous in multiple prior years (1983-01, 1989-01, 1996-01, 1999-01, 2003-01, 2009-01, 2010-01, 2012-01, 2014-01, 2017-01, 2019-01, 2024-01). A Page-Hinkley test found no sustained level shift. While the fine_total_brl series also shows a fluctuation, the core issue is the drastically reduced number of notices, aligning with the historical seasonal pattern. The other detectors (zscore, mad) also support this interpretation. Therefore, Seasonal Pattern (SP) is the most appropriate category.",
+    "reasoning": "The anomalous month 2021-01 has a ratio of 0.37 (288 vs median 768). Seasonality check shows the same calendar month (Jan) has consistently been below the median (ratio <1) in 10 of 10 years since 2011. The same month was flagged in 12 previous years (1983-2024), indicating a long-term pattern. No known events explain the timing. Data quality checks: cancelled (11) and no_id (10) are low compared to 2020 (21/5 vs 2021), but the pattern persists. The Page-Hinkley test shows no sustained shift, ruling out temporary changes. Given the consistent seasonal pattern across decades, the anomaly is seasonal.",
     "seed": 11,
-    "latency_s": 70.6
+    "latency_s": 94.1
    },
    {
     "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2021-01 is highly likely due to a seasonal pattern. The ratio of notices to the median of the previous 12 months is significantly below 1 (0.37), and this has occurred in 10 of the past 12 years, including multiple years prior to 2021. The fine_total_brl series also shows a similar trend, although less pronounced. There is no evidence of a policy change, data quality event, or genuine enforcement shift. The detection methods (zscore, MAD, ensemble) support this conclusion. The data reveals a consistent pattern of lower notice volume in January across many years.",
+    "reasoning": "The anomaly in 2021-01 shows a low ratio (0.37) compared to the median of previous months (768). Seasonality check reveals the same calendar month (Jan) consistently deviates below 1 in all 10 previous years (2011-2020). Additionally, Jan has been flagged as anomalous in 12 historical years (1983-2024), indicating a persistent pattern. The data quality metrics (cancelled=11, no_id=10) are moderate but not extreme. No known policy events occurred in the timeframe. The burst of notices in 2021-01 is not part of a broader trend since the next month (Feb) shows a recovery (520 notices). This suggests a recurring seasonal pattern rather than a one-time data issue or policy change.",
     "seed": 22,
-    "latency_s": 26.9
+    "latency_s": 33.7
    },
    {
     "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2021-01 is highly likely due to a seasonal pattern. The ratio of the number of notices in January to the median of the previous 12 months is consistently low (ranging from 0.29 to 0.60) across the historical data. This pattern has been observed in 10 of the past 12 years, including multiple years in the 1980s, 1990s, and 2000s. The fact that the same calendar month has been flagged as anomalous in other years (1983-01, 1989-01, etc.) strongly supports a seasonal explanation. While there's a large deviation from the median, the consistently low values in January over the long term suggest a recurring enforcement cycle rather than a data quality issue. The related series, fine_total_brl, also shows a similar trend in this month, reinforcing the seasonal interpretation.",
+    "reasoning": "The anomaly in 2021-01 shows a ratio of 0.37 (288 vs median 768 of previous 12 months). Seasonality check shows all prior years (2011-2020) had calendar month 1 ratios below 1, with 10/10 years deviating downward. The same calendar month was flagged anomalous in 12 previous years (1983-2019), confirming a recurring pattern. No known policy events (step 2) or data issues (cancelled/no_id) explain this. The data shows no abrupt system change (Page-Hinkley test negative) but consistent downward trend since 2020-01. This recurring seasonal pattern matches SP (seasonal pattern).",
     "seed": 33,
-    "latency_s": 37.3
+    "latency_s": 30.9
    }
   ],
   "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2021-01 (calendar month 1).\nValue: 288; median of the previous 12 months: 768 (-63%; ratio 0.37).\nSeasonality check - ratio of calendar month 1 to the median of its previous 12 months, in the previous years: 2020-01: 0.45 | 2019-01: 0.29 | 2018-01: 0.44 | 2017-01: 0.33 | 2016-01: 0.48 | 2015-01: 0.56 | 2014-01: 0.34 | 2013-01: 0.44 | 2012-01: 0.49 | 2011-01: 0.60.\nThe same calendar month deviated in the same direction (below 1) in 10 of these 10 years.\nThe same calendar month was also flagged as anomalous in: 1983-01, 1989-01, 1996-01, 1999-01, 2003-01, 2009-01, 2010-01, 2012-01, 2014-01, 2017-01, 2019-01, 2024-01.\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.66 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: fine_total_brl.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2020-01 | 461 | 59.7M | 21 | 5\n2020-02 | 862 | 168.6M | 36 | 18\n2020-03 | 847 | 173.2M | 44 | 26\n2020-04 | 726 | 103.1M | 34 | 27\n2020-05 | 742 | 78.1M | 48 | 29\n2020-06 | 819 | 328.3M | 35 | 27\n2020-07 | 705 | 180.6M | 25 | 18\n2020-08 | 706 | 134.6M | 45 | 31\n2020-09 | 815 | 274.2M | 43 | 39\n2020-10 | 751 | 321.0M | 39 | 32\n2020-11 | 842 | 210.9M | 41 | 40\n2020-12 | 786 | 156.0M | 60 | 51\n2021-01 | 288 | 21.0M | 11 | 10  <== anomaly\n2021-02 | 520 | 45.3M | 23 | 19\n2021-03 | 810 | 136.2M | 42 | 28\n2021-04 | 602 | 189.3M | 37 | 31\n2021-05 | 715 | 147.5M | 55 | 39\n2021-06 | 743 | 256.1M | 43 | 26\n2021-07 | 642 | 229.7M | 44 | 38\n2021-08 | 847 | 314.0M | 47 | 39\n2021-09 | 1,033 | 232.0M | 47 | 26\n2021-10 | 767 | 258.6M | 30 | 28\n2021-11 | 1,146 | 595.4M | 70 | 54\n2021-12 | 1,050 | 221.1M | 50 | 35\n2022-01 | 389 | 71.0M | 11 | 9\n\nNo known events within +-6 months.",
-  "model": "gemma3:4b",
-  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
-  "ollama_version": "0.34.4",
+  "model": "qwen3:4b",
+  "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "ollama_version": "0.35.0",
   "temperature": 0.7,
   "prompt_version": "v2",
   "data_fingerprint": "974fe3a610d4251b1cced3f772a79f415a345968dde9418baebe47cb6992f4b0",
-  "judged_at": "2026-09-29T19:04:32+00:00",
+  "judged_at": "2026-09-30T10:46:57+00:00",
   "rejudge_reason": "model or prompt version changed",
   "history": [
    {
@@ -1939,6 +1978,14 @@
     "prompt_version": "v1",
     "data_fingerprint": null,
     "judged_at": "2026-09-29T18:24:23+00:00"
+   },
+   {
+    "category": "SP",
+    "consistency": 1.0,
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "data_fingerprint": "974fe3a610d4251b1cced3f772a79f415a345968dde9418baebe47cb6992f4b0",
+    "judged_at": "2026-09-29T19:04:32+00:00"
    }
   ]
  },
@@ -1955,33 +2002,33 @@
    {
     "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2024-01 is highly suggestive of a seasonal pattern. The number of notices is significantly below the median of the previous 12 months (67% below). Furthermore, this low value mirrors a pattern observed across numerous previous years (9 out of 10 years since 2014), including several years flagged as anomalous. The fact that the same calendar month has been flagged in multiple years reinforces the seasonal hypothesis. There's no evidence of a policy change (PDC) or a data quality issue (DQE) given the lack of associated events or anomalies in other related series. While the fine_total_brl series also shows a decrease, the notice count is the primary driver of the anomaly. Therefore, Seasonal Pattern (SP) is the most likely explanation.",
+    "reasoning": "Seasonality check shows 2024-01's ratio (0.33) is below 1, and the same calendar month deviated below 1 in 9 of 10 previous years. This consistent low ratio across years suggests a seasonal pattern (SP). The anomaly was flagged in multiple historical months, reinforcing seasonality. No policy events or data issues (e.g., cancellation spikes, no IDs) explain this. The Page-Hinkley test confirms no sustained shift, ruling out GES. Data quality issues (DQE) are unlikely as cancelled and no_id rates are stable, not extreme.",
     "seed": 11,
-    "latency_s": 60.0
+    "latency_s": 109.1
    },
    {
     "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2024-01 is characterized by a significant drop in the number of infraction notices (67% below the median) compared to previous years. Critically, this drop mirrors a pattern observed across nearly a decade of January data (9 of 10 years). The same calendar month has been flagged as anomalous in multiple years, including recent ones. While a Page-Hinkley test found no sustained level shift, the combination of this historical pattern and the fact that the same month was flagged multiple times strongly suggests a genuine seasonal pattern (SP). The other series, ‘fine_total_brl’, also shows a decrease, supporting this interpretation. Further, the data quality indicators don’t raise concerns: no bursts of cancellations or missing IDs.",
+    "reasoning": "Seasonality check shows the ratio for 2024-01 (0.33) is below 1 in all previous years (2023-01: 1.01, 2022-01: 0.52, etc.), and the same calendar month deviated in the same direction (below 1) in 9 of 10 years. The same month was flagged as anomalous in 12 previous years (1983-01 to 2021-01), indicating a recurring pattern. This meets the seasonal pattern criteria (SP). No policy events or data issues (e.g., cancelled/no_id records) explain this. A Page-Hinkley test showed no sustained level shift, ruling out a real enforcement change (GES). Data quality is unlikely since cancelled and no_id records are low (21/454 and 17/454) and the drop is consistent with historical patterns.",
     "seed": 22,
-    "latency_s": 30.5
+    "latency_s": 37.0
    },
    {
     "category": "SP",
     "confidence": 0.95,
-    "reasoning": "The anomaly in 2024-01 is highly suggestive of a seasonal pattern. The number of notices is significantly below the median of the previous 12 months (67% reduction), a pattern observed in 9 of the 10 years prior to 2024. Furthermore, this month was flagged as anomalous in numerous previous years, including recent ones like 2021 and 2023. The related ‘fine_total_brl’ series also shows a decrease. While there’s no immediate policy event to explain it, the consistent historical behavior strongly points to a recurring seasonal enforcement cycle. The Page-Hinkley test ruled out a sustained level shift.",
+    "reasoning": "Seasonality check: The ratio for 2024-01 (0.33) is below the median of previous 12 months (1.368). The same calendar month has been below 1 for 9 of 10 years (2014-2023), indicating a recurring downward trend. The anomaly was flagged in 12 other years (1983-2021), suggesting consistent seasonal patterns. No recent events explain this. Data quality checks: 'cancelled' and 'no_id' are not unusually high (21/17 vs previous months), and the Page-Hinkley test shows no sustained shift. This pattern matches seasonal decline, not a data problem or policy change.",
     "seed": 33,
-    "latency_s": 28.4
+    "latency_s": 28.7
    }
   ],
   "prompt": "Series: notices - Number of infraction notices issued in the month (non-cancelled).\nAnomalous month: 2024-01 (calendar month 1).\nValue: 454; median of the previous 12 months: 1,368 (-67%; ratio 0.33).\nSeasonality check - ratio of calendar month 1 to the median of its previous 12 months, in the previous years: 2023-01: 1.01 | 2022-01: 0.52 | 2021-01: 0.37 | 2020-01: 0.45 | 2019-01: 0.29 | 2018-01: 0.44 | 2017-01: 0.33 | 2016-01: 0.48 | 2015-01: 0.56 | 2014-01: 0.34.\nThe same calendar month deviated in the same direction (below 1) in 9 of these 10 years.\nThe same calendar month was also flagged as anomalous in: 1983-01, 1989-01, 1996-01, 1999-01, 2003-01, 2009-01, 2010-01, 2012-01, 2014-01, 2017-01, 2019-01, 2021-01.\nDetectors that flagged it: zscore, mad (2 of 4); ensemble score 0.57 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: fine_total_brl.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n2023-01 | 1,036 | 136.5M | 64 | 58\n2023-02 | 1,120 | 227.1M | 31 | 30\n2023-03 | 1,464 | 305.3M | 79 | 66\n2023-04 | 1,549 | 751.8M | 71 | 72\n2023-05 | 1,930 | 530.2M | 92 | 79\n2023-06 | 1,445 | 723.4M | 58 | 70\n2023-07 | 1,327 | 451.5M | 58 | 71\n2023-08 | 1,301 | 483.3M | 72 | 61\n2023-09 | 1,114 | 328.6M | 56 | 59\n2023-10 | 1,409 | 384.5M | 77 | 62\n2023-11 | 1,673 | 387.1M | 88 | 99\n2023-12 | 1,018 | 262.7M | 60 | 56\n2024-01 | 454 | 43.4M | 21 | 17  <== anomaly\n2024-02 | 432 | 198.4M | 9 | 10\n2024-03 | 608 | 176.3M | 38 | 57\n2024-04 | 630 | 197.0M | 60 | 65\n2024-05 | 1,056 | 361.8M | 95 | 107\n2024-06 | 892 | 308.1M | 33 | 47\n2024-07 | 685 | 183.2M | 25 | 37\n2024-08 | 964 | 404.3M | 60 | 78\n2024-09 | 1,627 | 826.3M | 91 | 108\n2024-10 | 1,633 | 734.2M | 92 | 100\n2024-11 | 1,432 | 827.0M | 62 | 74\n2024-12 | 1,255 | 395.2M | 54 | 64\n2025-01 | 659 | 122.2M | 33 | 40\n\nNo known events within +-6 months.",
-  "model": "gemma3:4b",
-  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
-  "ollama_version": "0.34.4",
+  "model": "qwen3:4b",
+  "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "ollama_version": "0.35.0",
   "temperature": 0.7,
   "prompt_version": "v2",
   "data_fingerprint": "b2181362f3c738de27d962351eb074988bf4a90f5f4ba5550adaf4fb3e42e857",
-  "judged_at": "2026-09-29T19:00:23+00:00",
+  "judged_at": "2026-09-30T10:41:40+00:00",
   "rejudge_reason": "model or prompt version changed",
   "history": [
    {
@@ -1991,6 +2038,14 @@
     "prompt_version": "v1",
     "data_fingerprint": null,
     "judged_at": "2026-09-29T18:20:39+00:00"
+   },
+   {
+    "category": "SP",
+    "consistency": 1.0,
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "data_fingerprint": "b2181362f3c738de27d962351eb074988bf4a90f5f4ba5550adaf4fb3e42e857",
+    "judged_at": "2026-09-29T19:00:23+00:00"
    }
   ]
  }

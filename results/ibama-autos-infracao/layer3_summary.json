@@ -1,6 +1,6 @@
 {
  "toolkit": "5ltep-layer3 v0.1.0",
- "generated_at": "2026-09-29T23:14:57+00:00",
+ "generated_at": "2026-09-30T10:57:56+00:00",
  "profile": {
   "id": "ibama-autos-infracao",
   "title": "IBAMA infraction notices (Autos de Infração), Brazil",
@@ -13,7 +13,7 @@
  "source": {
   "profile": "ibama-autos-infracao",
   "profile_sha256": "a1ac50356034dfb4e35239717994a7263ec70add2ded3c5c21a853b597298203",
-  "as_of": "2026-09-29T23:08:16.515584",
+  "as_of": "2026-09-30T10:37:12.772845",
   "dataset_id": "fiscalizacao-auto-de-infracao",
   "dataset_url": "https://dadosabertos.ibama.gov.br/dataset/fiscalizacao-auto-de-infracao",
   "dataset_metadata_modified": "2026-05-27T19:17:38.049734",
@@ -21,7 +21,7 @@
   "resource_id": "b2aba344-95df-43c0-b2ba-f4353cfd9a00",
   "resource_name": "Autos de infração",
   "resource_url": "https://stibamadadosabertosprd.blob.core.windows.net/dados-abertos/dados/SIFISC/auto_infracao/auto_infracao/auto_infracao_csv.zip",
-  "download_started_at": "2026-09-29T23:08:17+00:00",
+  "download_started_at": "2026-09-30T10:37:13+00:00",
   "size_bytes": 122613437,
   "checksum_sha256": "1da3f2dd99a463715c9903507350168648917b87045834f1ed9c9938065b00a8",
   "aggregation": {
@@ -65,7 +65,7 @@
   "ph_lambda": 12.0,
   "drift_tolerance_months": 2,
   "random_seed": 42,
-  "llm_model": "gemma3:4b",
+  "llm_model": "qwen3:4b",
   "llm_runs": 3,
   "llm_temperature": 0.7,
   "llm_seeds": [
@@ -98,24 +98,21 @@
    "notices": 26,
    "fine_total_brl": 18
   },
-  "judged": 44,
-  "pending_judgment": 0,
+  "judged": 7,
+  "pending_judgment": 37,
   "drift_points": {
    "notices": 14,
    "fine_total_brl": 12
   }
  },
  "llm": {
-  "model": "gemma3:4b",
-  "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "model": "qwen3:4b",
+  "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
   "categories": {
-   "SP": 20,
-   "GES": 17,
-   "PDC": 5,
-   "DQE": 2
+   "SP": 7
   },
-  "mean_consistency": 0.818,
-  "unanimous_rate": 0.477
+  "mean_consistency": 0.905,
+  "unanimous_rate": 0.714
  },
  "hitl": {
   "issues": 28,
