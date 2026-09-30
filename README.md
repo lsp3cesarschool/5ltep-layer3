@@ -11,6 +11,13 @@
 🧪 **Which LLM judges, and why:** [5ltep-layer3-modeltest](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest), the monthly model benchmark
 🔁 **Control experiment on another portal:** [5ltep-layer3-aneel](https://github.com/lsp3cesarschool/5ltep-layer3-aneel) (ANEEL, same code)
 
+> **Status: research demonstration.** This toolkit is part of a master's research project and is
+> maintained by its author. It is not an official IBAMA (or ANEEL) service, and it does not assume that
+> any agency will review its results or adopt it. The full flow, human review included, is working and
+> ready to be adopted. The open review issues demonstrate that flow: no steward is assigned, and the
+> author deliberately does not act as one, since labelling the tool's own output would be
+> self-evaluation.
+
 ## Use case in one paragraph
 
 Take a large open dataset, such as IBAMA's infraction notices, and suppose we want to fix what is
@@ -222,7 +229,10 @@ with the evidence, the three reasonings and instructions. The steward decides by
 decided, when, and why; the [`reviews.yml`](.github/workflows/reviews.yml) workflow copies the
 decision into `results/<profile>/reviews.json` and refreshes the dashboard within minutes.
 
-Human-LLM agreement is computed from these decisions and shown on the dashboard.
+Human-LLM agreement (`human_llm_agreement` in the summary), review time (issue opening to closing)
+and the other review metrics are computed from these decisions and shown on the dashboard. They are
+empty in this demonstration and fill in as soon as a steward records decisions; no code change is
+needed.
 
 ## Layer 3 score and output for Layers 4-5
 
@@ -381,7 +391,8 @@ the columns and shows the analysis window:
 python main.py check-profile profiles/my-portal-dataset.json
 ```
 
-A second portal runs as a separate instance, exactly as another agency would adopt the toolkit:
+A second portal runs as a separate instance, set up by the author following the same steps another
+agency would take to adopt the toolkit (ANEEL itself is not involved):
 [**5ltep-layer3-aneel**](https://github.com/lsp3cesarschool/5ltep-layer3-aneel) monitors the
 infraction notices of ANEEL, Brazil's electricity regulator, from
 [dadosabertos.aneel.gov.br](https://dadosabertos.aneel.gov.br). It differs from IBAMA in every
