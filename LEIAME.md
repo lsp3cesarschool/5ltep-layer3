@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 📊 **Painel:** <https://lsp3cesarschool.github.io/5ltep-layer3/> (anomalias, rótulos do LLM, decisões do gestor, proveniência de cada resultado)
-🧑‍⚖️ **Fila de revisão:** [issues `layer3` abertas](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3)
+🧑‍⚖️ **Fila de revisão** (contagens ao vivo; cada selo abre sua lista de issues): [![revisões abertas](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/layer3?label=revis%C3%B5es%20abertas&color=0366d6)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3) [![pendentes](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Apending?label=pendentes&color=d73a4a)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Apending) [![recomendadas](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Aadvisory?label=recomendadas&color=fbca04)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Aadvisory) [![mudança de nível](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Alevel-shift?label=mudan%C3%A7a%20de%20n%C3%ADvel&color=f9d0c4)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Alevel-shift)
 🧪 **Qual LLM julga, e por quê:** [5ltep-layer3-modeltest](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest), o benchmark mensal de modelos
 🔁 **Experimento de controle em outro portal:** [5ltep-layer3-aneel](https://github.com/lsp3cesarschool/5ltep-layer3-aneel) (ANEEL, mesmo código)
 
@@ -207,10 +207,11 @@ guardados, e a decisão do gestor substitui o rótulo do LLM onde houver uma.
 
 Níveis de revisão:
 
-- **Revisão obrigatória**: maioria do LLM `DQE` (ou nenhuma resposta válida). Nenhuma ação corretiva
-  antes da decisão de um gestor.
-- **Revisão recomendada**: consistência do rótulo *C* < 0,6 (as três execuções discordam entre si).
-- **Revisão por mudança de nível**: o artigo do 5L-TEP encaminha deriva confirmada para uma revisão da
+- **Revisão pendente** (rótulo `review:pending`): maioria do LLM `DQE` (ou nenhuma resposta válida).
+  Até um gestor decidir, o mês não conta como aprovado no escore da Camada 3, e nenhuma ação corretiva
+  é sugerida. É uma sugestão pronta para um gestor, não uma obrigação de ninguém.
+- **Revisão recomendada** (`review:advisory`): consistência do rótulo *C* < 0,6 (as três execuções discordam entre si).
+- **Revisão por mudança de nível** (`review:level-shift`): o artigo do 5L-TEP encaminha deriva confirmada para uma revisão da
   estrutura dos dados, qualquer que seja o rótulo. Um salto permanente (ex.: os autos do IBAMA
   multiplicados por ~8 a partir de janeiro de 1996) pode ser uma troca de sistema de informação mesmo
   quando o modelo o chama de mudança genuína. Cada alarme de Page-Hinkley com meses sinalizados em
@@ -239,7 +240,7 @@ decisões, sem mudança de código.
 `results/<perfil>/layer3_summary.json` traz o resultado da Camada 3. Nos últimos 12 meses completos,
 cada par (série, mês) **passa**, a menos que tenha sido sinalizado pelo *ensemble* e esteja ainda não
 julgado, classificado `DQE` (pelo gestor, ou pelo LLM quando nenhum gestor decidiu) ou aguardando uma
-revisão obrigatória:
+revisão pendente:
 
 - `l3_rate` = pares que passam / todos os pares: o termo *L3* da Pontuação Global de Qualidade
   *Qs = w₁L1 + w₂L2 + w₃L3 + w₄L4* (SOFTENG 2026, padrão *w₃ = 0,2*);
@@ -483,10 +484,10 @@ de 3,3 GB é baixado uma vez), inicia o servidor, espera a verificação de saú
 inferência é só em CPU.
 
 **Alerta por e-mail: desligado por padrão.** A fila de revisão é uma sugestão, pronta para um gestor
-assumir; ninguém é obrigado a agir sobre ela, então, por padrão, uma execução com revisões obrigatórias
+assumir; ninguém é obrigado a agir sobre ela, então, por padrão, uma execução com revisões pendentes
 abertas termina com sucesso e só as lista no resumo da execução (um *notice*, sem e-mail). Um órgão que
 designe um gestor pode ligar um alerta que não custa nada e não precisa de servidor de e-mail (como na
-Camada 4): no fim de uma cadeia, se ainda houver revisões obrigatórias abertas, o último lote (que já
+Camada 4): no fim de uma cadeia, se ainda houver revisões pendentes abertas, o último lote (que já
 commitou tudo) falha de propósito, e o GitHub envia um e-mail ao mantenedor sobre a execução com falha,
 uma vez por execução mensal até as revisões serem decididas.
 
@@ -564,7 +565,7 @@ relevantes:
 | `ADVISORY_CONSISTENCY` | `0.6` | abaixo disso, revisão recomendada |
 | `MAX_NEW_ISSUES` | `15` | issues de revisão abertas por execução |
 | `L3_WINDOW_MONTHS` | `12` | janela do escore da Camada 3 |
-| `L3_REVIEW_ALERT` | *(não definida)* | variável de repositório (só no Actions): `true` faz uma cadeia falhar de propósito, e o GitHub enviar um e-mail, enquanto houver revisões obrigatórias abertas; não definida ou `false`: sem alerta |
+| `L3_REVIEW_ALERT` | *(não definida)* | variável de repositório (só no Actions): `true` faz uma cadeia falhar de propósito, e o GitHub enviar um e-mail, enquanto houver revisões pendentes abertas; não definida ou `false`: sem alerta |
 
 ## Limitações
 

@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 📊 **Dashboard:** <https://lsp3cesarschool.github.io/5ltep-layer3/> (anomalies, LLM labels, steward decisions, provenance of every result)
-🧑‍⚖️ **Review queue:** [open `layer3` issues](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3)
+🧑‍⚖️ **Review queue** (live counts; each badge opens its list of issues): [![open reviews](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/layer3?label=open%20reviews&color=0366d6)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3) [![pending](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Apending?label=pending&color=d73a4a)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Apending) [![advisory](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Aadvisory?label=advisory&color=fbca04)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Aadvisory) [![level shift](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Alevel-shift?label=level%20shift&color=f9d0c4)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Alevel-shift)
 🧪 **Which LLM judges, and why:** [5ltep-layer3-modeltest](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest), the monthly model benchmark
 🔁 **Control experiment on another portal:** [5ltep-layer3-aneel](https://github.com/lsp3cesarschool/5ltep-layer3-aneel) (ANEEL, same code)
 
@@ -201,10 +201,11 @@ and the steward's decision replaces the LLM label wherever there is one.
 
 Two levels of review:
 
-- **Mandatory review**: LLM majority `DQE` (or no valid answer). No corrective action before a
-  steward decides.
-- **Advisory review**: label consistency *C* < 0.6 (the three runs all disagree).
-- **Level-shift review**: the 5L-TEP paper routes confirmed drift to a review of the data's structure
+- **Pending review** (label `review:pending`): LLM majority `DQE` (or no valid answer). Until a
+  steward decides, the month does not count as passing in the Layer 3 score, and no corrective action
+  is suggested. It is a suggestion ready for a steward, not an obligation on anyone.
+- **Advisory review** (`review:advisory`): label consistency *C* < 0.6 (the three runs all disagree).
+- **Level-shift review** (`review:level-shift`): the 5L-TEP paper routes confirmed drift to a review of the data's structure
   whatever its label. A permanent jump (e.g. IBAMA's notices multiplied by ~8 from January 1996 on)
   can be a change of information system even when the model calls it a genuine shift. Each
   Page-Hinkley alarm with flagged months around it becomes **one** issue listing those months and
@@ -232,7 +233,7 @@ needed.
 `results/<profile>/layer3_summary.json` carries the Layer 3 result. Over the last 12 complete
 months, each (series, month) pair **passes** unless it was flagged by the ensemble and is either not
 judged yet, classified `DQE` (by the steward, or by the LLM when no steward has decided), or waiting
-for a mandatory review:
+for a pending review:
 
 - `l3_rate` = passing pairs / all pairs: the *L3* term of the Global Quality Score
   *Qs = w₁L1 + w₂L2 + w₃L3 + w₄L4* (SOFTENG 2026, default *w₃ = 0.2*);
@@ -469,10 +470,10 @@ usually a single batch.
 model. Inference is CPU-only.
 
 **E-mail alert: off by default.** The review queue is a suggestion, ready for a steward to pick up;
-nobody is obliged to act on it, so by default a run with open mandatory reviews still succeeds and
+nobody is obliged to act on it, so by default a run with open pending reviews still succeeds and
 only lists them in the run summary (a *notice*, no e-mail). An institution that does assign a steward
 can turn on an alert that costs nothing and needs no mail server (as in Layer 4): at the end of a
-chain, if mandatory reviews are still open, the last batch (which has already committed everything)
+chain, if pending reviews are still open, the last batch (which has already committed everything)
 fails on purpose, and GitHub e-mails the maintainer about the failed run, once per monthly run until
 the reviews are decided.
 
@@ -549,7 +550,7 @@ variable of the same name (the values used are recorded in every summary). The m
 | `ADVISORY_CONSISTENCY` | `0.6` | below this, advisory review |
 | `MAX_NEW_ISSUES` | `15` | review issues opened per run |
 | `L3_WINDOW_MONTHS` | `12` | window of the Layer 3 score |
-| `L3_REVIEW_ALERT` | *(unset)* | repository variable (Actions only): `true` makes a chain fail on purpose, and GitHub send an e-mail, while mandatory reviews are open; unset or `false`: no alert |
+| `L3_REVIEW_ALERT` | *(unset)* | repository variable (Actions only): `true` makes a chain fail on purpose, and GitHub send an e-mail, while pending reviews are open; unset or `false`: no alert |
 
 ## Limitations
 
