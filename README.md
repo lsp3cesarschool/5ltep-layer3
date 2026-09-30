@@ -8,6 +8,8 @@
 
 📊 **Dashboard:** <https://lsp3cesarschool.github.io/5ltep-layer3/> (anomalies, LLM labels, steward decisions, provenance of every result)
 🧑‍⚖️ **Review queue:** [open `layer3` issues](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3)
+🧪 **Which LLM judges, and why:** [5ltep-layer3-modeltest](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest), the monthly model benchmark
+🔁 **Control experiment on another portal:** [5ltep-layer3-aneel](https://github.com/lsp3cesarschool/5ltep-layer3-aneel) (ANEEL, same code)
 
 ## Use case in one paragraph
 
@@ -37,6 +39,24 @@ nada explica, e os recursos humanos que farão as correções manuais são aloca
 A IA apenas propõe; um gestor de dados confirma ou corrige toda decisão que leve a uma ação.
 
 </details>
+
+## Key terms
+
+| Term | Meaning here |
+|---|---|
+| **Anomaly** | a month of a monthly series (e.g. number of notices, total of fines) that departs from its usual pattern, flagged by at least 2 of 4 statistical detectors |
+| **Level shift** | a lasting change of level (not a one-month spike), detected by a Page-Hinkley test |
+| **LLM-as-a-Judge** | a small language model, run locally and free of charge, that reads each anomaly with its context and says which of the four causes below explains it best |
+| **Data steward** | the person who confirms or corrects the judge's label (through a GitHub Issue) before any action |
+
+The four causes (categories) the judge chooses from, and why they matter:
+
+| Code | Category | Example (IBAMA) | What it means for the team |
+|---|---|---|---|
+| **PDC** | Policy-Driven Change | notices change right after a new decree or a change of government | explained by a known event: document it |
+| **SP** | Seasonal Pattern | January has fewer notices almost every year | expected behaviour: no action |
+| **DQE** | Data-Quality Event | a month with almost no records in an active series; a burst of records without identifier | a **data problem**: always reviewed by a steward, first in line for correction |
+| **GES** | Genuine Enforcement Shift | a gradual, lasting increase with no event, no seasonality and no data signs | a real change nobody has explained yet: worth investigating |
 
 ## Overview
 
@@ -85,8 +105,9 @@ datasets, other cuts of the data and other CKAN portals (see
 │ ③ Detect      Z-score · MAD · Isolation Forest · LSTM-ED   │
 │   (stage 1)   ensemble vote ≥ 2 of 4  +  Page-Hinkley      │
 ├────────────────────────────────────────────────────────────┤
-│ ④ Judge       Ollama + qwen3:4b, 3 seeded runs, CoT,       │
-│   (stage 2)   JSON-schema answer → majority + consistency  │
+│ ④ Judge       Ollama + model chosen by the benchmark,      │
+│   (stage 2)   3 seeded runs, CoT, JSON-schema answer       │
+│               → majority + consistency                     │
 ├────────────────────────────────────────────────────────────┤
 │ ⑤ Review      GitHub Issues: steward:<CATEGORY> + close    │
 │   (HitL)      → results/<profile>/reviews.json             │
@@ -123,12 +144,13 @@ All randomness is seeded (`RANDOM_SEED = 42`); two runs on the same series give 
 ## Stage 2: LLM-as-a-Judge
 
 For every flagged month, the judge receives: the series description, the value against its
-12-month median, a data-driven seasonal index for that calendar month, which detectors fired, the
-Page-Hinkley result, whether the other series was flagged too, a ±12-month table with both series,
-excluded (cancelled) records and records without an identifier, and the known events within ±6
-months from the profile's [event calendar](profiles/events/brazil-environmental-enforcement.json).
-It answers in JSON constrained by a schema (Ollama structured outputs), with a step-by-step
-reasoning, one category and a confidence.
+12-month median, the same calendar month in each of the previous 10 years and the years in which it
+was also flagged (seasonality evidence), which detectors fired, the Page-Hinkley result, whether the
+other series was flagged too, a ±12-month table with both series, excluded (cancelled) records and
+records without an identifier, and the known events within ±6 months from the profile's
+[event calendar](profiles/events/brazil-environmental-enforcement.json). It answers in JSON
+constrained by a schema (Ollama structured outputs), with a step-by-step reasoning, one category (see
+[Key terms](#key-terms)) and a confidence.
 
 | Code | Category (IBAMA profile) | HitL |
 |---|---|---|
@@ -153,21 +175,24 @@ months keep arriving. It is judged again only when:
 
 | Trigger | Why | What happens to the review |
 |---|---|---|
-| its data changed | a retroactive correction in the portal altered that month or its 12-month baseline | the existing issue gets a comment with the old and new label |
-| `LLM_MODEL` or `PROMPT_VERSION` changed | the method changed, so the old label no longer describes it | same |
+| its data changed (automatic) | a retroactive correction in the portal altered that month or its 12-month baseline | the existing issue gets a comment with the old and new label |
+| a steward asks for it | *Actions → Layer 3 → Run workflow* with `rejudge` = `stale` (only what an earlier model or prompt version judged) or `all`; also the **Re-judge** button of the dashboard | same |
 
-In both cases the previous judgment is kept in the entry's `history`, never overwritten, and no
-issue is ever duplicated. Events added to the calendar do not trigger new judgments on their own.
+A new model or prompt version does **not** re-judge the history by itself: each judgment records the
+model and prompt version that produced it (shown on the dashboard), and the new model judges the new
+anomalies. In every case the previous judgment is kept in the entry's `history`, never overwritten,
+and no issue is ever duplicated. Events added to the calendar do not trigger new judgments either.
 
 **Which model.** The model is chosen by measurement, not by feel: the
 [model benchmark](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest) runs every month on the
 free runner, discovers new small models, tests them on the production prompt against a gold set whose
-answers are known by construction, and publishes a recommendation. The *Model check* workflow of this
-repository reads it and opens an issue only when another model is clearly better (paired bootstrap);
-switching is a steward decision (repository variables `LLM_MODEL` and, for models with a thinking
-mode, `LLM_THINK`). The first benchmark (30/09/2026) moved production from `gemma3:4b` (macro-F1 0.50
-on the gold set) to `qwen3:4b` with thinking off (0.81); switching re-judged every anomaly once, with
-the earlier judgments kept in their history.
+answers are known by construction, and publishes which model to use. By default (`LLM_MODEL=auto`)
+every run of this repository reads that decision and judges with the approved model; the benchmark
+switches only when a candidate beats the current model by a margin whose paired confidence interval
+is above zero. To keep a fixed model instead, set the repository variable `LLM_MODEL` to a tag (and
+`LLM_THINK` for models with a thinking mode); the monthly *Model check* then opens an issue when the
+benchmark recommends another one. The first benchmark (30/09/2026) moved production from `gemma3:4b`
+(macro-F1 0.50 on the gold set) to `qwen3:4b` with thinking off (0.81).
 
 The LLM is a decision-support tool, not ground truth: every prompt and every reasoning is stored,
 and the steward's decision replaces the LLM label wherever there is one.
@@ -382,9 +407,10 @@ pipeline only needs a file on disk).
    minute quota. (A private repository's 7 GB runner is tight for a 4B model.)
 6. Run *Actions → 5L-TEP Layer 3 Anomaly Detection → Run workflow* once. It works through the
    whole history in batches of 25 judgments, each batch starting the next, until nothing is pending.
-7. Optionally, set the repository variable `LLM_MODEL` to use another Ollama model. Changing the
-   model or `PROMPT_VERSION` makes every anomaly eligible for a new judgment; old ones stay in the
-   history.
+7. By default the model follows the [model benchmark](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest)
+   (`LLM_MODEL=auto`). To pin one, set the repository variable `LLM_MODEL` to an Ollama tag (and
+   `LLM_THINK=false` for models with a thinking mode). Earlier judgments are kept either way; run the
+   workflow with `rejudge` = `stale` or `all` if you want the history judged again.
 
 Do not add other portals' profiles to *this* repository's scheduled runs without discussing it
 first: its results feed the IBAMA case study.
@@ -414,9 +440,9 @@ Then open `docs/index.html` through a local server (`python -m http.server -d do
 
 | Workflow | When | What |
 |---|---|---|
-| [`layer3.yml`](.github/workflows/layer3.yml) | 5th of every month, 06:00 UTC, and **manual** (*Run workflow*, with profile, batch size, "continue" and "detectors only" inputs) | detect → judge a batch → open issues → report → commit → next batch, until nothing is pending |
+| [`layer3.yml`](.github/workflows/layer3.yml) | 5th of every month, 06:00 UTC, and **manual** (*Run workflow*, with profile, batch size, "continue", "detectors only" and **`rejudge`** inputs; dashboard buttons *Run Layer 3 now* and *Re-judge*) | resolve the model → detect → judge a batch → open issues → report → commit → next batch, until nothing is pending |
 | [`reviews.yml`](.github/workflows/reviews.yml) | whenever a `layer3` issue is labelled, closed or reopened | sync steward decisions, refresh the L3 score and dashboard |
-| [`model-check.yml`](.github/workflows/model-check.yml) | 22nd of every month, and manual | compare `LLM_MODEL` with the model benchmark's recommendation; issue if a switch is recommended |
+| [`model-check.yml`](.github/workflows/model-check.yml) | 22nd of every month, and manual | only when `LLM_MODEL` is pinned: compare it with the model benchmark's recommendation; issue if a switch is recommended |
 | [`events.yml`](.github/workflows/events.yml) | **manual** (dashboard button *Suggest events*), with profile, online/offline and years inputs | LLM suggestions for the event calendar → pull request for review |
 | [`tests.yml`](.github/workflows/tests.yml) | push / pull request | test suite on Python 3.10–3.12 |
 
@@ -504,8 +530,9 @@ variable of the same name (the values used are recorded in every summary). The m
 | `LSTM_PERCENTILE` | `99.0` | LSTM-ED threshold on reconstruction errors |
 | `ENSEMBLE_MIN_VOTES` | `2` | votes needed to flag a month |
 | `PH_DELTA`, `PH_LAMBDA` | `0.5`, `12.0` | Page-Hinkley tolerance and threshold (noise units) |
-| `LLM_MODEL` | `qwen3:4b` | Ollama model (in Actions: repository variable); chosen by the model benchmark |
-| `LLM_THINK` | `false` | turn off the thinking mode of models that have one (empty: model default) |
+| `LLM_MODEL` | `auto` | `auto`: the model approved by the [model benchmark](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest), read at the start of each run; a tag (e.g. `qwen3:4b`) pins the model (in Actions: repository variable) |
+| `LLM_THINK` | *(empty)* | `false` turns off the thinking mode of models that have one; empty: as the benchmark tested it (auto) or the model's default (pinned) |
+| `FALLBACK_MODEL` | `qwen3:4b` | used in auto mode if the benchmark cannot be read |
 | `LLM_TEMPERATURE`, `LLM_SEEDS` | `0.7`, `11,22,33` | sampling of the three runs |
 | `MAX_JUDGMENTS`, `MAX_JUDGE_MINUTES` | `25`, `240` | LLM budget per run |
 | `ADVISORY_CONSISTENCY` | `0.6` | below this, advisory review |
