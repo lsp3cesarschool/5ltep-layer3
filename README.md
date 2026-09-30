@@ -49,7 +49,8 @@ It follows the two-stage protocol of the 5L-TEP paper:
 
 1. **Automated statistical monitoring** flags candidate anomalies: an ensemble of four detectors
    votes on every month, and a Page-Hinkley test separates sustained drift from point anomalies.
-2. **Interpretation and review**: a local LLM (Gemma 3 4B via [Ollama](https://ollama.com)) reads
+2. **Interpretation and review**: a local LLM ([Ollama](https://ollama.com); currently `qwen3:4b`,
+   chosen by the [model benchmark](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest)) reads
    each candidate in context and proposes a cause; anomalies that point to a data-quality problem,
    or on which the LLM is inconsistent, go to a **data steward** as GitHub Issues. The steward's
    decision prevails.
@@ -84,7 +85,7 @@ datasets, other cuts of the data and other CKAN portals (see
 │ ③ Detect      Z-score · MAD · Isolation Forest · LSTM-ED   │
 │   (stage 1)   ensemble vote ≥ 2 of 4  +  Page-Hinkley      │
 ├────────────────────────────────────────────────────────────┤
-│ ④ Judge       Ollama + Gemma 3 4B, 3 seeded runs, CoT,     │
+│ ④ Judge       Ollama + qwen3:4b, 3 seeded runs, CoT,       │
 │   (stage 2)   JSON-schema answer → majority + consistency  │
 ├────────────────────────────────────────────────────────────┤
 │ ⑤ Review      GitHub Issues: steward:<CATEGORY> + close    │
@@ -164,7 +165,9 @@ free runner, discovers new small models, tests them on the production prompt aga
 answers are known by construction, and publishes a recommendation. The *Model check* workflow of this
 repository reads it and opens an issue only when another model is clearly better (paired bootstrap);
 switching is a steward decision (repository variables `LLM_MODEL` and, for models with a thinking
-mode, `LLM_THINK`).
+mode, `LLM_THINK`). The first benchmark (30/09/2026) moved production from `gemma3:4b` (macro-F1 0.50
+on the gold set) to `qwen3:4b` with thinking off (0.81); switching re-judged every anomaly once, with
+the earlier judgments kept in their history.
 
 The LLM is a decision-support tool, not ground truth: every prompt and every reasoning is stored,
 and the steward's decision replaces the LLM label wherever there is one.
@@ -250,7 +253,7 @@ have affected the records and must **quote the sentence** each one comes from; s
 quote is not found in the page are discarded, which filters out invented events. With `--offline`,
 the model answers from its own knowledge instead; those entries are marked `origin: llm-memory` and
 are never given to the judge before a steward verifies them. This is not a theoretical precaution:
-in a first run without grounding, Gemma 3 4B proposed non-existent impeachments and decrees with
+in a first run without grounding, Gemma 3 4B (the model then in use) proposed non-existent impeachments and decrees with
 made-up numbers. Use offline mode only as a list of leads to check.
 
 On GitHub, the dashboard's **Suggest events** button opens the
@@ -398,7 +401,7 @@ python main.py run --skip-llm            # download + detect + report, no LLM
 pytest tests/ -v                          # no network, no LLM needed
 ```
 
-With a local Ollama (`ollama serve` and `ollama pull gemma3:4b`):
+With a local Ollama (`ollama serve` and `ollama pull qwen3:4b`):
 
 ```bash
 python main.py judge --max-judgments 5
@@ -501,7 +504,8 @@ variable of the same name (the values used are recorded in every summary). The m
 | `LSTM_PERCENTILE` | `99.0` | LSTM-ED threshold on reconstruction errors |
 | `ENSEMBLE_MIN_VOTES` | `2` | votes needed to flag a month |
 | `PH_DELTA`, `PH_LAMBDA` | `0.5`, `12.0` | Page-Hinkley tolerance and threshold (noise units) |
-| `LLM_MODEL` | `gemma3:4b` | Ollama model (in Actions: repository variable) |
+| `LLM_MODEL` | `qwen3:4b` | Ollama model (in Actions: repository variable); chosen by the model benchmark |
+| `LLM_THINK` | `false` | turn off the thinking mode of models that have one (empty: model default) |
 | `LLM_TEMPERATURE`, `LLM_SEEDS` | `0.7`, `11,22,33` | sampling of the three runs |
 | `MAX_JUDGMENTS`, `MAX_JUDGE_MINUTES` | `25`, `240` | LLM budget per run |
 | `ADVISORY_CONSISTENCY` | `0.6` | below this, advisory review |
