@@ -482,11 +482,18 @@ costuma ter um único lote.
 de 3,3 GB é baixado uma vez), inicia o servidor, espera a verificação de saúde e baixa o modelo. A
 inferência é só em CPU.
 
-**Alertas não custam nada e não precisam de servidor de e-mail** (como na Camada 4): no fim de uma
-cadeia, se ainda houver revisões **obrigatórias** abertas, o último lote (que já commitou tudo) falha de
-propósito, e o GitHub envia um e-mail ao mantenedor sobre a execução com falha. Revisões obrigatórias
-abertas produzem assim um lembrete por execução mensal até um gestor decidi-las. Habilite
-*Settings → Notifications → Actions* na sua conta.
+**Alerta por e-mail: desligado por padrão.** A fila de revisão é uma sugestão, pronta para um gestor
+assumir; ninguém é obrigado a agir sobre ela, então, por padrão, uma execução com revisões obrigatórias
+abertas termina com sucesso e só as lista no resumo da execução (um *notice*, sem e-mail). Um órgão que
+designe um gestor pode ligar um alerta que não custa nada e não precisa de servidor de e-mail (como na
+Camada 4): no fim de uma cadeia, se ainda houver revisões obrigatórias abertas, o último lote (que já
+commitou tudo) falha de propósito, e o GitHub envia um e-mail ao mantenedor sobre a execução com falha,
+uma vez por execução mensal até as revisões serem decididas.
+
+- **Para ligar:** *Settings → Secrets and variables → Actions → Variables → New repository variable*,
+  nome `L3_REVIEW_ALERT`, valor `true`; e habilite *Settings → Notifications → Actions* na conta que
+  deve receber os e-mails.
+- **Para desligar:** apague a variável, ou defina-a como `false`.
 
 ## Avaliação
 
@@ -557,6 +564,7 @@ relevantes:
 | `ADVISORY_CONSISTENCY` | `0.6` | abaixo disso, revisão recomendada |
 | `MAX_NEW_ISSUES` | `15` | issues de revisão abertas por execução |
 | `L3_WINDOW_MONTHS` | `12` | janela do escore da Camada 3 |
+| `L3_REVIEW_ALERT` | *(não definida)* | variável de repositório (só no Actions): `true` faz uma cadeia falhar de propósito, e o GitHub enviar um e-mail, enquanto houver revisões obrigatórias abertas; não definida ou `false`: sem alerta |
 
 ## Limitações
 

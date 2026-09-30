@@ -468,11 +468,18 @@ usually a single batch.
 (the 3.3 GB model is downloaded once), starts the server, waits for its health check and pulls the
 model. Inference is CPU-only.
 
-**Alerts cost nothing and need no mail server** (as in Layer 4): at the end of a chain, if
-**mandatory** reviews are still open, the last batch (which has already committed everything) fails
-on purpose, and GitHub e-mails the maintainer about the failed run. Open mandatory reviews therefore
-produce one reminder per monthly run until a steward decides them. Enable
-*Settings → Notifications → Actions* on your account.
+**E-mail alert: off by default.** The review queue is a suggestion, ready for a steward to pick up;
+nobody is obliged to act on it, so by default a run with open mandatory reviews still succeeds and
+only lists them in the run summary (a *notice*, no e-mail). An institution that does assign a steward
+can turn on an alert that costs nothing and needs no mail server (as in Layer 4): at the end of a
+chain, if mandatory reviews are still open, the last batch (which has already committed everything)
+fails on purpose, and GitHub e-mails the maintainer about the failed run, once per monthly run until
+the reviews are decided.
+
+- **To turn it on:** *Settings → Secrets and variables → Actions → Variables → New repository
+  variable*, name `L3_REVIEW_ALERT`, value `true`; and enable *Settings → Notifications → Actions* in
+  the account that should receive the e-mails.
+- **To turn it off:** delete the variable, or set it to `false`.
 
 ## Evaluation
 
@@ -542,6 +549,7 @@ variable of the same name (the values used are recorded in every summary). The m
 | `ADVISORY_CONSISTENCY` | `0.6` | below this, advisory review |
 | `MAX_NEW_ISSUES` | `15` | review issues opened per run |
 | `L3_WINDOW_MONTHS` | `12` | window of the Layer 3 score |
+| `L3_REVIEW_ALERT` | *(unset)* | repository variable (Actions only): `true` makes a chain fail on purpose, and GitHub send an e-mail, while mandatory reviews are open; unset or `false`: no alert |
 
 ## Limitations
 
