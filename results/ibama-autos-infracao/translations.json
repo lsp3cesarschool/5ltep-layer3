@@ -255,11 +255,6 @@
    "model": "qwen3:4b",
    "version": "2612d7409ea0"
   },
-  "13c070c836404fd0de10701b32fa9d64cafb007e633db46028b3ef3e3dad0f34": {
-   "text": "A anomalia é mais provavelmente devida a uma Mudança Genuína de Fiscalização (GES). O número de autos de infração de 1989-07 (364) representa um aumento de 4,02x em relação à mediana dos 12 meses anteriores (90), o que é uma desvio significativo. Enquanto a verificação de sazonalidade mostra uma tendência de julho estar acima da média, isso é verdade apenas em 5 de 7 anos, e a magnitude do aumento é muito maior do que em qualquer um dos anos anteriores. Além disso, o teste Page-Hinkley confirma uma mudança de nível sustentada. O evento-chave é a criação do IBAMA em fevereiro de 1989, coincidindo com o pico de autos de infração. Embora a reforma monetária de janeiro de 1989 possa teoricamente influenciar os valores de multas, o número de autos de infração não está diretamente relacionado a mudanças monetárias. O fato de a anomalia não ter sido sinalizada em nenhum outro ano fortalece a argumentação para uma mudança genuína de atividade de fiscalização após a criação da agência.",
-   "model": "qwen3:4b",
-   "version": "2612d7409ea0"
-  },
   "6356798226fc1d023f03b059261cf3cf8dd121f2813c7626e9cbe83421234e7c": {
    "text": "The anomaly in 1993-02 is characterized by a significant drop in the number of notices (60% below the median) and a relatively low value. Crucially, this month has a history of deviation (4/10 years), and was flagged as anomalous in 1989-02 and 1996-02. The seasonal check shows a consistent downward trend in February across multiple years. The currency reform in August 1993, six months later, could have impacted fine values but doesn’t explain the dramatic reduction in notice numbers. The data doesn't show any other series flagged at the same time, and no sustained level shift was detected. Therefore, a seasonal pattern is the most plausible explanation given the historical context and the calendar month's consistent deviation.",
    "model": "qwen3:4b",
@@ -315,18 +310,8 @@
    "model": "qwen3:4b",
    "version": "2612d7409ea0"
   },
-  "91f489af8cdf510562cef16ce817446047037b8cb975cfc965e529caba4ea1a1": {
-   "text": "The anomaly in 2.019-01 is characterized by a significant drop in notices (59% reduction) compared to the median of the previous 12 months. Critically, this month has been flagged as anomalous in multiple years (8 of 10), and the ratio to the previous 12 months is consistently low. The Page-Hinkley test confirms a sustained level shift within 2 months, suggesting a persistent change. Given these factors, a seasonal pattern (SP) is the most plausible explanation, as the deviation is replicated across multiple years and calendar months. While policy changes (PDC) are possible, there's no specific event identified within the timeframe that could explain this drop. Data quality issues (DQE) are less likely given the consistent pattern. A genuine enforcement shift (GES) is the least likely explanation due to the lack of broader systemic changes.",
-   "model": "qwen3:4b",
-   "version": "2612d7409ea0"
-  },
   "b13d90f38010d0a7307f2c37bf656eee47d6e119fc801d69ba4b87dca5e613b1": {
    "text": "A anomalia em 2012-01 é consistente com um padrão sazonal histórico. A razão em relação à mediana dos 12 meses anteriores (0,49) está significativamente abaixo da mediana, e isso ocorreu em 8 dos 10 anos anteriores a 2012. Além disso, o mesmo mês foi sinalizado como anomálico em outros anos, incluindo 2019-01, 2021-01 e 2024-01. Não foi detectada mudança de nível sustentada usando o teste Page-Hinkley, e não houve outras séries sinalizadas no mesmo mês. O Novo Código Florestal introduzido em 2012 pode ter influenciado a fiscalização, mas o padrão histórico estabelecido sugere fortemente um efeito sazonal (SP).",
-   "model": "qwen3:4b",
-   "version": "2612d7409ea0"
-  },
-  "f6135f9067884b9a3d7d2df4787497496ba27b1ee544cde6f8978ed7ee0b9fe4": {
-   "text": "The anomaly in 2.019-01 is primarily driven by a seasonal pattern. The number of notices is significantly below the median of the previous 12 months (66% reduction), and this deviation is consistent with historical data across numerous years (9 out of 10 years in the past show a similar low value for January). The fact that the same month was flagged as anomalous in multiple years (including 2024-01) strengthens this seasonal interpretation. While the fine total also decreased, the focus here is on the notice count. The absence of a sustained level shift (Page-Hinkley test) further supports a cyclical pattern rather than a systematic change. The other series flagged in the same month (fine_total_brl) may be related to this seasonal shift.",
    "model": "qwen3:4b",
    "version": "2612d7409ea0"
   },
@@ -347,6 +332,16 @@
   },
   "848eea5a984a7128b6502a61ce64b822f7cbbe6d1a57d26f5ffab49c5e75ed37": {
    "text": "Verificação de sazonalidade mostra que a razão de 2024-01 (0,33) está abaixo de 1, e o mesmo mês do calendário se desviou abaixo de 1 em 9 de 10 anos anteriores. Essa baixa razão consistente ao longo dos anos sugere um padrão sazonal (SP). A anomalia foi sinalizada em múltiplos meses históricos, reforçando a sazonalidade. Nenhum evento de política ou problemas de dados (por exemplo, picos de cancelamento, sem IDs) explica isso. O teste Page-Hinkley confirma a ausência de mudança sustentada, excluindo GES. Problemas de qualidade de dados (DQE) são improváveis, já que as taxas de cancelamento e sem IDs são estáveis, não extremas.",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "91f489af8cdf510562cef16ce817446047037b8cb975cfc965e529caba4ea1a1": {
+   "text": "The anomaly in 2010-01 is characterized by a significant drop in notices (59% reduction) compared to the median of the previous 12 months. Critically, this month has been flagged as anomalous in multiple years (8 of 10), and the ratio to the previous 12 months is consistently low. The Page-Hinkley test confirms a sustained level shift within 2 months, suggesting a persistent change. Given these factors, a seasonal pattern (SP) is the most plausible explanation, as the deviation is replicated across multiple years and calendar months. While policy changes (PDC) are possible, there's no specific event identified within the timeframe that could explain this drop. Data quality issues (DQE) are less likely given the consistent pattern. A genuine enforcement shift (GES) is the least likely explanation due to the lack of broader systemic changes.",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "f6135f9067884b9a3d7d2df4787497496ba27b1ee544cde6f8978ed7ee0b9fe4": {
+   "text": "A anomalia em 2 014-01 é principalmente impulsionada por um padrão sazonal. O número de autos é significativamente abaixo da mediana dos últimos 12 meses (redução de 66%), e essa divergência é consistente com os dados históricos em numerosos anos (9 de 10 anos nos últimos mostram um valor baixo para janeiro). O fato de o mesmo mês ter sido sinalizado como anomalo em múltiplos anos (incluindo 2024-01) reforça essa interpretação sazonal. Embora o total de multas também tenha diminuído, o foco aqui está no número de autos. A ausência de uma mudança de nível sustentada (teste Page-Hinkley) reforça um padrão cíclico em vez de uma mudança sistêmica. As outras séries sinalizadas no mesmo mês (fine_total_brl) podem estar relacionadas a essa mudança sazonal.",
    "model": "qwen3:4b",
    "version": "2612d7409ea0"
   }
