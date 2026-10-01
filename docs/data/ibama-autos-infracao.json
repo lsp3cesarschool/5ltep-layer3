@@ -1,7 +1,7 @@
 {
  "summary": {
   "toolkit": "5ltep-layer3 v0.1.0",
-  "generated_at": "2026-09-30T10:57:56+00:00",
+  "generated_at": "2026-10-01T10:43:40+00:00",
   "profile": {
    "id": "ibama-autos-infracao",
    "title": "IBAMA infraction notices (Autos de Infração), Brazil",
@@ -14,7 +14,7 @@
   "source": {
    "profile": "ibama-autos-infracao",
    "profile_sha256": "a1ac50356034dfb4e35239717994a7263ec70add2ded3c5c21a853b597298203",
-   "as_of": "2026-09-30T10:37:12.772845",
+   "as_of": "2026-10-01T10:36:02.348521",
    "dataset_id": "fiscalizacao-auto-de-infracao",
    "dataset_url": "https://dadosabertos.ibama.gov.br/dataset/fiscalizacao-auto-de-infracao",
    "dataset_metadata_modified": "2026-05-27T19:17:38.049734",
@@ -22,7 +22,7 @@
    "resource_id": "b2aba344-95df-43c0-b2ba-f4353cfd9a00",
    "resource_name": "Autos de infração",
    "resource_url": "https://stibamadadosabertosprd.blob.core.windows.net/dados-abertos/dados/SIFISC/auto_infracao/auto_infracao/auto_infracao_csv.zip",
-   "download_started_at": "2026-09-30T10:37:13+00:00",
+   "download_started_at": "2026-10-01T10:36:02+00:00",
    "size_bytes": 122613437,
    "checksum_sha256": "1da3f2dd99a463715c9903507350168648917b87045834f1ed9c9938065b00a8",
    "aggregation": {
@@ -35,11 +35,11 @@
     "rows_future_date": 0,
     "rows_without_fine_total_brl": 10695,
     "first_month": "1977-09",
-    "last_complete_month": "2026-08"
+    "last_complete_month": "2026-09"
    },
    "analysis_period": [
     "1980-11",
-    "2026-08"
+    "2026-09"
    ]
   },
   "series": {
@@ -48,9 +48,9 @@
   },
   "analysis_period": [
    "1980-11",
-   "2026-08"
+   "2026-09"
   ],
-  "months": 550,
+  "months": 551,
   "method_parameters": {
    "baseline_window": 12,
    "zscore_k": 3.0,
@@ -89,18 +89,18 @@
     "pandas": "3.0.6",
     "numpy": "2.4.6",
     "scikit-learn": "1.9.1",
-    "torch": "2.14.0+cpu",
+    "torch": "2.14.1+cpu",
     "requests": "2.34.2"
    }
   },
   "anomalies": {
-   "flagged": 44,
+   "flagged": 43,
    "by_series": {
-    "notices": 26,
-    "fine_total_brl": 18
+    "notices": 24,
+    "fine_total_brl": 19
    },
-   "judged": 7,
-   "pending_judgment": 37,
+   "judged": 43,
+   "pending_judgment": 0,
    "drift_points": {
     "notices": 14,
     "fine_total_brl": 12
@@ -108,27 +108,36 @@
   },
   "llm": {
    "model": "qwen3:4b",
-   "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
-   "categories": {
-    "SP": 7
+   "model_source": "benchmark",
+   "judged_by": {
+    "gemma3:4b / prompt v2": 34,
+    "qwen3:4b / prompt v2": 9
    },
-   "mean_consistency": 0.905,
-   "unanimous_rate": 0.714
+   "judged_by_other_model_or_prompt": 34,
+   "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+   "categories": {
+    "SP": 22,
+    "GES": 15,
+    "PDC": 5,
+    "DQE": 1
+   },
+   "mean_consistency": 0.814,
+   "unanimous_rate": 0.465
   },
   "hitl": {
    "issues": 28,
    "decided": 0,
    "open_by_level": {
     "level-shift": 25,
-    "mandatory": 2,
+    "pending": 2,
     "advisory": 1
    },
    "human_llm_agreement": null
   },
   "layer3": {
    "window": [
-    "2025-09",
-    "2026-08"
+    "2025-10",
+    "2026-09"
    ],
    "pairs_evaluated": 24,
    "l3_rate": 1.0,
@@ -692,7 +701,8 @@
   "2026-05",
   "2026-06",
   "2026-07",
-  "2026-08"
+  "2026-08",
+  "2026-09"
  ],
  "series": {
   "notices": [
@@ -1245,7 +1255,8 @@
    1559.0,
    1357.0,
    1380.0,
-   1187.0
+   1187.0,
+   1486.0
   ],
   "fine_total_brl": [
    0.0,
@@ -1797,7 +1808,8 @@
    379738000.0,
    466681000.0,
    333465000.0,
-   550836000.0
+   550836000.0,
+   311726000.0
   ]
  },
  "context": {
@@ -2351,7 +2363,8 @@
    77,
    56,
    72,
-   75
+   75,
+   38
   ],
   "excluded_label": "cancelled",
   "missing_key": [
@@ -2904,7 +2917,8 @@
    187,
    235,
    270,
-   503
+   503,
+   786
   ]
  },
  "anomalies": [
@@ -2914,7 +2928,7 @@
    "month": "2024-01",
    "value": 454.0,
    "votes": 2,
-   "score": 0.5728,
+   "score": 0.5718,
    "detectors": [
     "zscore",
     "mad"
@@ -2924,6 +2938,9 @@
     "category": "SP",
     "consistency": 1.0,
     "review_level": "none",
+    "model": "qwen3:4b",
+    "prompt_version": "v2",
+    "current": true,
     "reasoning": "Seasonality check shows 2024-01's ratio (0.33) is below 1, and the same calendar month deviated below 1 in 9 of 10 previous years. This consistent low ratio across years suggests a seasonal pattern (SP). The anomaly was flagged in multiple historical months, reinforcing seasonality. No policy events or data issues (e.g., cancellation spikes, no IDs) explain this. The Page-Hinkley test confirms no sustained shift, ruling out GES. Data quality issues (DQE) are unlikely as cancelled and no_id rates are stable, not extreme.",
     "runs": [
      "SP",
@@ -2939,7 +2956,7 @@
    "month": "2024-01",
    "value": 43427725.39,
    "votes": 3,
-   "score": 0.5991,
+   "score": 0.5997,
    "detectors": [
     "zscore",
     "mad",
@@ -2950,6 +2967,9 @@
     "category": "SP",
     "consistency": 1.0,
     "review_level": "none",
+    "model": "qwen3:4b",
+    "prompt_version": "v2",
+    "current": true,
     "reasoning": "Seasonality check shows the ratio of calendar month 1 to the median of previous 12 months has been below 1 for 9 of 10 years (2014-2023), indicating a consistent downward trend in this month. The same calendar month was flagged in 1989, 1999, 2014, 2020, 2021, suggesting recurring seasonal patterns. No events within +-6 months, so PDC and events are unlikely. The data shows no sudden changes in system or duplication (no_id, cancelled values are plausible). The anomaly is a consistent seasonal pattern, not a data quality issue or genuine enforcement shift.",
     "runs": [
      "SP",
@@ -2964,17 +2984,21 @@
    "series": "notices",
    "month": "2021-01",
    "value": 288.0,
-   "votes": 2,
-   "score": 0.662,
+   "votes": 3,
+   "score": 0.6594,
    "detectors": [
     "zscore",
-    "mad"
+    "mad",
+    "iforest"
    ],
    "near_drift": false,
    "llm": {
     "category": "SP",
     "consistency": 1.0,
     "review_level": "none",
+    "model": "qwen3:4b",
+    "prompt_version": "v2",
+    "current": true,
     "reasoning": "The anomalous month 2021-01 has a ratio of 0.37 (288 vs median 768). Seasonality check shows the same calendar month (Jan) has consistently been below the median (ratio <1) in 10 of 10 years since 2011. The same month was flagged in 12 previous years (1983-2024), indicating a long-term pattern. No known events explain the timing. Data quality checks: cancelled (11) and no_id (10) are low compared to 2020 (21/5 vs 2021), but the pattern persists. The Page-Hinkley test shows no sustained shift, ruling out temporary changes. Given the consistent seasonal pattern across decades, the anomaly is seasonal.",
     "runs": [
      "SP",
@@ -2990,7 +3014,7 @@
    "month": "2021-01",
    "value": 21033947.63,
    "votes": 3,
-   "score": 0.5362,
+   "score": 0.5384,
    "detectors": [
     "zscore",
     "mad",
@@ -3001,6 +3025,9 @@
     "category": "SP",
     "consistency": 1.0,
     "review_level": "none",
+    "model": "qwen3:4b",
+    "prompt_version": "v2",
+    "current": true,
     "reasoning": "Seasonality check shows 2021-01's ratio (0.12) is below 1, and 9 of 10 previous years also had ratios <1 (2020-01: 0.25, 2019-01: 1.10, etc.). The same calendar month was flagged in 1989-01, 1999-01, 2014-01, 2020-01, 2024-01, indicating recurring low activity. However, the ratio for 2021-01 is unusually low (0.12) compared to the median of previous 12 months (170.9M). The Page-Hinkley test shows no sustained level shift, so it's not a structural change. The data quality indicators (cancelled=11, no_id=10) are present but not the primary issue. Since the anomaly is recurring and not explained by events or data quality, it's likely a seasonal pattern (SP) but the low ratio is atypical. The data quality category (DQE) doesn't fit because the values aren't implausible (21M is plausible) and there's no burst of cancellations. Given the recurring pattern, SP is the best fit.",
     "runs": [
      "SP",
@@ -3016,7 +3043,7 @@
    "month": "2020-01",
    "value": 59673319.08,
    "votes": 2,
-   "score": 0.5089,
+   "score": 0.509,
    "detectors": [
     "zscore",
     "mad"
@@ -3026,6 +3053,9 @@
     "category": "SP",
     "consistency": 0.667,
     "review_level": "none",
+    "model": "qwen3:4b",
+    "prompt_version": "v2",
+    "current": true,
     "reasoning": "Seasonality check shows 2020-01 ratio (0.25) is below 1 in all previous years (median ratio 0.42), and 9 of 10 years had below-1 ratios. The same calendar month was flagged in 1989, 1999, 2014, 2021, 2024, indicating recurring low activity. This pattern fits SP (seasonal pattern) as it's a consistent annual low, not explained by policy events. The pandemic event was in March 2020 (2 months later), too late to affect January. Data quality issues like cancellations (21) and no_id (5) are present but not the primary cause; the pattern is stable across years.",
     "runs": [
      "SP",
@@ -3041,7 +3071,7 @@
    "month": "2019-01",
    "value": 370.0,
    "votes": 3,
-   "score": 0.6389,
+   "score": 0.6299,
    "detectors": [
     "zscore",
     "mad",
@@ -3052,6 +3082,9 @@
     "category": "SP",
     "consistency": 1.0,
     "review_level": "none",
+    "model": "qwen3:4b",
+    "prompt_version": "v2",
+    "current": true,
     "reasoning": "Seasonality check shows 2019-01 ratio (0.29) is below 1, consistent with 10/10 years having similar deviations. Multiple years also flagged 2019-01 as anomalous, indicating a recurring pattern. The Page-Hinkley test confirms a level shift within 2 months, but the data quality indicators (cancelled=127, no_id=0) are normal. Known events include a political change in 2019-01, but the anomaly is a drop in notices, not a rise. Seasonal patterns are strong (same month deviated below 1 in 10 years), so SP (Seasonal Pattern) fits best.",
     "runs": [
      "SP",
@@ -3072,7 +3105,7 @@
    "month": "2017-01",
    "value": 505.0,
    "votes": 2,
-   "score": 0.5725,
+   "score": 0.5681,
    "detectors": [
     "zscore",
     "mad"
@@ -3082,6 +3115,9 @@
     "category": "SP",
     "consistency": 0.667,
     "review_level": "none",
+    "model": "qwen3:4b",
+    "prompt_version": "v2",
+    "current": true,
     "reasoning": "Seasonality check shows 2017-01 deviated below median in 10 of 10 previous years (ratio 0.33 vs median 1550). The same calendar month (Jan) consistently had ratios below 1 for 10 years, indicating a long-term downward trend, not a one-time anomaly. No policy events in +-6 months. Records show no cancellations or missing IDs (cancelled=28, no_id=0) for 2017-01. The drop aligns with historical patterns, ruling out DQE (no data issues) and PDC (no events). GES is unlikely as it's a recurring seasonal pattern.",
     "runs": [
      "SP",
@@ -3097,14 +3133,27 @@
    "month": "2014-01",
    "value": 471.0,
    "votes": 3,
-   "score": 0.563,
+   "score": 0.5559,
    "detectors": [
     "zscore",
     "mad",
     "iforest"
    ],
    "near_drift": false,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 2014-01 is primarily driven by a seasonal pattern. The number of notices is significantly below the median of the previous 12 months (66% reduction), and this deviation is consistent with historical data across numerous years (9 out of 10 years in the past show a similar low value for January). The fact that the same month was flagged as anomalous in multiple years (including 2024-01) strengthens this seasonal interpretation. While the fine total also decreased, the focus here is on the notice count. The absence of a sustained level shift (Page-Hinkley test) further supports a cyclical pattern rather than a systematic change. The other series flagged in the same month (fine_total_brl) may be related to this seasonal shift.",
+    "runs": [
+     "SP",
+     "SP",
+     "SP"
+    ]
+   },
    "review": null
   },
   {
@@ -3113,13 +3162,26 @@
    "month": "2014-01",
    "value": 39731167.35,
    "votes": 2,
-   "score": 0.6355,
+   "score": 0.6347,
    "detectors": [
     "zscore",
     "mad"
    ],
    "near_drift": false,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 2014-01 is significantly below the median of the previous 12 months, and this deviation has occurred in 9 of the 10 years examined. The ratio to the previous 12 months is 0.15, indicating a substantial decrease. Furthermore, the same calendar month has been flagged as anomalous in multiple years (1989, 1999, 2020, 2021, 2024). Given the seasonality check, the anomaly is consistently below the median across years. While there’s no sustained level shift detected by the Page-Hinkley test, the recurring nature of this anomaly points strongly towards a seasonal pattern (SP). The other series, notices, also show a high number of cancellations in the same month, reinforcing the seasonal interpretation.",
+    "runs": [
+     "SP",
+     "SP",
+     "SP"
+    ]
+   },
    "review": null
   },
   {
@@ -3128,13 +3190,26 @@
    "month": "2012-01",
    "value": 851.0,
    "votes": 2,
-   "score": 0.5242,
+   "score": 0.5194,
    "detectors": [
     "zscore",
     "mad"
    ],
    "near_drift": false,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 2012-01 is consistent with a historical seasonal pattern. The ratio to the median of the previous 12 months (0.49) is significantly below the median, and this has occurred in 8 of the 10 years prior to 2012. Furthermore, the same month has been flagged as anomalous in numerous other years, including 2019-01, 2021-01 and 2024-01. No sustained level shift was detected using the Page-Hinkley test, and no other series were flagged in the same month. The New Forest Code introduced in 2012 may have influenced enforcement, but the established historical pattern strongly suggests a seasonal effect (SP).",
+    "runs": [
+     "SP",
+     "SP",
+     "SP"
+    ]
+   },
    "review": null
   },
   {
@@ -3143,13 +3218,26 @@
    "month": "2011-11",
    "value": 755360693.37,
    "votes": 2,
-   "score": 0.4087,
+   "score": 0.4171,
    "detectors": [
     "zscore",
     "mad"
    ],
    "near_drift": false,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 2011-11 is driven by a significantly elevated fine total compared to the median of the previous 12 months (3.33x). While this is above the seasonal pattern as observed over the past 10 years (7 out of 10 years showed an increase), there's no clear seasonal pattern. The data does not indicate a policy-driven event, as the new Forest Code event is 6 months after the anomaly. The records show no data quality issues, such as a burst of cancellations or missing identifiers. Therefore, a genuine enforcement shift seems the most plausible explanation.",
+    "runs": [
+     "GES",
+     "GES",
+     "GES"
+    ]
+   },
    "review": null
   },
   {
@@ -3158,13 +3246,26 @@
    "month": "2010-01",
    "value": 786.0,
    "votes": 2,
-   "score": 0.4852,
+   "score": 0.4802,
    "detectors": [
     "zscore",
     "mad"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 2010-01 is characterized by a significant drop in notices (59% reduction) compared to the median of the previous 12 months. Critically, this month has been flagged as anomalous in multiple years (8 of 10), and the ratio to the previous 12 months is consistently low. The Page-Hinkley test confirms a sustained level shift within 2 months, suggesting a persistent change. Given these factors, a seasonal pattern (SP) is the most plausible explanation, as the deviation is replicated across multiple years and calendar months. While policy changes (PDC) are possible, there's no specific event identified within the timeframe that could explain this drop. Data quality issues (DQE) are less likely given the consistent pattern. A genuine enforcement shift (GES) is the least likely explanation due to the lack of broader systemic changes.",
+    "runs": [
+     "SP",
+     "SP",
+     "SP"
+    ]
+   },
    "review": {
     "issue": 33,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/33",
@@ -3178,13 +3279,26 @@
    "month": "2009-01",
    "value": 957.0,
    "votes": 2,
-   "score": 0.6518,
+   "score": 0.6433,
    "detectors": [
     "zscore",
     "mad"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 0.333,
+    "review_level": "advisory",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 2009-01 is highly suggestive of a seasonal pattern (SP). The ratio to the median of previous 12 months is a dramatic -64%, and this has occurred in 8 out of 10 years. Furthermore, the same calendar month has been flagged as anomalous in many other years, including 1983, 1989, 1996, 1999, 2003, 2010, 2012, 2014, 2017, 2019, 2021, and 2024. The Page-Hinkley test confirms a sustained level shift within two months. While a new decree was introduced in 2008, this is unlikely to be the root cause given the long history of this anomaly. The large drop in notices is consistent with a seasonal decline. There are no other series flagged in the same month, ruling out other immediate causes.",
+    "runs": [
+     "SP",
+     "GES",
+     "PDC"
+    ]
+   },
    "review": {
     "issue": 3,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/3",
@@ -3198,13 +3312,26 @@
    "month": "2008-06",
    "value": 891521944.49,
    "votes": 2,
-   "score": 0.5257,
+   "score": 0.5356,
    "detectors": [
     "zscore",
     "mad"
    ],
    "near_drift": false,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 2008-06 is primarily driven by a seasonal pattern. The fine total for June significantly exceeded the median of the previous 12 months (over 4 times the median), and this deviation was observed in 7 out of 10 years spanning from 1998-2007. The 2008-06 anomaly was also flagged by multiple detectors (zscore, MAD, ensemble score). The introduction of a new decree in July 2008 (policy-driven) occurring only one month after the anomaly, doesn’t explain the magnitude of the increase. The data quality indicators (no cancelled notices, no missing IDs) also don’t suggest a data issue. Therefore, the strongest explanation is a seasonal pattern.",
+    "runs": [
+     "SP",
+     "SP",
+     "SP"
+    ]
+   },
    "review": null
   },
   {
@@ -3213,13 +3340,26 @@
    "month": "2006-05",
    "value": 942.0,
    "votes": 2,
-   "score": 0.4792,
+   "score": 0.4705,
    "detectors": [
     "zscore",
     "mad"
    ],
    "near_drift": false,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 2006-05 is characterized by a significantly lower number of notices (942) compared to the median of the previous 12 months (2648), representing a 64% reduction.  While there's a history of deviations in May, the magnitude of the drop is unusual, occurring in only 5 of the 10 previous years. The fact that 1996-05 also flagged as anomalous suggests a persistent issue. The lack of a sustained level shift (Page-Hinkley test) rules out a gradual change. Considering the seasonality check, the deviation is not aligned with typical seasonal patterns. There are no known events that could explain this sudden drop. Therefore, a genuine enforcement shift (GES) is the most plausible explanation.",
+    "runs": [
+     "GES",
+     "SP",
+     "GES"
+    ]
+   },
    "review": null
   },
   {
@@ -3228,13 +3368,26 @@
    "month": "2005-10",
    "value": 686054063.42,
    "votes": 2,
-   "score": 0.4146,
+   "score": 0.4286,
    "detectors": [
     "zscore",
     "mad"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 2005-10 is driven by a significant increase in the fine total (6.14x the median) compared to the previous 12 months, which is unusual given the typical seasonal fluctuation. While the ratio to previous years is high (8/10 years above 1), the magnitude of the increase is exceptional. The Page-Hinkley test confirms a sustained level shift within 2 months, suggesting a true change rather than a random fluctuation. There are no apparent policy changes or data quality issues directly linked to this month. The cancellation rate and lack of missing IDs are also normal. Therefore, the most likely explanation is a genuine enforcement shift (GES).",
+    "runs": [
+     "GES",
+     "SP",
+     "GES"
+    ]
+   },
    "review": {
     "issue": 34,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/34",
@@ -3248,13 +3401,26 @@
    "month": "2003-01",
    "value": 1223.0,
    "votes": 2,
-   "score": 0.4893,
+   "score": 0.4857,
    "detectors": [
     "zscore",
     "mad"
    ],
    "near_drift": false,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 2003-01 is driven by a significant seasonal pattern. The ratio to the previous 12 months (0.39) is exceptionally low, and this is a recurring event across multiple years (7 out of 10). While a change of federal administration occurred in January 2003, this is unlikely to directly explain the drop in notices. The relatively low number of cancelled notices and records without identifiers in this period is also not indicative of a data quality issue. The recurrence of this anomaly across many years strongly suggests a genuine seasonal pattern.",
+    "runs": [
+     "GES",
+     "SP",
+     "SP"
+    ]
+   },
    "review": null
   },
   {
@@ -3263,13 +3429,26 @@
    "month": "1999-01",
    "value": 2019.0,
    "votes": 2,
-   "score": 0.4298,
+   "score": 0.4283,
    "detectors": [
     "zscore",
     "mad"
    ],
    "near_drift": false,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1999-01 is characterized by a significant drop in the number of notices (27% below the median) and a large increase in the total fine value (77M BRL). Notably, this month deviates in the same direction as in six of the ten preceding years. The values are unusual compared to the previous 12 months, but there is no evidence of a data quality issue (no records without identifiers, no sustained level shift). While the fine total is high, the number of notices is unusually low. This pattern suggests a genuine enforcement shift. The high fine total is consistent with the period, and the reduction in notices is not explained by a policy change or seasonality.",
+    "runs": [
+     "GES",
+     "GES",
+     "SP"
+    ]
+   },
    "review": null
   },
   {
@@ -3277,38 +3456,32 @@
    "series": "fine_total_brl",
    "month": "1999-01",
    "value": 77006344.14,
-   "votes": 3,
-   "score": 0.7356,
+   "votes": 4,
+   "score": 0.7719,
    "detectors": [
     "zscore",
     "mad",
-    "iforest"
+    "iforest",
+    "lstm_ed"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1999-01 is highly suggestive of a seasonal pattern. The ratio of fine_total_brl to the median of previous 12 months is extremely high (26.80) and consistently elevated (above 1) in 8 out of 10 years, specifically in January. The Page-Hinkley test confirmed a sustained level shift within 2 months. The high number of cancelled notices in the same month (60) further supports a potential shift in enforcement activity. While there isn't a clear policy-driven event to explain it, the consistent January spike over multiple years strongly indicates a seasonal pattern. The fact that it was flagged by multiple detectors (zscore, mad, iforest) adds weight to the observation.",
+    "runs": [
+     "SP",
+     "SP",
+     "SP"
+    ]
+   },
    "review": {
     "issue": 35,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/35",
-    "status": "pending",
-    "steward_category": null
-   }
-  },
-  {
-   "id": "notices:1996-05",
-   "series": "notices",
-   "month": "1996-05",
-   "value": 2755.0,
-   "votes": 2,
-   "score": 0.3404,
-   "detectors": [
-    "mad",
-    "iforest"
-   ],
-   "near_drift": true,
-   "llm": null,
-   "review": {
-    "issue": 36,
-    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/36",
     "status": "pending",
     "steward_category": null
    }
@@ -3319,13 +3492,26 @@
    "month": "1996-04",
    "value": 3181.0,
    "votes": 2,
-   "score": 0.4257,
+   "score": 0.4259,
    "detectors": [
     "mad",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1996-04 is driven by a significant increase in the number of infraction notices (808% above the median). While the ratio of calendar month 4 to the median of previous 12 months is high (1.65) in several years, it’s consistently above 1, indicating an upward trend. The Page-Hinkley test confirms a sustained level shift within 2 months. The data doesn’t reveal any policy changes or events that could explain this spike. Furthermore, there’s no indication of data quality issues like a system migration or backlog. Therefore, the most plausible explanation is a genuine enforcement shift (GES).",
+    "runs": [
+     "GES",
+     "GES",
+     "SP"
+    ]
+   },
    "review": {
     "issue": 36,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/36",
@@ -3339,13 +3525,26 @@
    "month": "1996-03",
    "value": 2962.0,
    "votes": 2,
-   "score": 0.4934,
+   "score": 0.491,
    "detectors": [
     "mad",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1996-03 is primarily driven by a significant increase in the number of infraction notices (8.41x the median) compared to previous years. While the ratio is high, the seasonality check reveals that this increase is not consistently observed across the preceding 12 months. Indeed, the ratio has been above 1 in only 4 of the 10 years considered, and the magnitude of the increase is unusually high. Furthermore, the Page-Hinkley test indicates a sustained level shift within the two months prior, and the same calendar month was flagged as anomalous in 1981-03 and 1989-03. Given the substantial increase and persistent anomalies across multiple years, a genuine enforcement shift (GES) is the most plausible explanation. A policy change (PDC) is less likely given the lack of supporting events. A data quality event (DQE) is unlikely due to the sustained level shift and the fact that other series are also affected.",
+    "runs": [
+     "SP",
+     "GES",
+     "GES"
+    ]
+   },
    "review": {
     "issue": 36,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/36",
@@ -3359,14 +3558,27 @@
    "month": "1996-02",
    "value": 2893.0,
    "votes": 3,
-   "score": 0.5568,
+   "score": 0.5479,
    "detectors": [
     "zscore",
     "mad",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1996-02 is driven by a significant increase in the number of infraction notices (810% above the median) and a sustained level shift detected by multiple anomaly detection methods (zscore, MAD, IForest, ensemble). Furthermore, the same calendar month has been flagged as anomalous in previous years (1989-02, 1993-02) and in the same year (1996-01). The data shows a clear upward trend in notice issuance, and the records show no signs of data quality issues like cancellations or missing identifiers. Considering these factors, the most plausible explanation is a genuine enforcement shift (GES).",
+    "runs": [
+     "GES",
+     "SP",
+     "GES"
+    ]
+   },
    "review": {
     "issue": 36,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/36",
@@ -3380,14 +3592,27 @@
    "month": "1996-01",
    "value": 2343.0,
    "votes": 3,
-   "score": 0.7035,
+   "score": 0.6865,
    "detectors": [
     "zscore",
     "mad",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1996-01 is driven by a significant increase in the number of infraction notices (7.71x the median) and a sustained level shift detected by the Page-Hinkley test within the two months preceding it. While seasonality is a factor (the month has shown deviations in 4 of the 10 years prior), the magnitude of the increase is far beyond typical seasonal fluctuations. The fact that the same month was flagged in multiple years, including 1983-01, 1989-01, and 1999-01, suggests a more persistent issue than a simple seasonal pattern. Given the lack of a clear policy event and the presence of a sustained level shift, a genuine enforcement shift (GES) is the most plausible explanation, though data quality issues (DQE) cannot be entirely ruled out given the large increase and the presence of cancelled notices and missing identifiers in the surrounding months. The detection by multiple anomaly detectors (zscore, mad, iforest) further supports the idea that this is not a random fluctuation.",
+    "runs": [
+     "GES",
+     "GES",
+     "GES"
+    ]
+   },
    "review": {
     "issue": 36,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/36",
@@ -3396,18 +3621,59 @@
    }
   },
   {
+   "id": "fine_total_brl:1995-03",
+   "series": "fine_total_brl",
+   "month": "1995-03",
+   "value": 5414763.34,
+   "votes": 2,
+   "score": 0.4575,
+   "detectors": [
+    "iforest",
+    "lstm_ed"
+   ],
+   "near_drift": false,
+   "llm": {
+    "category": "SP",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "qwen3:4b",
+    "prompt_version": "v2",
+    "current": true,
+    "reasoning": "Seasonality check shows the ratio for March in prior years (1985-1994) was consistently above 1, with 10/10 years deviating in same direction (increasing). This matches step 1: same calendar month deviated in same direction in 10/10 years. The same month was flagged in 1986, 1988, confirming recurring pattern. Events: no known events in +-6 months. Records: no cancelled/no_id records (cancelled=3, no_id=0) so no data issues. Thus, it's a seasonal pattern (SP).",
+    "runs": [
+     "SP",
+     "SP",
+     "SP"
+    ]
+   },
+   "review": null
+  },
+  {
    "id": "fine_total_brl:1994-07",
    "series": "fine_total_brl",
    "month": "1994-07",
    "value": 840393.86,
    "votes": 2,
-   "score": 0.4979,
+   "score": 0.5199,
    "detectors": [
     "mad",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "PDC",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1994-07 is driven by a massive increase in fines (5852% relative to the median) and a significant shift in the data series' behavior compared to the previous years. Although the Page-Hinkley test indicates a sustained level shift, the primary driver is the direction of the shift. The 1994-07 value is far outside the range of previous months, and the ratio to the previous 12 months is extreme. Furthermore, a currency reform occurred in July 1994, which would explain a spike in fine values. The other data points (cancelled notices, no_id) do not appear to be related to this anomaly. The other years' ratios are also significantly different than the current one, further indicating this is not a seasonal change.",
+    "runs": [
+     "PDC",
+     "PDC",
+     "GES"
+    ]
+   },
    "review": {
     "issue": 37,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/37",
@@ -3421,7 +3687,7 @@
    "month": "1993-08",
    "value": 287.0,
    "votes": 4,
-   "score": 0.6835,
+   "score": 0.6588,
    "detectors": [
     "zscore",
     "mad",
@@ -3429,7 +3695,20 @@
     "lstm_ed"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "PDC",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1993-08 is driven by a massive increase in the number of infraction notices (287 vs. median of 62) and a significant spike in the total fine value (17,367 BRL vs. median of 1,063 BRL). The seasonality check reveals that August consistently shows a high ratio compared to the median of its previous 12 months, occurring in 7 of the 10 years examined. Furthermore, a sustained level shift was detected within 2 months. The concurrent spike in fine_total_brl, coupled with the currency reform implemented in August 1993, strongly suggests a policy-driven change. The currency reform would have dramatically increased the monetary value of fines, explaining the dramatic shift in the data.",
+    "runs": [
+     "PDC",
+     "PDC",
+     "GES"
+    ]
+   },
    "review": {
     "issue": 38,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/38",
@@ -3443,13 +3722,26 @@
    "month": "1993-08",
    "value": 17367.48009090909,
    "votes": 2,
-   "score": 0.4225,
+   "score": 0.4563,
    "detectors": [
     "zscore",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "PDC",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1993-08 is driven by a massive increase in fines (17,367 BRL vs. median of 357 BRL). This is amplified by the fact that the same calendar month (August) deviated in the same direction (above 1) in 9 of the 10 years prior. Furthermore, a Page-Hinkley test indicated a sustained level shift within 2 months. Crucially, the month is flagged as anomalous by multiple detectors (zscore, iforest, ensemble). The most likely explanation is a policy-driven change: the currency reform in August 1993, where the Cruzeiro was replaced by the Cruzeiro Real, would have dramatically affected the reported fine values, which were previously in Cruzeiro. The sudden jump in fines is consistent with this event. The other series, notices, also shows a significant increase.",
+    "runs": [
+     "PDC",
+     "PDC",
+     "PDC"
+    ]
+   },
    "review": {
     "issue": 39,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/39",
@@ -3463,13 +3755,26 @@
    "month": "1993-02",
    "value": 34.0,
    "votes": 2,
-   "score": 0.4807,
+   "score": 0.4745,
    "detectors": [
     "zscore",
     "mad"
    ],
    "near_drift": false,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1993-02 is characterized by a significant drop in the number of notices (60% below the median) and a relatively low value. Crucially, this month has a history of deviation (4/10 years), and was flagged as anomalous in 1989-02 and 1996-02. The seasonal check shows a consistent downward trend in February across multiple years. The currency reform in August 1993, six months later, could have impacted fine values but doesn’t explain the dramatic reduction in notice numbers. The data doesn't show any other series flagged at the same time, and no sustained level shift was detected. Therefore, a seasonal pattern is the most plausible explanation given the historical context and the calendar month's consistent deviation.",
+    "runs": [
+     "SP",
+     "PDC",
+     "SP"
+    ]
+   },
    "review": null
   },
   {
@@ -3478,7 +3783,7 @@
    "month": "1992-08",
    "value": 2464.565969330909,
    "votes": 4,
-   "score": 0.7166,
+   "score": 0.7831,
    "detectors": [
     "zscore",
     "mad",
@@ -3486,7 +3791,20 @@
     "lstm_ed"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1992-08 is highly suggestive of a seasonal pattern (SP). The fine total is significantly above the median of the previous 12 months, a ratio of 77.93%. This extreme deviation is consistent with a pattern observed across 9 of the 10 preceding years (August). Furthermore, the same month was flagged as anomalous in 1993-08, and multiple detection algorithms agreed. The Page-Hinkley test confirms a sustained level shift within two months, strengthening the seasonal interpretation. There are no obvious policy changes (PDC) or data quality issues (DQE) based on the provided records. While the value is unusually high, the historical context strongly supports a seasonal explanation.",
+    "runs": [
+     "SP",
+     "SP",
+     "SP"
+    ]
+   },
    "review": {
     "issue": 39,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/39",
@@ -3500,13 +3818,26 @@
    "month": "1992-04",
    "value": 320.02285619636365,
    "votes": 2,
-   "score": 0.4323,
+   "score": 0.462,
    "detectors": [
     "zscore",
     "mad"
    ],
    "near_drift": false,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1992-04 is characterized by a massive increase in fines (320 vs. median of 19) within a single month. Seasonality analysis reveals that this month has historically shown elevated values, with a ratio above 1 in 6 of the preceding 10 years. While there is no sustained level shift (Page-Hinkley test), the data records show a burst of notices (133) in April 1992, with a high fine total, and a few cancellations. There were no events to explain this, and no other series were flagged in the same month. Given the strong seasonal component and the magnitude of the change, a genuine enforcement shift (GES) is the most plausible explanation. The data doesn't suggest a policy change (PDC) or a data quality issue (DQE).",
+    "runs": [
+     "SP",
+     "SP",
+     "GES"
+    ]
+   },
    "review": null
   },
   {
@@ -3515,13 +3846,26 @@
    "month": "1989-07",
    "value": 364.0,
    "votes": 2,
-   "score": 0.3905,
+   "score": 0.3629,
    "detectors": [
     "iforest",
     "lstm_ed"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly is most likely due to a Genuine Enforcement Shift (GES). The July 1989 notice count (364) represents a 4.02x increase over the median of the previous 12 months (90), which is a significant deviation. While the seasonality check shows a tendency for July to be above average, this is only true in 5 out of 7 years, and the magnitude of the increase is far greater than any of those previous years. Furthermore, the Page-Hinkley test confirms a sustained level shift. The key event is the creation of IBAMA in February 1989, coinciding with the spike in notices. While the currency reform in January 1989 could theoretically influence fine values, the number of notices is not directly related to monetary changes. The fact that the anomaly was not flagged in any other year strengthens the argument for a genuine shift in enforcement activity following the agency's establishment.",
+    "runs": [
+     "GES",
+     "GES",
+     "PDC"
+    ]
+   },
    "review": {
     "issue": 40,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/40",
@@ -3535,13 +3879,26 @@
    "month": "1989-03",
    "value": 58.0,
    "votes": 2,
-   "score": 0.4118,
+   "score": 0.4073,
    "detectors": [
     "mad",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1989-03 is highly suggestive of a genuine enforcement shift (GES). The month's notice count is significantly below the median and has been consistently low for the previous years, with several other months in the same calendar period also flagged as anomalous. The Page-Hinkley test confirms a sustained level shift. Crucially, the timing coincides with the creation of IBAMA (1989-02) and a significant currency reform (1989-01) which could have influenced enforcement strategies or reporting practices. The ensemble score (0.41) is below the threshold, further suggesting a genuine shift rather than a data quality event. The fact that this month was flagged in 1981-03 and 1996-03 adds weight to the possibility of a sustained change.",
+    "runs": [
+     "GES",
+     "GES",
+     "PDC"
+    ]
+   },
    "review": {
     "issue": 41,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/41",
@@ -3555,13 +3912,26 @@
    "month": "1989-02",
    "value": 33.0,
    "votes": 2,
-   "score": 0.5852,
+   "score": 0.5724,
    "detectors": [
     "mad",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1989-02 is most likely a Genuine Enforcement Shift (GES). The ratio of notices is significantly below the median of previous years, and this deviation has occurred in multiple years (1989-02, 1993-02, 1996-02). The Page-Hinkley test confirmed a sustained level shift within 2 months. The currency reform (Plano Verao) in January 1989, coupled with the creation of IBAMA in February 1989, is a plausible explanation, although it doesn't fully account for the magnitude of the deviation. The fact that the same calendar month was flagged in other years, and the detection by multiple algorithms, strengthens the case for a shift in enforcement rather than a data quality issue or seasonality. The low number of notices in 1989-02 is unusual given the creation of IBAMA.",
+    "runs": [
+     "GES",
+     "GES",
+     "GES"
+    ]
+   },
    "review": {
     "issue": 41,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/41",
@@ -3574,16 +3944,28 @@
    "series": "notices",
    "month": "1989-01",
    "value": 30.0,
-   "votes": 4,
-   "score": 0.7,
+   "votes": 3,
+   "score": 0.683,
    "detectors": [
     "zscore",
     "mad",
-    "iforest",
-    "lstm_ed"
+    "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "PDC",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1989-01 is highly suggestive of a policy-driven change. The timing coincides with the 1989 currency reform (Plano Verao), a significant event that would inherently impact fine values (as seen in the fine_total_brl series). Furthermore, the same month was flagged as anomalous in 1983, 1996, 1999, 2003, 2009, 2010, 2012, 2014, 2017, 2019, 2021, and 2024, reinforcing the idea of a persistent, non-seasonal issue. The Page-Hinkley test confirms a sustained level shift, supporting the notion that this isn't just a statistical blip. While the initial number of notices is low, the currency reform provides a plausible explanation for the significant deviation from the median.",
+    "runs": [
+     "PDC",
+     "PDC",
+     "PDC"
+    ]
+   },
    "review": {
     "issue": 41,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/41",
@@ -3597,7 +3979,7 @@
    "month": "1989-01",
    "value": 1.638920634850909,
    "votes": 4,
-   "score": 0.7747,
+   "score": 0.8466,
    "detectors": [
     "zscore",
     "mad",
@@ -3605,7 +3987,20 @@
     "lstm_ed"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "PDC",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1989-01 is highly suggestive of a policy-driven change (PDC). The massive increase in fines (19489% above the median) coincides with a significant currency reform implemented in January 1989. The Plano Verao was a monetary reform that replaced the Cruzado with the Cruzado Novo. This reform likely led to a change in the way fines were calculated and reported, causing a surge in the total value. The other flagged anomalous months (1999-01, 2014-01, 2020-01, 2021-01, 2024-01) also appear to be linked to policy changes. The Page-Hinkley test confirms a sustained level shift within 2 months, further supporting this interpretation. While seasonality could play a role, the extreme magnitude of the change and the timing relative to the currency reform strongly indicate a policy-driven cause.",
+    "runs": [
+     "PDC",
+     "PDC",
+     "PDC"
+    ]
+   },
    "review": {
     "issue": 42,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/42",
@@ -3619,14 +4014,27 @@
    "month": "1988-12",
    "value": 67.0,
    "votes": 3,
-   "score": 0.5262,
+   "score": 0.523,
    "detectors": [
     "zscore",
     "mad",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1988-12 is highly suggestive of a seasonal pattern. The ratio to the median of the previous 12 months is extremely low (-71%), and this is consistent with deviations in 1987-12, 1981-12 and 1988-12. The Page-Hinkley test confirms a sustained level shift within 2 months, which is consistent with seasonal fluctuations. The fact that the same month was flagged anomalous in 1987-12 strengthens this hypothesis. The currency reform in 1989 (one month prior) is not relevant to this anomaly, and there are no other events that could explain this sudden drop in notices. The data quality indicators (no_id) show no issues.",
+    "runs": [
+     "SP",
+     "GES",
+     "SP"
+    ]
+   },
    "review": {
     "issue": 41,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/41",
@@ -3640,13 +4048,26 @@
    "month": "1988-03",
    "value": 0.0203457564072727,
    "votes": 2,
-   "score": 0.4321,
+   "score": 0.4613,
    "detectors": [
     "zscore",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1988-03 is highly suggestive of a seasonal pattern. The ratio of the month's fine total to the median of the previous 12 months has consistently been above 1 for the last 6 years (1982-2019). Furthermore, the same month was flagged as anomalous in 1981-03 and 1986-03. The Page-Hinkley test confirms a sustained level shift within 2 months. While the increase in fine totals is large (2969%), the consistent historical pattern points strongly to a seasonal effect. There is no evidence of a policy change, data quality issue, or genuine enforcement shift.",
+    "runs": [
+     "SP",
+     "GES",
+     "SP"
+    ]
+   },
    "review": {
     "issue": 44,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/44",
@@ -3660,13 +4081,26 @@
    "month": "1987-12",
    "value": 179.0,
    "votes": 2,
-   "score": 0.4438,
+   "score": 0.4355,
    "detectors": [
     "mad",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1987-12 is characterized by a massive increase (3.65x) in the number of infraction notices compared to the median of the previous 12 months. This is supported by a sustained level shift detected by the Page-Hinkley test. Crucially, this month has exhibited similar deviations in previous years (1986, 1988) and was flagged by multiple detectors. The seasonality analysis shows a recurring pattern of elevated notice counts in December across several years. While there are no immediate events to explain this, the combination of a persistent, unusually high value, historical repetition, and a sustained level shift strongly suggests a genuine enforcement shift (GES). The detection by multiple algorithms further reinforces this conclusion.",
+    "runs": [
+     "GES",
+     "GES",
+     "SP"
+    ]
+   },
    "review": {
     "issue": 43,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/43",
@@ -3675,12 +4109,40 @@
    }
   },
   {
+   "id": "fine_total_brl:1987-02",
+   "series": "fine_total_brl",
+   "month": "1987-02",
+   "value": 0.0026403307090909,
+   "votes": 2,
+   "score": 0.4353,
+   "detectors": [
+    "iforest",
+    "lstm_ed"
+   ],
+   "near_drift": true,
+   "llm": {
+    "category": "GES",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "qwen3:4b",
+    "prompt_version": "v2",
+    "current": true,
+    "reasoning": "Seasonality check shows 1987-02 has a ratio of 22.67 vs median 0.000116, with 4 of 5 prior years also deviating above 1. The same month was flagged in no other year. The Page-Hinkley test confirms a sustained level shift within 2 months. No known events. Records show no cancellations or missing IDs for 1987-02. The anomaly is large but not explained by seasonality (as the same month wasn't flagged in other years). Data quality signs: 0 cancellations and no IDs, but the value is plausible (non-zero). Events are absent. Thus, it's a genuine enforcement shift (GES) since no other factors explain it.",
+    "runs": [
+     "GES",
+     "GES",
+     "SP"
+    ]
+   },
+   "review": null
+  },
+  {
    "id": "fine_total_brl:1986-06",
    "series": "fine_total_brl",
    "month": "1986-06",
    "value": 0.001636000330909,
    "votes": 4,
-   "score": 0.6892,
+   "score": 0.756,
    "detectors": [
     "zscore",
     "mad",
@@ -3688,7 +4150,20 @@
     "lstm_ed"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1986-06 is driven by a sustained level shift (Page-Hinkley test) and a significant increase in fine total brl (8206% relative to the median). Furthermore, the calendar month 6 has consistently deviated above the median in the previous 4 years. A currency reform occurred 4 months prior to this month, which could have caused data issues and reporting changes. The anomaly is most likely a genuine enforcement shift (GES) caused by the currency reform, combined with a data quality issue. The detection ensemble confirms this, with 4 out of 4 detectors flagging the anomaly. The fact that it also flagged in 2008-06 suggests that this phenomenon is recurring and may be linked to a specific event.",
+    "runs": [
+     "DQE",
+     "GES",
+     "GES"
+    ]
+   },
    "review": {
     "issue": 45,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/45",
@@ -3702,14 +4177,27 @@
    "month": "1986-03",
    "value": 0.0003215835454545,
    "votes": 3,
-   "score": 0.6295,
+   "score": 0.6734,
    "detectors": [
     "zscore",
     "mad",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "DQE",
+    "consistency": 0.667,
+    "review_level": "pending",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1986-03 is highly suggestive of a data quality event (DQE). The fine total is dramatically higher than the median of the previous 12 months (26.06x). The Page-Hinkley test confirms a sustained level shift within 2 months. Furthermore, the same calendar month was flagged as anomalous in 1981-03 and 1988-03. The timing coincides with a significant currency reform (1986-02) which would have altered the monetary values, creating a difficult situation for data reporting and potentially leading to a large, unexpected fine total. The records show one cancelled notice in 1986-03, which could be related. The lack of other flagged series strengthens the suspicion of a specific event impacting this single month’s data.",
+    "runs": [
+     "DQE",
+     "PDC",
+     "DQE"
+    ]
+   },
    "review": {
     "issue": 5,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/5",
@@ -3723,13 +4211,26 @@
    "month": "1983-05",
    "value": 6.138330909090909e-08,
    "votes": 2,
-   "score": 0.4838,
+   "score": 0.4411,
    "detectors": [
     "mad",
     "iforest"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "GES",
+    "consistency": 1.0,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly in 1983-05 is unusual given the low fine total and the fact that the median of the previous 12 months is significantly higher. The seasonality check reveals no deviation in previous years. There are no other series flagged in the same month. The Page-Hinkley test indicates a sustained level shift. Considering the limited historical data and lack of supporting events, a genuine shift (GES) is the most plausible explanation. The data quality issues (low fine total, shift) are not sufficient to fully explain the anomaly, and a policy change (PDC) is unlikely given the lack of context.",
+    "runs": [
+     "GES",
+     "GES",
+     "GES"
+    ]
+   },
    "review": {
     "issue": 46,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/46",
@@ -3743,7 +4244,7 @@
    "month": "1983-01",
    "value": 2.0,
    "votes": 4,
-   "score": 0.7524,
+   "score": 0.7508,
    "detectors": [
     "zscore",
     "mad",
@@ -3751,50 +4252,23 @@
     "lstm_ed"
    ],
    "near_drift": true,
-   "llm": null,
+   "llm": {
+    "category": "SP",
+    "consistency": 0.667,
+    "review_level": "none",
+    "model": "gemma3:4b",
+    "prompt_version": "v2",
+    "current": false,
+    "reasoning": "The anomaly is likely seasonal (SP). The number of notices in January is unusually low compared to the median of the previous 12 months. Critically, this anomaly has been flagged repeatedly in January across multiple years (1989-2024), and confirmed by multiple detection algorithms (zscore, mad, iforest, lstm_ed). The Page-Hinkley test also indicated a sustained level shift within 2 months, supporting the idea of a recurring pattern. There is no evidence of a policy change or data quality event. Furthermore, the previous year’s January data shows a significantly higher number of notices, suggesting a seasonal drop.",
+    "runs": [
+     "SP",
+     "SP",
+     "DQE"
+    ]
+   },
    "review": {
     "issue": 47,
     "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/47",
-    "status": "pending",
-    "steward_category": null
-   }
-  },
-  {
-   "id": "notices:1981-03",
-   "series": "notices",
-   "month": "1981-03",
-   "value": 0.0,
-   "votes": 2,
-   "score": 0.3489,
-   "detectors": [
-    "iforest",
-    "lstm_ed"
-   ],
-   "near_drift": true,
-   "llm": null,
-   "review": {
-    "issue": 48,
-    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/48",
-    "status": "pending",
-    "steward_category": null
-   }
-  },
-  {
-   "id": "fine_total_brl:1981-03",
-   "series": "fine_total_brl",
-   "month": "1981-03",
-   "value": 0.0,
-   "votes": 2,
-   "score": 0.3345,
-   "detectors": [
-    "iforest",
-    "lstm_ed"
-   ],
-   "near_drift": false,
-   "llm": null,
-   "review": {
-    "issue": 6,
-    "url": "https://github.com/lsp3cesarschool/5ltep-layer3/issues/6",
     "status": "pending",
     "steward_category": null
    }

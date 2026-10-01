@@ -18,3 +18,6 @@
 {"at": "2026-09-29T23:14:51+00:00", "stage": "judge", "run_id": "36643949379", "judged_now": 0, "pending_before": 0, "model": {"model": "gemma3:4b", "ollama_version": "0.34.4", "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a", "quantization": "Q4_K_M"}}
 {"at": "2026-09-29T23:14:57+00:00", "stage": "issues", "run_id": "36643949379", "created": [], "shifts_created": [{"group": "notices:1983-01", "issue": 47}, {"group": "notices:1980-12", "issue": 48}], "superseded": [], "remaining": 0, "notified_rejudged": []}
 {"at": "2026-09-30T10:37:42+00:00", "stage": "detect", "run_id": "36703416279", "months": 550, "flagged": 44, "from_series": false}
+{"at": "2026-10-01T10:36:33+00:00", "stage": "detect", "run_id": "36850045268", "months": 551, "flagged": 43, "from_series": false}
+{"at": "2026-10-01T10:43:37+00:00", "stage": "judge", "run_id": "36850045268", "judged_now": 2, "pending_before": 2, "model": {"model": "qwen3:4b", "ollama_version": "0.35.0", "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7", "quantization": "Q4_K_M"}}
+{"at": "2026-10-01T10:43:40+00:00", "stage": "issues", "run_id": "36850045268", "created": [], "shifts_created": [], "superseded": [], "remaining": 0, "notified_rejudged": ["notices:2019-01"]}

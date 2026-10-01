@@ -4,7 +4,7 @@
   "month": "1981-03",
   "category": "DQE",
   "consistency": 1.0,
-  "review_level": "mandatory",
+  "review_level": "pending",
   "ensemble_score": 0.3345,
   "votes": 2,
   "near_drift": false,
@@ -86,7 +86,7 @@
   "month": "1986-03",
   "category": "DQE",
   "consistency": 0.667,
-  "review_level": "mandatory",
+  "review_level": "pending",
   "ensemble_score": 0.6295,
   "votes": 3,
   "near_drift": true,
@@ -162,6 +162,48 @@
   "prompt_version": "v2",
   "data_fingerprint": "99bc2cffdfd3518e10025ffa6c730c6078d8d6b7ac7ba2dbc7c2f36c4d9d7791",
   "judged_at": "2026-09-29T22:04:27+00:00"
+ },
+ "fine_total_brl:1987-02": {
+  "series": "fine_total_brl",
+  "month": "1987-02",
+  "category": "GES",
+  "consistency": 0.667,
+  "review_level": "none",
+  "ensemble_score": 0.4353,
+  "votes": 2,
+  "near_drift": true,
+  "runs": [
+   {
+    "category": "GES",
+    "confidence": 0.9,
+    "reasoning": "Seasonality check shows 1987-02 has a ratio of 22.67 vs median 0.000116, with 4 of 5 prior years also deviating above 1. The same month was flagged in no other year. The Page-Hinkley test confirms a sustained level shift within 2 months. No known events. Records show no cancellations or missing IDs for 1987-02. The anomaly is large but not explained by seasonality (as the same month wasn't flagged in other years). Data quality signs: 0 cancellations and no IDs, but the value is plausible (non-zero). Events are absent. Thus, it's a genuine enforcement shift (GES) since no other factors explain it.",
+    "seed": 11,
+    "latency_s": 79.3
+   },
+   {
+    "category": "GES",
+    "confidence": 0.85,
+    "reasoning": "Seasonality check shows the ratio for Feb (month 2) in previous years was 1.92 (1986), 1.71 (1985), 5.37 (1984), 0.77 (1983), 3.48 (1982). The same calendar month deviated above 1 in 4 of 5 years, indicating a recurring pattern. However, no other year had Feb flagged as anomalous. The value in 1987-02 is 0.00264, which is 22.67x higher than the previous 12 months median. The Page-Hinkley test shows a sustained level shift, but no known events. The data shows no cancellation or missing IDs (no_id=0) for 1987-02, and the series is active. The anomaly is likely a genuine enforcement shift (GES) since the deviation is large and not explained by seasonality or events.",
+    "seed": 22,
+    "latency_s": 38.4
+   },
+   {
+    "category": "SP",
+    "confidence": 0.9,
+    "reasoning": "Seasonality check: The ratio for February (month 2) in previous years (1983-1986) shows consistent deviations above 1 (1.71, 1.92, 5.37, 3.48) but with a mix of directions. The same calendar month deviated above median in 4 of 5 years, suggesting a seasonal pattern. However, the anomaly was only flagged in 1987-02, with no other years having the same month flagged. The Page-Hinkley test confirms a sustained level shift within 2 months (1987-01 to 1987-02), but data quality indicators (cancelled=0, no_id=0) are normal. No events occurred in the timeframe. Given the consistent seasonal pattern but no data issues, the anomaly is likely seasonal (SP).",
+    "seed": 33,
+    "latency_s": 33.5
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 1987-02 (calendar month 2).\nValue: 0.00264; median of the previous 12 months: 0.000116 (+2167%; ratio 22.67).\nSeasonality check - ratio of calendar month 2 to the median of its previous 12 months, in the previous years: 1986-02: 1.92 | 1985-02: 1.71 | 1984-02: 5.37 | 1983-02: 0.77 | 1982-02: 3.48.\nThe same calendar month deviated in the same direction (above 1) in 4 of these 5 years.\nThe same calendar month was also flagged as anomalous in: no other year.\nDetectors that flagged it: iforest, lstm_ed (2 of 4); ensemble score 0.44 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: yes.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1986-02 | 61 | 1.99e-05 | 1 | 0\n1986-03 | 42 | 0.000322 | 1 | 0\n1986-04 | 82 | 0.000179 | 1 | 0\n1986-05 | 37 | 4.19e-05 | 0 | 0\n1986-06 | 53 | 0.00164 | 0 | 0\n1986-07 | 39 | 3e-05 | 1 | 0\n1986-08 | 55 | 5.43e-05 | 0 | 0\n1986-09 | 67 | 0.000628 | 1 | 0\n1986-10 | 83 | 0.000731 | 0 | 0\n1986-11 | 39 | 0.000488 | 2 | 0\n1986-12 | 20 | 3.09e-05 | 0 | 0\n1987-01 | 26 | 4.68e-05 | 0 | 0\n1987-02 | 39 | 0.00264 | 0 | 0  <== anomaly\n1987-03 | 35 | 0.000713 | 0 | 0\n1987-04 | 40 | 0.000315 | 0 | 0\n1987-05 | 56 | 0.00036 | 0 | 0\n1987-06 | 54 | 0.000274 | 0 | 0\n1987-07 | 48 | 0.000283 | 0 | 0\n1987-08 | 50 | 0.000572 | 0 | 0\n1987-09 | 116 | 0.000613 | 0 | 0\n1987-10 | 127 | 0.00104 | 0 | 0\n1987-11 | 58 | 0.00448 | 1 | 0\n1987-12 | 179 | 0.00208 | 0 | 0\n1988-01 | 123 | 0.00312 | 0 | 0\n1988-02 | 170 | 0.00164 | 0 | 0\n\nNo known events within +-6 months.",
+  "model": "qwen3:4b",
+  "model_source": "benchmark",
+  "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "ollama_version": "0.35.0",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "80988d9253f52045fc5ef8ccb96ec006a648d4d3e9563a9645e006f4ab20cc1d",
+  "judged_at": "2026-10-01T10:43:37+00:00"
  },
  "fine_total_brl:1988-03": {
   "series": "fine_total_brl",
@@ -408,6 +450,48 @@
   "prompt_version": "v2",
   "data_fingerprint": "e592ba3758e748eb708b849f049849c876ef6df8da03d1396c9326f2b19758da",
   "judged_at": "2026-09-29T19:48:44+00:00"
+ },
+ "fine_total_brl:1995-03": {
+  "series": "fine_total_brl",
+  "month": "1995-03",
+  "category": "SP",
+  "consistency": 1.0,
+  "review_level": "none",
+  "ensemble_score": 0.4575,
+  "votes": 2,
+  "near_drift": false,
+  "runs": [
+   {
+    "category": "SP",
+    "confidence": 0.95,
+    "reasoning": "Seasonality check shows the ratio for March in prior years (1985-1994) was consistently above 1, with 10/10 years deviating in same direction (increasing). This matches step 1: same calendar month deviated in same direction in 10/10 years. The same month was flagged in 1986, 1988, confirming recurring pattern. Events: no known events in +-6 months. Records: no cancelled/no_id records (cancelled=3, no_id=0) so no data issues. Thus, it's a seasonal pattern (SP).",
+    "seed": 11,
+    "latency_s": 105.4
+   },
+   {
+    "category": "SP",
+    "confidence": 0.95,
+    "reasoning": "Seasonality check shows the ratio for March (month 3) has been above 1 in all 10 previous years (1985-1994), with a consistent upward trend in the ratio from 1985 to 1995. The same month was flagged in 1986-03 and 1988-03, indicating a recurring pattern. The median of the previous 12 months is 278,545, and the 1995-03 value is 5.4M (ratio 19.44), which aligns with the historical trend. There's no evidence of data issues (cancelled, no_id records are low). No known events explain the spike. The Page-Hinkley test shows no level shift, so it's not a temporary anomaly. The anomaly fits the seasonal pattern of increasing enforcement in March, consistent with historical trends.",
+    "seed": 22,
+    "latency_s": 36.4
+   },
+   {
+    "category": "SP",
+    "confidence": 0.95,
+    "reasoning": "Seasonality check: The ratio for calendar month 3 (March) has been above 1 in 10 out of 10 years (1985-1995) and shows consistent deviation in the same direction (higher) compared to the previous 12 months' median. The same month was flagged in 1986, 1988, confirming a recurring pattern. The Page-Hinkley test rules out a sustained level shift. No data-quality signs like cancellations or missing IDs exist (cancelled=0, no_id=0). No known events. The anomaly aligns with historical seasonal patterns, not policy changes or data issues. Confidence: 0.95.",
+    "seed": 33,
+    "latency_s": 27.7
+   }
+  ],
+  "prompt": "Series: fine_total_brl - Total value of fines issued in the month (non-cancelled), in Reais: values in earlier currencies are converted at the official rate of each currency reform (no inflation adjustment).\nAnomalous month: 1995-03 (calendar month 3).\nValue: 5.4M; median of the previous 12 months: 278,545 (+1844%; ratio 19.44).\nSeasonality check - ratio of calendar month 3 to the median of its previous 12 months, in the previous years: 1994-03: 16.53 | 1993-03: 5.08 | 1992-03: 1.16 | 1991-03: 3.48 | 1990-03: 6.60 | 1989-03: 21.70 | 1988-03: 30.69 | 1987-03: 2.85 | 1986-03: 26.06 | 1985-03: 2.92.\nThe same calendar month deviated in the same direction (above 1) in 10 of these 10 years.\nThe same calendar month was also flagged as anomalous in: 1986-03, 1988-03.\nDetectors that flagged it: iforest, lstm_ed (2 of 4); ensemble score 0.46 (0.5 = at threshold).\nA Page-Hinkley test found a sustained level shift within 2 months: no.\nOther series flagged in the same month: none.\n\nMonthly context (+-12 months). cancelled = notices later cancelled; no_id = records without an identifier.\nmonth   | notices | fine_total_brl | cancelled | no_id\n1994-03 | 157 | 101,236 | 0 | 0\n1994-04 | 103 | 15,150 | 2 | 0\n1994-05 | 148 | 24,010 | 1 | 0\n1994-06 | 169 | 13,090 | 3 | 0\n1994-07 | 148 | 840,394 | 1 | 0\n1994-08 | 207 | 1.1M | 4 | 0\n1994-09 | 287 | 693,762 | 6 | 0\n1994-10 | 200 | 421,806 | 2 | 0\n1994-11 | 244 | 395,604 | 5 | 0\n1994-12 | 157 | 333,705 | 2 | 0\n1995-01 | 141 | 115,082 | 3 | 0\n1995-02 | 172 | 223,384 | 2 | 0\n1995-03 | 302 | 5.4M | 3 | 0  <== anomaly\n1995-04 | 281 | 265,023 | 4 | 0\n1995-05 | 288 | 329,304 | 2 | 0\n1995-06 | 306 | 271,963 | 7 | 0\n1995-07 | 330 | 605,687 | 2 | 0\n1995-08 | 413 | 676,250 | 3 | 0\n1995-09 | 419 | 703,062 | 4 | 0\n1995-10 | 420 | 630,104 | 3 | 0\n1995-11 | 374 | 418,172 | 3 | 0\n1995-12 | 266 | 309,601 | 7 | 0\n1996-01 | 2,343 | 2.2M | 6 | 0\n1996-02 | 2,893 | 2.1M | 10 | 0\n1996-03 | 2,962 | 3.2M | 13 | 0\n\nNo known events within +-6 months.",
+  "model": "qwen3:4b",
+  "model_source": "benchmark",
+  "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "ollama_version": "0.35.0",
+  "temperature": 0.7,
+  "prompt_version": "v2",
+  "data_fingerprint": "4605c2f4ed4518ed6c62bc62c7fb75c78b534d983e2ef80182bd4be3a3a4fab9",
+  "judged_at": "2026-10-01T10:41:06+00:00"
  },
  "fine_total_brl:1999-01": {
   "series": "fine_total_brl",
@@ -1927,7 +2011,8 @@
     "data_fingerprint": "6f4f18cdccd3b15280b4436039a34cd189a76cd0acb4de74ae1025e858a4b190",
     "judged_at": "2026-09-29T19:10:48+00:00"
    }
-  ]
+  ],
+  "issue_notified_judged_at": "2026-09-30T10:55:00+00:00"
  },
  "notices:2021-01": {
   "series": "notices",

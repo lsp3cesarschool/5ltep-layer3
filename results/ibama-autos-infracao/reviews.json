@@ -7,7 +7,7 @@
   "state": "open",
   "status": "pending",
   "steward_category": null,
-  "review_level": "mandatory",
+  "review_level": "pending",
   "closed_at": null,
   "updated_at": "2026-09-29T22:14:39Z"
  },
@@ -32,7 +32,7 @@
   "state": "open",
   "status": "pending",
   "steward_category": null,
-  "review_level": "mandatory",
+  "review_level": "pending",
   "closed_at": null,
   "updated_at": "2026-09-29T22:14:37Z"
  },
