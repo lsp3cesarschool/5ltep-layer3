@@ -335,7 +335,8 @@ copy of the source file prove it is the one that was analysed.
 
 Everything that is specific to a dataset is in a **profile**: a JSON file in [`profiles/`](profiles/).
 The code never changes. Outputs are kept per profile (`data/<id>/`, `results/<id>/`,
-`docs/data/<id>.json`), so several profiles live side by side and the dashboard has a selector.
+`docs/data/<id>.json`), so several profiles live side by side; when there is more than one, the dashboard shows a
+*Dataset* selector.
 
 ### Profile reference
 

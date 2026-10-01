@@ -346,8 +346,8 @@ guardou uma cópia do arquivo de origem prove que é o que foi analisado.
 
 Tudo o que é específico de um conjunto de dados está num **perfil**: um arquivo JSON em
 [`profiles/`](profiles/). O código nunca muda. As saídas ficam separadas por perfil (`data/<id>/`,
-`results/<id>/`, `docs/data/<id>.json`), então vários perfis convivem lado a lado e o painel tem um
-seletor.
+`results/<id>/`, `docs/data/<id>.json`), então vários perfis convivem lado a lado; quando há mais de um, o painel mostra um
+seletor *Dataset*.
 
 ### Referência do perfil
 
