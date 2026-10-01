@@ -212,7 +212,9 @@ superior direito, ou `?lang=pt` no endereço). Os rótulos da própria página s
 que vêm dos dados (o raciocínio do LLM, os rótulos dos eventos, as descrições do perfil) são traduzidos
 automaticamente após cada lote pelo mesmo modelo local (`python main.py translate`) e guardados em
 `results/<perfil>/translations.json`, indexados pelo texto original, então cada texto é traduzido uma
-única vez. O juiz continua trabalhando em inglês, como o benchmark de modelos o mede: uma tradução nunca
+única vez. Um glossário mantém os termos consistentes: os gerais em `src/translate.py`, os do domínio em
+`profiles/i18n/<perfil>.pt.json` (separado do perfil, para que editá-lo nunca mude o que o juiz recebe);
+mudá-lo refaz as traduções na execução seguinte. O juiz continua trabalhando em inglês, como o benchmark de modelos o mede: uma tradução nunca
 altera um julgamento, e o painel mostra o texto original ao passar o mouse.
 
 ## Revisão humana (*human-in-the-loop*)

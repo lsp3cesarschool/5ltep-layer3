@@ -204,7 +204,10 @@ and the steward's decision replaces the LLM label wherever there is one.
 right, or `?lang=pt` in the address). Its own labels are translated in the page. The texts that come
 from the data (the LLM's reasoning, the event labels, the profile's descriptions) are machine-translated
 after each batch by the same local model (`python main.py translate`) and stored in
-`results/<profile>/translations.json`, keyed by the source text, so each text is translated once. The
+`results/<profile>/translations.json`, keyed by the source text, so each text is translated once. A
+glossary keeps the terms consistent: general ones in `src/translate.py`, the domain's own in
+`profiles/i18n/<profile>.pt.json` (kept apart from the profile, so editing it never changes what the
+judge receives); changing it redoes the translations on the next run. The
 judge itself keeps working in English, as the model benchmark measures it: a translation never changes
 a judgment, and the dashboard shows the original text on hover.
 

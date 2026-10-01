@@ -1,0 +1,12 @@
+{
+  "_comment": "Portuguese terms for the machine translation of this profile's dashboard texts (src/translate.py). Kept apart from the profile so editing it never changes what the LLM-as-a-Judge receives.",
+  "glossary": {
+    "infraction notice": "auto de infração",
+    "infraction notices": "autos de infração",
+    "fine": "multa",
+    "fines": "multas",
+    "IBAMA infraction notices": "Autos de infração do IBAMA",
+    "Legal Amazon": "Amazônia Legal",
+    "Brazil": "Brasil"
+  }
+}
