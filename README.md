@@ -1,17 +1,20 @@
 # 5LTEP-L3: 5L-TEP Layer 3 Anomaly Detection Toolkit
 
+[![Tests](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml) [![Layer 3](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 **English** · [Português](LEIAME.md)
 
-**Ensemble anomaly detection + local LLM-as-a-Judge + human-in-the-loop review for CKAN-based Open Government Data portals.**
+**Finds the months in which an open government dataset behaves unexpectedly, asks a local AI model
+which of them have a known explanation, and sends the rest to people first.**
+Ensemble anomaly detection + local LLM-as-a-Judge + human-in-the-loop review, for CKAN-based Open
+Government Data portals.
 
-[![Tests](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml)
-[![Layer 3](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-
-📊 **Dashboard:** <https://lsp3cesarschool.github.io/5ltep-layer3/> (anomalies, LLM labels, steward decisions, provenance of every result)
-🧑‍⚖️ **Review queue** (live counts; each badge opens its list of issues): [![open reviews](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/layer3?label=open%20reviews&color=0366d6)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3) [![pending](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Apending?label=pending&color=d73a4a)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Apending) [![advisory](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Aadvisory?label=advisory&color=fbca04)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Aadvisory) [![level shift](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Alevel-shift?label=level%20shift&color=f9d0c4)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Alevel-shift)
-🧪 **Which LLM judges, and why:** [5ltep-layer3-modeltest](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest), the monthly model benchmark
-🔁 **Control experiment on another portal:** [5ltep-layer3-aneel](https://github.com/lsp3cesarschool/5ltep-layer3-aneel) (ANEEL, same code)
+| Resource | What you find there |
+|---|---|
+| 📊 **Dashboard** | [lsp3cesarschool.github.io/5ltep-layer3](https://lsp3cesarschool.github.io/5ltep-layer3/): anomalies, LLM labels, steward decisions and the provenance of every result |
+| 🧑‍⚖️ **Review queue** | [![open reviews](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/layer3?label=open%20reviews&color=0366d6)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3) [![pending](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Apending?label=pending&color=d73a4a)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Apending) [![advisory](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Aadvisory?label=advisory&color=fbca04)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Aadvisory) [![level shift](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Alevel-shift?label=level%20shift&color=f9d0c4)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Alevel-shift)<br>live counts; each badge opens its list of issues |
+| 🧪 **Model choice** | [5ltep-layer3-modeltest](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest): the monthly benchmark that picks the LLM judge |
+| 🔁 **Control experiment** | [5ltep-layer3-aneel](https://github.com/lsp3cesarschool/5ltep-layer3-aneel): the same code on ANEEL's portal |
 
 > **Status: research demonstration.** This toolkit is part of a master's research project and is
 > maintained by its author. It is not an official IBAMA (or ANEEL) service, and it does not assume that

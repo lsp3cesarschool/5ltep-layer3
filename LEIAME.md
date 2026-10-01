@@ -1,17 +1,21 @@
 # 5LTEP-L3: kit de detecção de anomalias da Camada 3 do 5L-TEP
 
+[![Tests](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml) [![Layer 3](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 [English](README.md) · **Português**
 
-**Detecção de anomalias por *ensemble* + LLM local como juiz (*LLM-as-a-Judge*) + revisão humana (*human-in-the-loop*) para portais de Dados Abertos Governamentais baseados em CKAN.**
+**Encontra os meses em que um conjunto de dados abertos governamentais se comporta de forma
+inesperada, pergunta a um modelo de IA local quais deles têm explicação conhecida e envia o resto
+primeiro para as pessoas.**
+Detecção de anomalias por *ensemble* + LLM local como juiz (*LLM-as-a-Judge*) + revisão humana
+(*human-in-the-loop*), para portais de Dados Abertos Governamentais baseados em CKAN.
 
-[![Tests](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml)
-[![Layer 3](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-
-📊 **Painel:** <https://lsp3cesarschool.github.io/5ltep-layer3/> (anomalias, rótulos do LLM, decisões do gestor, proveniência de cada resultado)
-🧑‍⚖️ **Fila de revisão** (contagens ao vivo; cada selo abre sua lista de issues): [![revisões abertas](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/layer3?label=revis%C3%B5es%20abertas&color=0366d6)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3) [![pendentes](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Apending?label=pendentes&color=d73a4a)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Apending) [![recomendadas](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Aadvisory?label=recomendadas&color=fbca04)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Aadvisory) [![mudança de nível](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Alevel-shift?label=mudan%C3%A7a%20de%20n%C3%ADvel&color=f9d0c4)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Alevel-shift)
-🧪 **Qual LLM julga, e por quê:** [5ltep-layer3-modeltest](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest), o benchmark mensal de modelos
-🔁 **Experimento de controle em outro portal:** [5ltep-layer3-aneel](https://github.com/lsp3cesarschool/5ltep-layer3-aneel) (ANEEL, mesmo código)
+| Recurso | O que tem lá |
+|---|---|
+| 📊 **Painel** | [lsp3cesarschool.github.io/5ltep-layer3](https://lsp3cesarschool.github.io/5ltep-layer3/): anomalias, rótulos do LLM, decisões do gestor e a proveniência de cada resultado |
+| 🧑‍⚖️ **Fila de revisão** | [![revisões abertas](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/layer3?label=revis%C3%B5es%20abertas&color=0366d6)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3) [![pendentes](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Apending?label=pendentes&color=d73a4a)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Apending) [![recomendadas](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Aadvisory?label=recomendadas&color=fbca04)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Aadvisory) [![mudança de nível](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Alevel-shift?label=mudan%C3%A7a%20de%20n%C3%ADvel&color=f9d0c4)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Alevel-shift)<br>contagens ao vivo; cada selo abre sua lista de issues |
+| 🧪 **Escolha do modelo** | [5ltep-layer3-modeltest](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest/blob/main/LEIAME.md): o benchmark mensal que escolhe o LLM juiz |
+| 🔁 **Experimento de controle** | [5ltep-layer3-aneel](https://github.com/lsp3cesarschool/5ltep-layer3-aneel/blob/main/LEIAME.md): o mesmo código no portal da ANEEL |
 
 > **Situação: demonstração de pesquisa.** Este kit faz parte de um projeto de pesquisa de mestrado e é
 > mantido pelo seu autor. Não é um serviço oficial do IBAMA (nem da ANEEL), e não pressupõe que algum
