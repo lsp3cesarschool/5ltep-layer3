@@ -1,7 +1,7 @@
 {
  "profile": "ibama-autos-infracao",
  "profile_sha256": "a1ac50356034dfb4e35239717994a7263ec70add2ded3c5c21a853b597298203",
- "as_of": "2026-10-01T13:00:27.193982",
+ "as_of": "2026-10-01T13:29:47.187291",
  "dataset_id": "fiscalizacao-auto-de-infracao",
  "dataset_url": "https://dadosabertos.ibama.gov.br/dataset/fiscalizacao-auto-de-infracao",
  "dataset_metadata_modified": "2026-05-27T19:17:38.049734",
@@ -9,7 +9,7 @@
  "resource_id": "b2aba344-95df-43c0-b2ba-f4353cfd9a00",
  "resource_name": "Autos de infração",
  "resource_url": "https://stibamadadosabertosprd.blob.core.windows.net/dados-abertos/dados/SIFISC/auto_infracao/auto_infracao/auto_infracao_csv.zip",
- "download_started_at": "2026-10-01T13:00:28+00:00",
+ "download_started_at": "2026-10-01T13:29:48+00:00",
  "size_bytes": 122613437,
  "checksum_sha256": "1da3f2dd99a463715c9903507350168648917b87045834f1ed9c9938065b00a8",
  "aggregation": {
