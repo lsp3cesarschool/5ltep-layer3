@@ -16,6 +16,7 @@ Detecção de anomalias por *ensemble* + LLM local como juiz (*LLM-as-a-Judge*) 
 | 🧑‍⚖️ **Fila de revisão** | [![revisões abertas](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/layer3?label=revis%C3%B5es%20abertas&color=0366d6)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3) [![pendentes](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Apending?label=pendentes&color=d73a4a)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Apending) [![recomendadas](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Aadvisory?label=recomendadas&color=fbca04)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Aadvisory) [![mudança de nível](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Alevel-shift?label=mudan%C3%A7a%20de%20n%C3%ADvel&color=f9d0c4)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Alevel-shift)<br>contagens ao vivo; cada selo abre sua lista de issues |
 | 🧪 **Escolha do modelo** | [5ltep-layer3-modeltest](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest/blob/main/LEIAME.md): o benchmark mensal que escolhe o LLM juiz |
 | 🔁 **Experimento de controle** | [5ltep-layer3-aneel](https://github.com/lsp3cesarschool/5ltep-layer3-aneel/blob/main/LEIAME.md): o mesmo código no portal da ANEEL |
+| 🔒 **Segurança** | [SECURITY.md](SECURITY.md): o que não é confiável (o modelo, o portal de dados, fontes da web), como o kit o contém, e como relatar uma vulnerabilidade |
 
 > **Situação: demonstração de pesquisa.** Este kit faz parte de um projeto de pesquisa de mestrado e é
 > mantido pelo seu autor. Não é um serviço oficial do IBAMA (nem da ANEEL), e não pressupõe que algum
@@ -295,7 +296,7 @@ que cada evento tem um `status`:
 | status | significado | enviado ao juiz |
 |---|---|---|
 | `verified` | verificado por um gestor, com fonte | sim |
-| `suggested` | proposto pelo LLM, ainda não verificado | só se ancorado numa fonte citada, marcado *[unverified suggestion]* (opção de perfil `events_include_suggested`); sugestões feitas de memória pelo modelo, nunca, até serem verificadas |
+| `suggested` | proposto pelo LLM, ainda não verificado | não, até um gestor verificar (fontes como a Wikipédia podem ser editadas por qualquer pessoa; ver [SECURITY.md](SECURITY.md)). Um perfil pode optar por `events_include_suggested`: então sugestões ancoradas vão marcadas *[unverified suggestion]*, e as feitas de memória pelo modelo continuam nunca indo |
 | `rejected` | verificado e descartado | não (mantido para não ser sugerido de novo) |
 
 **Preenchimento automático.** `python main.py suggest-events` olha os anos com anomalias e, para cada
@@ -375,7 +376,7 @@ seletor *Dataset*.
 | `series` | as séries mensais: `{"name", "kind": "count"}` ou `{"name", "kind": "sum", "column", "number_format": "br" \| "plain", "convert_currency": true \| false}`, cada uma com uma `description` que o LLM lê |
 | `domain`, `record_label` | um parágrafo descrevendo o publicador e os registros, para o LLM |
 | `events_file` | o calendário de eventos (`{"month", "kind", "label", "source", "status"}`) |
-| `events_include_suggested` | enviar ao juiz sugestões não verificadas do LLM (marcadas como tais) |
+| `events_include_suggested` | enviar ao juiz sugestões não verificadas do LLM, marcadas como tais (padrão `false`: só eventos verificados) |
 | `event_sources` | onde o `suggest-events` procura, ex.: `{"wikipedia": {"lang": "pt", "title": "{year} no Brasil"}}` |
 | `monetary_file` | reformas monetárias, para `convert_currency` e como eventos |
 | `categories` | a taxonomia entre a qual o LLM escolhe e com a qual o gestor rotula (`DQE` sempre vai para revisão) |
@@ -477,7 +478,7 @@ Depois abra `docs/index.html` por um servidor local (`python -m http.server -d d
 | [`reviews.yml`](.github/workflows/reviews.yml) | sempre que uma issue `layer3` é rotulada, fechada ou reaberta | sincronizar as decisões do gestor, atualizar o escore L3 e o painel |
 | [`model-check.yml`](.github/workflows/model-check.yml) | dia 22 de cada mês, e manual | só quando `LLM_MODEL` está fixado: compara com a recomendação do benchmark de modelos; abre issue se uma troca for recomendada |
 | [`events.yml`](.github/workflows/events.yml) | **manual** (botão do painel *Suggest events*), com as entradas perfil, online/offline e anos | sugestões do LLM para o calendário de eventos → pull request para revisão |
-| [`tests.yml`](.github/workflows/tests.yml) | push / pull request | suíte de testes no Python 3.10–3.12 |
+| [`tests.yml`](.github/workflows/tests.yml) | push / pull request | suíte de testes no Python 3.11–3.12 |
 
 **O selo *Camada 3*** no topo desta página mostra o que a última cadeia de lotes está fazendo:
 *rodando*, *concluída* (com a data, as anomalias encontradas e as revisões pendentes) ou *interrompida*
@@ -548,6 +549,7 @@ resultados ficam em `evaluation/results/`. Só são informados números produzid
 │   ├── detectors.py               # Z-score, MAD, Isolation Forest, LSTM-ED, ensemble, Page-Hinkley
 │   ├── judge.py                   # LLM-as-a-Judge (Ollama), voto majoritário, consistência, cache
 │   ├── review.py                  # fila de revisão em issues do GitHub (HitL)
+│   ├── safety.py                  # verificações entre entradas não confiáveis (modelo, dados, web) e o repositório
 │   ├── translate.py               # tradução automática dos textos do painel (versão em português)
 │   ├── events_suggest.py          # sugestões do LLM para o calendário, ancoradas na Wikipédia
 │   ├── monetary.py                # conversão monetária e eventos de reforma
@@ -560,6 +562,7 @@ resultados ficam em `evaluation/results/`. Só são informados números produzid
 ├── .github/workflows/             # layer3.yml, reviews.yml, events.yml, tests.yml
 ├── .github/actions/setup-ollama/  # passo comum: instalar Ollama, modelo em cache, iniciar, baixar
 ├── CITATION.cff
+├── SECURITY.md                    # modelo de ameaças, mitigações, como relatar uma vulnerabilidade
 └── LICENSE
 ```
 

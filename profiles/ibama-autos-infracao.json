@@ -50,7 +50,7 @@
   "domain": "IBAMA, Brazil's federal environmental agency, publishes every infraction notice (auto de infracao) it issues. Each record is one notice, dated when it was issued, with the fine value when a fine applies.",
   "record_label": "infraction notices",
   "events_file": "profiles/events/brazil-environmental-enforcement.json",
-  "events_include_suggested": true,
+  "events_include_suggested": false,
   "monetary_file": "profiles/monetary/brazil-currency.json",
   "event_sources": {
     "wikipedia": {

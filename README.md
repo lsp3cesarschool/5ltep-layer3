@@ -15,6 +15,7 @@ Government Data portals.
 | 🧑‍⚖️ **Review queue** | [![open reviews](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/layer3?label=open%20reviews&color=0366d6)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3) [![pending](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Apending?label=pending&color=d73a4a)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Apending) [![advisory](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Aadvisory?label=advisory&color=fbca04)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Aadvisory) [![level shift](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Alevel-shift?label=level%20shift&color=f9d0c4)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Alevel-shift)<br>live counts; each badge opens its list of issues |
 | 🧪 **Model choice** | [5ltep-layer3-modeltest](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest): the monthly benchmark that picks the LLM judge |
 | 🔁 **Control experiment** | [5ltep-layer3-aneel](https://github.com/lsp3cesarschool/5ltep-layer3-aneel): the same code on ANEEL's portal |
+| 🔒 **Security** | [SECURITY.md](SECURITY.md): what is not trusted (the model, the data portal, web sources), how the toolkit contains it, and how to report a vulnerability |
 
 > **Status: research demonstration.** This toolkit is part of a master's research project and is
 > maintained by its author. It is not an official IBAMA (or ANEEL) service, and it does not assume that
@@ -286,7 +287,7 @@ where every event has a `status`:
 | status | meaning | given to the judge |
 |---|---|---|
 | `verified` | checked by a steward, with a source | yes |
-| `suggested` | proposed by the LLM, not checked yet | only if grounded on a quoted source, flagged *[unverified suggestion]* (profile option `events_include_suggested`); suggestions made from the model's memory never, until verified |
+| `suggested` | proposed by the LLM, not checked yet | no, until a steward verifies it (sources such as Wikipedia can be edited by anyone; see [SECURITY.md](SECURITY.md)). A profile can opt in with `events_include_suggested`: then grounded suggestions are given flagged *[unverified suggestion]*, and those made from the model's memory still never |
 | `rejected` | checked and discarded | no (kept so it is not suggested again) |
 
 **Filling it automatically.** `python main.py suggest-events` looks at the years with anomalies and,
@@ -365,7 +366,7 @@ The code never changes. Outputs are kept per profile (`data/<id>/`, `results/<id
 | `series` | the monthly series: `{"name", "kind": "count"}` or `{"name", "kind": "sum", "column", "number_format": "br" \| "plain", "convert_currency": true \| false}`, each with a `description` the LLM reads |
 | `domain`, `record_label` | a paragraph describing the publisher and the records, for the LLM |
 | `events_file` | the event calendar (`{"month", "kind", "label", "source", "status"}`) |
-| `events_include_suggested` | give unverified LLM suggestions to the judge (flagged as such) |
+| `events_include_suggested` | give unverified LLM suggestions to the judge, flagged as such (default `false`: only verified events) |
 | `event_sources` | where `suggest-events` looks, e.g. `{"wikipedia": {"lang": "pt", "title": "{year} no Brasil"}}` |
 | `monetary_file` | currency reforms, for `convert_currency` and as events |
 | `categories` | the taxonomy the LLM chooses from and the steward labels (`DQE` is always sent to review) |
@@ -464,7 +465,7 @@ Then open `docs/index.html` through a local server (`python -m http.server -d do
 | [`reviews.yml`](.github/workflows/reviews.yml) | whenever a `layer3` issue is labelled, closed or reopened | sync steward decisions, refresh the L3 score and dashboard |
 | [`model-check.yml`](.github/workflows/model-check.yml) | 22nd of every month, and manual | only when `LLM_MODEL` is pinned: compare it with the model benchmark's recommendation; issue if a switch is recommended |
 | [`events.yml`](.github/workflows/events.yml) | **manual** (dashboard button *Suggest events*), with profile, online/offline and years inputs | LLM suggestions for the event calendar → pull request for review |
-| [`tests.yml`](.github/workflows/tests.yml) | push / pull request | test suite on Python 3.10–3.12 |
+| [`tests.yml`](.github/workflows/tests.yml) | push / pull request | test suite on Python 3.11–3.12 |
 
 **The *Layer 3* badge** at the top of this page shows what the latest chain of batches is doing:
 *running*, *done* (with its date, the anomalies found and the reviews pending) or *interrupted* (a run
@@ -535,6 +536,7 @@ saved in `evaluation/results/`. Only numbers produced by these scripts are repor
 │   ├── detectors.py               # Z-score, MAD, Isolation Forest, LSTM-ED, ensemble, Page-Hinkley
 │   ├── judge.py                   # LLM-as-a-Judge (Ollama), majority vote, consistency, cache
 │   ├── review.py                  # GitHub Issues review queue (HitL)
+│   ├── safety.py                  # checks between untrusted inputs (model, data, web) and the repository
 │   ├── translate.py               # machine translation of the dashboard texts (Portuguese version)
 │   ├── events_suggest.py          # LLM suggestions for the event calendar, grounded on Wikipedia
 │   ├── monetary.py                # currency conversion and reform events
@@ -547,6 +549,7 @@ saved in `evaluation/results/`. Only numbers produced by these scripts are repor
 ├── .github/workflows/             # layer3.yml, reviews.yml, events.yml, tests.yml
 ├── .github/actions/setup-ollama/  # shared step: install Ollama, cached model, start, pull
 ├── CITATION.cff
+├── SECURITY.md                    # threat model, mitigations, how to report a vulnerability
 └── LICENSE
 ```
 

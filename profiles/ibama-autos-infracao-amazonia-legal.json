@@ -65,7 +65,7 @@
   "domain": "IBAMA, Brazil's federal environmental agency, publishes every infraction notice (auto de infracao) it issues. This cut keeps only notices issued in the nine Legal Amazon states (AC, AM, AP, MA, MT, PA, RO, RR, TO), where the dry season (roughly June to September) concentrates deforestation and fire enforcement.",
   "record_label": "infraction notices",
   "events_file": "profiles/events/brazil-environmental-enforcement.json",
-  "events_include_suggested": true,
+  "events_include_suggested": false,
   "monetary_file": "profiles/monetary/brazil-currency.json",
   "event_sources": {
     "wikipedia": {
