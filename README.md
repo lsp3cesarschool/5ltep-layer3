@@ -1,6 +1,6 @@
 # 5LTEP-L3: 5L-TEP Layer 3 Anomaly Detection Toolkit
 
-[![Tests](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml) [![Layer 3](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Tests](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml) [![Layer 3](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Flsp3cesarschool%2F5ltep-layer3%2Fmain%2Fdocs%2Fdata%2Fstatus-ibama-autos-infracao.json)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 **English** · [Português](LEIAME.md)
 
@@ -453,6 +453,12 @@ Then open `docs/index.html` through a local server (`python -m http.server -d do
 | [`model-check.yml`](.github/workflows/model-check.yml) | 22nd of every month, and manual | only when `LLM_MODEL` is pinned: compare it with the model benchmark's recommendation; issue if a switch is recommended |
 | [`events.yml`](.github/workflows/events.yml) | **manual** (dashboard button *Suggest events*), with profile, online/offline and years inputs | LLM suggestions for the event calendar → pull request for review |
 | [`tests.yml`](.github/workflows/tests.yml) | push / pull request | test suite on Python 3.10–3.12 |
+
+**The *Layer 3* badge** at the top of this page shows what the latest chain of batches is doing:
+*running*, *done* (with its date, the anomalies found and the reviews pending) or *interrupted* (a run
+failed or was cancelled; the Actions tab has the details). The pipeline writes it to
+`docs/data/status-<profile>.json` (and `.pt.json`) at the start and the end of each chain, so it
+reflects the results rather than the pass/fail of a single run.
 
 **Why monthly?** Layer 3 looks for changes in monthly series; running every six hours like the Layer 4
 monitor would only re-analyse the same months. A steward who is about to take a publication

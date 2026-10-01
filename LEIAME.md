@@ -1,6 +1,6 @@
 # 5LTEP-L3: kit de detecção de anomalias da Camada 3 do 5L-TEP
 
-[![Tests](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml) [![Layer 3](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Tests](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml) [![Camada 3](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Flsp3cesarschool%2F5ltep-layer3%2Fmain%2Fdocs%2Fdata%2Fstatus-ibama-autos-infracao.pt.json)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 [English](README.md) · **Português**
 
@@ -468,6 +468,12 @@ Depois abra `docs/index.html` por um servidor local (`python -m http.server -d d
 | [`model-check.yml`](.github/workflows/model-check.yml) | dia 22 de cada mês, e manual | só quando `LLM_MODEL` está fixado: compara com a recomendação do benchmark de modelos; abre issue se uma troca for recomendada |
 | [`events.yml`](.github/workflows/events.yml) | **manual** (botão do painel *Suggest events*), com as entradas perfil, online/offline e anos | sugestões do LLM para o calendário de eventos → pull request para revisão |
 | [`tests.yml`](.github/workflows/tests.yml) | push / pull request | suíte de testes no Python 3.10–3.12 |
+
+**O selo *Camada 3*** no topo desta página mostra o que a última cadeia de lotes está fazendo:
+*rodando*, *concluída* (com a data, as anomalias encontradas e as revisões pendentes) ou *interrompida*
+(uma execução falhou ou foi cancelada; a aba Actions tem os detalhes). O pipeline o grava em
+`docs/data/status-<perfil>.json` (e `.pt.json`) no início e no fim de cada cadeia, então ele reflete os
+resultados, e não o passou/falhou de uma única execução.
 
 **Por que mensal?** A Camada 3 procura mudanças em séries mensais; rodar a cada seis horas, como o
 monitor da Camada 4, só reanalisaria os mesmos meses. Um gestor prestes a tomar uma decisão de
