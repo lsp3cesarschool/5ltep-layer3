@@ -576,10 +576,10 @@ variable of the same name (the values used are recorded in every summary). The m
 
 ## Academic references
 
-- Pinheiro, L. S., Silva, C. H. B., Aquino, V. B., Carvalho, T. M. C. S., Barros Filho, C. V. R., & Almeida, W. H. C. (2026). *Towards Trust Engineering in Open Data Systems: A Layered Conceptual Framework Integrating Quality Assurance and Governance Perspectives*. SOFTENG 2026, IARIA, pp. 21–28.
-- Pinheiro, L. S. & Sérgio, A. T. (2026). *5LTEP-L4: An Open-Source CKAN Toolkit for Provenance-Enabled Observability of Open Government Data*. WFA, Anais Estendidos do WebMedia 2026 (to appear). Code: [5ltep-layer4](https://github.com/lsp3cesarschool/5ltep-layer4).
-- Chandola, V., Banerjee, A., & Kumar, V. (2009). Anomaly detection: A survey. *ACM Computing Surveys*, 41(3).
-- Liu, F. T., Ting, K. M., & Zhou, Z.-H. (2008). Isolation Forest. *IEEE ICDM*.
+- Pinheiro, L. S., et al. (2026). *Towards Trust Engineering in Open Data Systems: A Layered Conceptual Framework Integrating Quality Assurance and Governance Perspectives*. SOFTENG 2026, IARIA, pp. 21–28.
+- Pinheiro, L. S., & Sérgio, A. T. (2026). *5LTEP-L4: An Open-Source CKAN Toolkit for Provenance-Enabled Observability of Open Government Data*. WFA, Anais Estendidos do WebMedia 2026 (to appear). Code: [5ltep-layer4](https://github.com/lsp3cesarschool/5ltep-layer4).
+- Chandola, V., et al. (2009). Anomaly detection: A survey. *ACM Computing Surveys*, 41(3).
+- Liu, F. T., et al. (2008). Isolation Forest. *IEEE ICDM*.
 - Malhotra, P., et al. (2016). LSTM-based Encoder-Decoder for Multi-sensor Anomaly Detection. *ICML Anomaly Detection Workshop*.
 - Iglewicz, B., & Hoaglin, D. (1993). *How to Detect and Handle Outliers*. ASQC Quality Press.
 - Page, E. S. (1954). Continuous inspection schemes. *Biometrika*, 41(1/2), 100–115.
