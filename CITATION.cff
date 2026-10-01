@@ -1,17 +1,21 @@
 cff-version: 1.2.0
-message: "If you use this toolkit or its results, please cite it as below."
+message: "If you use this toolkit or its results, please cite the master's thesis it is part of (preferred citation below)."
 title: "5LTEP-L3: 5L-TEP Layer 3 Anomaly Detection Toolkit"
 abstract: >-
   Reference implementation of Layer 3 (Anomaly Detection) of the Five-Layer
-  Trust Engineering Pyramid (5L-TEP) for open government data: an ensemble of
-  statistical and learned detectors with a Page-Hinkley drift test, a local
-  LLM-as-a-Judge (Ollama) that classifies each anomaly, and a human-in-the-loop
-  review through GitHub Issues. Declarative profiles adapt it to other CKAN
-  portals, datasets and data cuts.
+  Trust Engineering Pyramid (5L-TEP, SOFTENG 2026) for open government data: an
+  ensemble of statistical and learned detectors with a Page-Hinkley drift test,
+  a local LLM-as-a-Judge (Ollama) that classifies each anomaly, and a
+  human-in-the-loop review through GitHub Issues. Declarative profiles adapt it
+  to other CKAN portals, datasets and data cuts. Part of the master's thesis
+  cited below.
 type: software
 authors:
   - family-names: Pinheiro
     given-names: Luciano Santos
+    affiliation: "CESAR School, Recife, Brazil"
+  - family-names: Sérgio
+    given-names: Anderson Tenório
     affiliation: "CESAR School, Recife, Brazil"
 repository-code: "https://github.com/lsp3cesarschool/5ltep-layer3"
 url: "https://lsp3cesarschool.github.io/5ltep-layer3/"
@@ -27,26 +31,16 @@ keywords:
   - CKAN
   - human-in-the-loop
   - FAIR
-references:
-  - type: conference-paper
-    title: "Towards Trust Engineering in Open Data Systems: A Layered Conceptual Framework Integrating Quality Assurance and Governance Perspectives"
-    authors:
-      - family-names: Pinheiro
-        given-names: Luciano Santos
-      - family-names: Silva
-        given-names: Cristiane de Holanda de Barros e
-      - family-names: Aquino
-        given-names: Vitor Barros
-      - family-names: Carvalho
-        given-names: Thays Maria da Conceição Silva
-      - family-names: Barros Filho
-        given-names: Cristiano Vale do Rego
-      - family-names: Almeida
-        given-names: Washington Henrique Carvalho
-    collection-title: "SOFTENG 2026: The Twelfth International Conference on Advances and Trends in Software Engineering"
-    publisher:
-      name: IARIA
-    year: 2026
-    start: 21
-    end: 28
-    isbn: "978-1-68558-398-9"
+preferred-citation:
+  type: thesis
+  thesis-type: "Master's thesis"
+  title: "Engenharia da Confiança (5L-TEP) Aplicada a Dados Abertos do IBAMA: Automação, Inteligência Artificial e Human-in-the-Loop para Avaliação da Qualidade de Big Data através da Plataforma CUPIM"
+  authors:
+    - family-names: Pinheiro
+      given-names: Luciano Santos
+  institution:
+    name: "CESAR School, Programa de Pós-Graduação em Engenharia de Software"
+    city: Recife
+    country: BR
+  year: 2027
+  notes: "In preparation. Advisor: Prof. Anderson Tenório Sérgio."
