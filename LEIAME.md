@@ -12,7 +12,7 @@ Detecção de anomalias por *ensemble* + LLM local como juiz (*LLM-as-a-Judge*) 
 
 | Recurso | O que tem lá |
 |---|---|
-| 📊 **Painel** | [lsp3cesarschool.github.io/5ltep-layer3](https://lsp3cesarschool.github.io/5ltep-layer3/): anomalias, rótulos do LLM, decisões do gestor e a proveniência de cada resultado |
+| 📊 **Painel** | [lsp3cesarschool.github.io/5ltep-layer3](https://lsp3cesarschool.github.io/5ltep-layer3/?lang=pt): anomalias, rótulos do LLM, decisões do gestor e a proveniência de cada resultado |
 | 🧑‍⚖️ **Fila de revisão** | [![revisões abertas](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/layer3?label=revis%C3%B5es%20abertas&color=0366d6)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3) [![pendentes](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Apending?label=pendentes&color=d73a4a)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Apending) [![recomendadas](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Aadvisory?label=recomendadas&color=fbca04)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Aadvisory) [![mudança de nível](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Alevel-shift?label=mudan%C3%A7a%20de%20n%C3%ADvel&color=f9d0c4)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Alevel-shift)<br>contagens ao vivo; cada selo abre sua lista de issues |
 | 🧪 **Escolha do modelo** | [5ltep-layer3-modeltest](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest/blob/main/LEIAME.md): o benchmark mensal que escolhe o LLM juiz |
 | 🔁 **Experimento de controle** | [5ltep-layer3-aneel](https://github.com/lsp3cesarschool/5ltep-layer3-aneel/blob/main/LEIAME.md): o mesmo código no portal da ANEEL |
@@ -206,6 +206,14 @@ issue quando o benchmark recomendar outro. O primeiro benchmark (30/09/2026) lev
 
 O LLM é uma ferramenta de apoio à decisão, não a verdade: cada prompt e cada raciocínio ficam
 guardados, e a decisão do gestor substitui o rótulo do LLM onde houver uma.
+
+**Painel em português.** O painel tem uma versão em inglês e outra em português (seletor no canto
+superior direito, ou `?lang=pt` no endereço). Os rótulos da própria página são traduzidos nela. Os textos
+que vêm dos dados (o raciocínio do LLM, os rótulos dos eventos, as descrições do perfil) são traduzidos
+automaticamente após cada lote pelo mesmo modelo local (`python main.py translate`) e guardados em
+`results/<perfil>/translations.json`, indexados pelo texto original, então cada texto é traduzido uma
+única vez. O juiz continua trabalhando em inglês, como o benchmark de modelos o mede: uma tradução nunca
+altera um julgamento, e o painel mostra o texto original ao passar o mouse.
 
 ## Revisão humana (*human-in-the-loop*)
 
@@ -538,6 +546,7 @@ resultados ficam em `evaluation/results/`. Só são informados números produzid
 │   ├── detectors.py               # Z-score, MAD, Isolation Forest, LSTM-ED, ensemble, Page-Hinkley
 │   ├── judge.py                   # LLM-as-a-Judge (Ollama), voto majoritário, consistência, cache
 │   ├── review.py                  # fila de revisão em issues do GitHub (HitL)
+│   ├── translate.py               # tradução automática dos textos do painel (versão em português)
 │   ├── events_suggest.py          # sugestões do LLM para o calendário, ancoradas na Wikipédia
 │   ├── monetary.py                # conversão monetária e eventos de reforma
 │   └── report.py                  # escore da Camada 3, resumo, dados do painel
@@ -575,6 +584,7 @@ relevantes:
 | `ADVISORY_CONSISTENCY` | `0.6` | abaixo disso, revisão recomendada |
 | `MAX_NEW_ISSUES` | `15` | issues de revisão abertas por execução |
 | `L3_WINDOW_MONTHS` | `12` | janela do escore da Camada 3 |
+| `TRANSLATE_MAX_MINUTES` | `30` | tempo por execução para traduzir os textos do painel para o português |
 | `L3_REVIEW_ALERT` | *(não definida)* | variável de repositório (só no Actions): `true` faz uma cadeia falhar de propósito, e o GitHub enviar um e-mail, enquanto houver revisões pendentes abertas; não definida ou `false`: sem alerta |
 
 ## Limitações

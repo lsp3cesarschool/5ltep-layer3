@@ -11,7 +11,7 @@ Government Data portals.
 
 | Resource | What you find there |
 |---|---|
-| 📊 **Dashboard** | [lsp3cesarschool.github.io/5ltep-layer3](https://lsp3cesarschool.github.io/5ltep-layer3/): anomalies, LLM labels, steward decisions and the provenance of every result |
+| 📊 **Dashboard** | [lsp3cesarschool.github.io/5ltep-layer3](https://lsp3cesarschool.github.io/5ltep-layer3/?lang=en): anomalies, LLM labels, steward decisions and the provenance of every result |
 | 🧑‍⚖️ **Review queue** | [![open reviews](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/layer3?label=open%20reviews&color=0366d6)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Alayer3) [![pending](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Apending?label=pending&color=d73a4a)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Apending) [![advisory](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Aadvisory?label=advisory&color=fbca04)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Aadvisory) [![level shift](https://img.shields.io/github/issues/lsp3cesarschool/5ltep-layer3/review%3Alevel-shift?label=level%20shift&color=f9d0c4)](https://github.com/lsp3cesarschool/5ltep-layer3/issues?q=is%3Aissue+is%3Aopen+label%3Areview%3Alevel-shift)<br>live counts; each badge opens its list of issues |
 | 🧪 **Model choice** | [5ltep-layer3-modeltest](https://github.com/lsp3cesarschool/5ltep-layer3-modeltest): the monthly benchmark that picks the LLM judge |
 | 🔁 **Control experiment** | [5ltep-layer3-aneel](https://github.com/lsp3cesarschool/5ltep-layer3-aneel): the same code on ANEEL's portal |
@@ -199,6 +199,14 @@ benchmark recommends another one. The first benchmark (30/09/2026) moved product
 
 The LLM is a decision-support tool, not ground truth: every prompt and every reasoning is stored,
 and the steward's decision replaces the LLM label wherever there is one.
+
+**Dashboard in Portuguese.** The dashboard has an English and a Portuguese version (switch at the top
+right, or `?lang=pt` in the address). Its own labels are translated in the page. The texts that come
+from the data (the LLM's reasoning, the event labels, the profile's descriptions) are machine-translated
+after each batch by the same local model (`python main.py translate`) and stored in
+`results/<profile>/translations.json`, keyed by the source text, so each text is translated once. The
+judge itself keeps working in English, as the model benchmark measures it: a translation never changes
+a judgment, and the dashboard shows the original text on hover.
 
 ## Human-in-the-loop review
 
@@ -524,6 +532,7 @@ saved in `evaluation/results/`. Only numbers produced by these scripts are repor
 │   ├── detectors.py               # Z-score, MAD, Isolation Forest, LSTM-ED, ensemble, Page-Hinkley
 │   ├── judge.py                   # LLM-as-a-Judge (Ollama), majority vote, consistency, cache
 │   ├── review.py                  # GitHub Issues review queue (HitL)
+│   ├── translate.py               # machine translation of the dashboard texts (Portuguese version)
 │   ├── events_suggest.py          # LLM suggestions for the event calendar, grounded on Wikipedia
 │   ├── monetary.py                # currency conversion and reform events
 │   └── report.py                  # Layer 3 score, summary, dashboard data
@@ -560,6 +569,7 @@ variable of the same name (the values used are recorded in every summary). The m
 | `ADVISORY_CONSISTENCY` | `0.6` | below this, advisory review |
 | `MAX_NEW_ISSUES` | `15` | review issues opened per run |
 | `L3_WINDOW_MONTHS` | `12` | window of the Layer 3 score |
+| `TRANSLATE_MAX_MINUTES` | `30` | time per run for translating the dashboard texts into Portuguese |
 | `L3_REVIEW_ALERT` | *(unset)* | repository variable (Actions only): `true` makes a chain fail on purpose, and GitHub send an e-mail, while pending reviews are open; unset or `false`: no alert |
 
 ## Limitations
