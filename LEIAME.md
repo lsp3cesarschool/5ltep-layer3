@@ -313,7 +313,8 @@ números inventados. Use o modo offline apenas como lista de pistas a conferir.
 
 No GitHub, o botão **Suggest events** do painel abre o workflow
 [`events.yml`](.github/workflows/events.yml), que roda o mesmo comando e abre um **pull request** com
-as sugestões. O gestor revisa a diferença, define cada `status` como `verified` ou `rejected`, corrige
+as sugestões. Quando os anos não cabem numa execução, ele dispara o lote seguinte com os anos que
+sobraram; todos os lotes acrescentam ao mesmo pull request (e comentam o que acharam). O gestor revisa a diferença, define cada `status` como `verified` ou `rejected`, corrige
 os rótulos se necessário e faz o *merge*.
 
 ## Princípios FAIR e replicabilidade
@@ -592,7 +593,7 @@ relevantes:
 | `MAX_NEW_ISSUES` | `15` | issues de revisão abertas por execução |
 | `L3_WINDOW_MONTHS` | `12` | janela do escore da Camada 3 |
 | `TRANSLATE_MAX_MINUTES` | `30` | tempo por execução para traduzir os textos do painel para o português |
-| `SUGGEST_MAX_MINUTES` | `300` | tempo por execução para as sugestões de eventos (os anos que sobram são informados) |
+| `SUGGEST_MAX_MINUTES` | `300` | tempo por lote para as sugestões de eventos (os anos que sobram vão para o lote seguinte) |
 | `L3_REVIEW_ALERT` | *(não definida)* | variável de repositório (só no Actions): `true` faz uma cadeia falhar de propósito, e o GitHub enviar um e-mail, enquanto houver revisões pendentes abertas; não definida ou `false`: sem alerta |
 
 ## Limites de tamanho e de tempo
@@ -617,7 +618,7 @@ não cabe numa execução continua na seguinte. Os únicos limites são o que as
 |---|---|
 | Dados brutos | baixados inteiros para uma pasta temporária (nunca commitados); todas as linhas entram nas séries mensais |
 | Fontes de eventos (Wikipédia) | a seção de eventos inteira da página, em partes de 12.000 caracteres (`SOURCE_PIECE_CHARS`) que cabem no contexto do modelo; cada ano fica com as 3 sugestões de maior pontuação |
-| Anos consultados para eventos | todos os anos com anomalias, os mais recentes primeiro, dentro de `SUGGEST_MAX_MINUTES` (300); os anos que sobram aparecem num aviso da execução, para serem pedidos de novo com a entrada *years* |
+| Anos consultados para eventos | todos os anos com anomalias, os mais recentes primeiro, `SUGGEST_MAX_MINUTES` (300) por lote; os anos que sobram vão para o lote seguinte da cadeia, tudo num só pull request, por até 28 dias (até o próximo ciclo mensal) |
 
 O que se guarda *do modelo* é limitado de propósito, por segurança, nunca o que ele lê: um raciocínio
 guarda no máximo 2.000 caracteres e uma tradução, 6.000 ([SECURITY.md](SECURITY.md)).

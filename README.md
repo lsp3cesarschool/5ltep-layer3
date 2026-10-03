@@ -304,7 +304,8 @@ made-up numbers. Use offline mode only as a list of leads to check.
 
 On GitHub, the dashboard's **Suggest events** button opens the
 [`events.yml`](.github/workflows/events.yml) workflow, which runs the same command and opens a
-**pull request** with the suggestions. The steward reviews the diff, sets each `status` to
+**pull request** with the suggestions. When the years do not fit in one run, it starts the next batch
+with the years left; every batch adds to the same pull request (and comments what it found). The steward reviews the diff, sets each `status` to
 `verified` or `rejected`, fixes labels if needed, and merges.
 
 ## FAIR principles and replicability
@@ -578,7 +579,7 @@ variable of the same name (the values used are recorded in every summary). The m
 | `MAX_NEW_ISSUES` | `15` | review issues opened per run |
 | `L3_WINDOW_MONTHS` | `12` | window of the Layer 3 score |
 | `TRANSLATE_MAX_MINUTES` | `30` | time per run for translating the dashboard texts into Portuguese |
-| `SUGGEST_MAX_MINUTES` | `300` | time per run for event suggestions (the years left are reported) |
+| `SUGGEST_MAX_MINUTES` | `300` | time per batch for event suggestions (the years left go to the next batch) |
 | `L3_REVIEW_ALERT` | *(unset)* | repository variable (Actions only): `true` makes a chain fail on purpose, and GitHub send an e-mail, while pending reviews are open; unset or `false`: no alert |
 
 ## Size and time limits
@@ -603,7 +604,7 @@ not fit in one run continues in the next. The only limits are what GitHub's mach
 |---|---|
 | Raw data | downloaded whole to a temporary folder (never committed); every row is aggregated into the monthly series |
 | Event sources (Wikipedia) | the whole events section of the page, in pieces of 12,000 characters (`SOURCE_PIECE_CHARS`) that fit in the model's context; each year keeps its 3 best-scored suggestions |
-| Years asked for events | every year with anomalies, most recent first, within `SUGGEST_MAX_MINUTES` (300); the years left are named in a warning of the run, to be asked again with the *years* input |
+| Years asked for events | every year with anomalies, most recent first, `SUGGEST_MAX_MINUTES` (300) per batch; the years left go to the next batch of the chain, all in one pull request, for up to 28 days (until the next monthly cycle) |
 
 What is kept *from the model* is bounded on purpose, for safety, never what it reads: a reasoning
 keeps at most 2,000 characters and a translation 6,000 ([SECURITY.md](SECURITY.md)).
