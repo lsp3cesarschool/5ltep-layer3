@@ -296,7 +296,9 @@ Brazil, `pt.wikipedia.org/wiki/2019_no_Brasil` and so on). The LLM selects the e
 have affected the records and must **quote the sentence** each one comes from; suggestions whose
 quote is not found in the page are discarded, which filters out invented events. With `--offline`,
 the model answers from its own knowledge instead; those entries are marked `origin: llm-memory` and
-are never given to the judge before a steward verifies them. This is not a theoretical precaution:
+are never given to the judge before a steward verifies them. Every year with anomalies is asked, most
+recent first, and the whole events section of each page is read, in pieces that fit in the model's
+context (see [Size and time limits](#size-and-time-limits)). This is not a theoretical precaution:
 in a first run without grounding, Gemma 3 4B (the model then in use) proposed non-existent impeachments and decrees with
 made-up numbers. Use offline mode only as a list of leads to check.
 
@@ -576,7 +578,35 @@ variable of the same name (the values used are recorded in every summary). The m
 | `MAX_NEW_ISSUES` | `15` | review issues opened per run |
 | `L3_WINDOW_MONTHS` | `12` | window of the Layer 3 score |
 | `TRANSLATE_MAX_MINUTES` | `30` | time per run for translating the dashboard texts into Portuguese |
+| `SUGGEST_MAX_MINUTES` | `300` | time per run for event suggestions (the years left are reported) |
 | `L3_REVIEW_ALERT` | *(unset)* | repository variable (Actions only): `true` makes a chain fail on purpose, and GitHub send an e-mail, while pending reviews are open; unset or `false`: no alert |
+
+## Size and time limits
+
+Nothing is left out to save time: running costs nothing on a public repository, so work that does
+not fit in one run continues in the next. The only limits are what GitHub's machines can hold.
+
+**What GitHub accepts** (public repository, standard runner `ubuntu-latest`):
+
+| Resource | GitHub limit | How this repository fits in it |
+|---|---|---|
+| Minutes of Actions | free and unlimited | monthly runs, judged in batches until nothing is pending |
+| Machine | 4 CPUs, 16 GB of memory, 14 GB of disk | the raw file goes to a temporary folder; only the columns the profile needs are read |
+| One job | 6 hours | one batch: up to `MAX_JUDGMENTS` (25) judgments within `MAX_JUDGE_MINUTES` (240) |
+| A chain of batches | (no limit; a run lasts up to 35 days) | up to 60 batches in a row; the anomalies left wait for the next batch, most recent first |
+| One file in the repository | above 50 MB a warning, above 100 MB refused | each result file at most 80 MB (checked before it is committed) |
+| Issues | GitHub limits how fast content is created | `MAX_NEW_ISSUES` (15) per run, the rest in the following runs |
+
+**What the system reads in full, and how:**
+
+| What | How |
+|---|---|
+| Raw data | downloaded whole to a temporary folder (never committed); every row is aggregated into the monthly series |
+| Event sources (Wikipedia) | the whole events section of the page, in pieces of 12,000 characters (`SOURCE_PIECE_CHARS`) that fit in the model's context; each year keeps its 3 best-scored suggestions |
+| Years asked for events | every year with anomalies, most recent first, within `SUGGEST_MAX_MINUTES` (300); the years left are named in a warning of the run, to be asked again with the *years* input |
+
+What is kept *from the model* is bounded on purpose, for safety, never what it reads: a reasoning
+keeps at most 2,000 characters and a translation 6,000 ([SECURITY.md](SECURITY.md)).
 
 ## Limitations
 

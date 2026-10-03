@@ -305,7 +305,9 @@ um, busca a página da Wikipédia "*ano* no *país*" (opção de perfil `event_s
 afetado os registros e precisa **citar a frase** de onde cada um vem; sugestões cuja citação não é
 encontrada na página são descartadas, o que filtra eventos inventados. Com `--offline`, o modelo
 responde com seu próprio conhecimento; essas entradas são marcadas `origin: llm-memory` e nunca são
-enviadas ao juiz antes de um gestor verificá-las. Não é uma precaução teórica: numa primeira execução
+enviadas ao juiz antes de um gestor verificá-las. Todos os anos com anomalias são consultados, os mais
+recentes primeiro, e a seção de eventos de cada página é lida inteira, em partes que cabem no contexto
+do modelo (ver [Limites de tamanho e de tempo](#limites-de-tamanho-e-de-tempo)). Não é uma precaução teórica: numa primeira execução
 sem ancoragem, o Gemma 3 4B (o modelo em uso na época) propôs impeachments e decretos inexistentes, com
 números inventados. Use o modo offline apenas como lista de pistas a conferir.
 
@@ -590,7 +592,35 @@ relevantes:
 | `MAX_NEW_ISSUES` | `15` | issues de revisão abertas por execução |
 | `L3_WINDOW_MONTHS` | `12` | janela do escore da Camada 3 |
 | `TRANSLATE_MAX_MINUTES` | `30` | tempo por execução para traduzir os textos do painel para o português |
+| `SUGGEST_MAX_MINUTES` | `300` | tempo por execução para as sugestões de eventos (os anos que sobram são informados) |
 | `L3_REVIEW_ALERT` | *(não definida)* | variável de repositório (só no Actions): `true` faz uma cadeia falhar de propósito, e o GitHub enviar um e-mail, enquanto houver revisões pendentes abertas; não definida ou `false`: sem alerta |
+
+## Limites de tamanho e de tempo
+
+Nada fica de fora para economizar tempo: rodar não custa nada num repositório público, e o trabalho que
+não cabe numa execução continua na seguinte. Os únicos limites são o que as máquinas do GitHub comportam.
+
+**O que o GitHub aceita** (repositório público, runner padrão `ubuntu-latest`):
+
+| Recurso | Limite do GitHub | Como este repositório cabe nele |
+|---|---|---|
+| Minutos de Actions | gratuitos e ilimitados | execuções mensais, julgadas em lotes até não sobrar nada pendente |
+| Máquina | 4 CPUs, 16 GB de memória, 14 GB de disco | o arquivo bruto vai para uma pasta temporária; só as colunas de que o perfil precisa são lidas |
+| Um job | 6 horas | um lote: até `MAX_JUDGMENTS` (25) julgamentos dentro de `MAX_JUDGE_MINUTES` (240) |
+| Uma cadeia de lotes | (sem limite; uma execução dura até 35 dias) | até 60 lotes seguidos; as anomalias que sobram esperam o lote seguinte, as mais recentes primeiro |
+| Um arquivo no repositório | aviso acima de 50 MB, recusado acima de 100 MB | cada arquivo de resultado com no máximo 80 MB (verificado antes do commit) |
+| Issues | o GitHub limita a velocidade de criação de conteúdo | `MAX_NEW_ISSUES` (15) por execução, o resto nas seguintes |
+
+**O que o sistema lê por inteiro, e como:**
+
+| O quê | Como |
+|---|---|
+| Dados brutos | baixados inteiros para uma pasta temporária (nunca commitados); todas as linhas entram nas séries mensais |
+| Fontes de eventos (Wikipédia) | a seção de eventos inteira da página, em partes de 12.000 caracteres (`SOURCE_PIECE_CHARS`) que cabem no contexto do modelo; cada ano fica com as 3 sugestões de maior pontuação |
+| Anos consultados para eventos | todos os anos com anomalias, os mais recentes primeiro, dentro de `SUGGEST_MAX_MINUTES` (300); os anos que sobram aparecem num aviso da execução, para serem pedidos de novo com a entrada *years* |
+
+O que se guarda *do modelo* é limitado de propósito, por segurança, nunca o que ele lê: um raciocínio
+guarda no máximo 2.000 caracteres e uma tradução, 6.000 ([SECURITY.md](SECURITY.md)).
 
 ## Limitações
 
