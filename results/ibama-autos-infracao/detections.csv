@@ -57,7 +57,7 @@ month,series,value,zscore_score,zscore_vote,mad_score,mad_vote,iforest_score,ifo
 1985-06,notices,56.0,1.303078,False,0.802876,False,0.427927,False,0.032974,False,0,False,0.1858,False
 1985-07,notices,53.0,0.966465,False,0.586157,False,0.42051,False,0.016146,False,0,False,0.1568,False
 1985-08,notices,59.0,1.196245,False,0.9474,False,0.424222,False,0.028841,False,0,False,0.1855,False
-1985-09,notices,89.0,2.56442,False,2.228871,False,0.451784,False,0.154326,False,0,False,0.3345,False
+1985-09,notices,89.0,2.56442,False,2.228871,False,0.451784,False,0.154325,False,0,False,0.3345,False
 1985-10,notices,63.0,0.887866,False,1.12493,False,0.441443,False,0.03903,False,0,False,0.1863,False
 1985-11,notices,48.0,0.279098,False,0.43475,False,0.42782,False,0.002914,False,0,False,0.1199,False
 1985-12,notices,51.0,0.160257,False,0.237186,False,0.41387,False,0.007763,False,0,False,0.1051,False
@@ -94,7 +94,7 @@ month,series,value,zscore_score,zscore_vote,mad_score,mad_vote,iforest_score,ifo
 1988-07,notices,220.0,0.892054,False,0.908461,False,0.422133,False,0.078586,False,0,False,0.1838,False
 1988-08,notices,276.0,1.189469,False,1.13252,False,0.414825,False,0.179457,False,0,False,0.2303,False
 1988-09,notices,275.0,1.099727,False,0.920853,False,0.406448,False,0.207162,False,0,False,0.2233,False
-1988-10,notices,327.0,1.309649,False,1.154449,False,0.415607,False,0.337989,False,0,False,0.2778,True
+1988-10,notices,327.0,1.309649,False,1.154449,False,0.415607,False,0.337988,False,0,False,0.2778,True
 1988-11,notices,240.0,0.443662,False,0.280996,False,0.422973,False,0.209464,False,0,False,0.1733,True
 1988-12,notices,67.0,4.233899,True,4.581254,True,0.6486,True,0.0772,False,3,True,0.523,True
 1989-01,notices,30.0,4.318284,True,7.568024,True,0.661796,True,0.439166,False,3,True,0.683,True
@@ -119,7 +119,7 @@ month,series,value,zscore_score,zscore_vote,mad_score,mad_vote,iforest_score,ifo
 1990-08,notices,265.0,0.731981,False,0.457482,False,0.40592,False,0.006642,False,0,False,0.1361,True
 1990-09,notices,271.0,0.766352,False,0.502296,False,0.394145,False,0.010175,False,0,False,0.1379,False
 1990-10,notices,336.0,1.099328,False,0.977189,False,0.406962,False,0.045499,False,0,False,0.1835,False
-1990-11,notices,254.0,0.338726,False,0.104136,False,0.417905,False,0.020962,False,0,False,0.1113,False
+1990-11,notices,254.0,0.338726,False,0.104136,False,0.417905,False,0.020961,False,0,False,0.1113,False
 1990-12,notices,472.0,1.938478,False,2.729377,False,0.476049,False,0.194046,False,0,False,0.3447,False
 1991-01,notices,507.0,2.260695,False,2.956029,False,0.427705,False,0.272109,False,0,False,0.3778,True
 1991-02,notices,402.0,1.014765,False,1.771477,False,0.432027,False,0.207728,False,0,False,0.2607,True
@@ -153,7 +153,7 @@ month,series,value,zscore_score,zscore_vote,mad_score,mad_vote,iforest_score,ifo
 1993-06,notices,40.0,1.316236,False,1.835862,False,0.467437,False,0.124213,False,0,False,0.2615,True
 1993-07,notices,58.0,0.102926,False,0.308689,False,0.442038,False,0.047347,False,0,False,0.1219,True
 1993-08,notices,287.0,4.865079,True,4.504476,True,0.6694,True,0.491615,True,4,True,0.6588,True
-1993-09,notices,202.0,2.053064,False,3.478556,True,0.529931,False,0.212947,False,1,False,0.3969,True
+1993-09,notices,202.0,2.053064,False,3.478556,True,0.529931,False,0.212946,False,1,False,0.3969,True
 1993-10,notices,189.0,1.567881,False,3.284245,True,0.498671,False,0.146604,False,1,False,0.3447,True
 1993-11,notices,155.0,1.039887,False,1.74149,False,0.479612,False,0.058342,False,0,False,0.2314,True
 1993-12,notices,126.0,0.62652,False,0.978951,False,0.455642,False,0.014118,False,0,False,0.1658,True
@@ -225,7 +225,7 @@ month,series,value,zscore_score,zscore_vote,mad_score,mad_vote,iforest_score,ifo
 1999-06,notices,2800.0,0.541584,False,0.32527,False,0.379042,False,0.002689,False,0,False,0.116,False
 1999-07,notices,3260.0,1.553811,False,1.626272,False,0.393458,False,0.017459,False,0,False,0.2193,False
 1999-08,notices,3500.0,1.786654,False,2.016438,False,0.408412,False,0.030988,False,0,False,0.2519,False
-1999-09,notices,4581.0,2.91473,False,2.710629,False,0.494806,False,0.113136,False,0,False,0.3674,True
+1999-09,notices,4581.0,2.91473,False,2.710629,False,0.494806,False,0.113135,False,0,False,0.3674,True
 1999-10,notices,3129.0,0.490691,False,0.48714,False,0.44825,False,0.020767,False,0,False,0.1398,True
 1999-11,notices,2350.0,0.779262,False,1.187625,False,0.413035,False,0.002274,False,0,False,0.1689,True
 1999-12,notices,1867.0,1.621904,False,1.731996,False,0.424501,False,0.014003,False,0,False,0.2321,True
@@ -254,7 +254,7 @@ month,series,value,zscore_score,zscore_vote,mad_score,mad_vote,iforest_score,ifo
 2001-11,notices,2643.0,1.20998,False,0.920574,False,0.383811,False,0.002784,False,0,False,0.1697,False
 2001-12,notices,2669.0,1.089077,False,0.798347,False,0.383682,False,0.002598,False,0,False,0.1595,False
 2002-01,notices,2220.0,0.172262,False,0.041369,False,0.382236,False,0.006771,False,0,False,0.0905,False
-2002-02,notices,2141.0,0.142142,False,0.327175,False,0.372645,False,0.012181,False,0,False,0.1006,False
+2002-02,notices,2141.0,0.142142,False,0.327175,False,0.372645,False,0.012182,False,0,False,0.1006,False
 2002-03,notices,2819.0,1.37885,False,1.030733,False,0.396767,False,0.003058,False,0,False,0.1841,False
 2002-04,notices,2930.0,1.433784,False,1.098266,False,0.382031,False,0.004316,False,0,False,0.1865,False
 2002-05,notices,3206.0,1.855589,False,1.410155,False,0.393274,False,0.011977,False,0,False,0.2214,False
@@ -603,7 +603,7 @@ month,series,value,zscore_score,zscore_vote,mad_score,mad_vote,iforest_score,ifo
 1985-01,fine_total_brl,4.304014909090909e-06,0.737267,False,0.850182,False,0.469666,False,0.002463,False,0,False,0.172,False
 1985-02,fine_total_brl,5.0874944618181814e-06,1.108907,False,1.021382,False,0.464854,False,0.00296,False,0,False,0.195,False
 1985-03,fine_total_brl,9.399872076363637e-06,2.087523,False,1.935983,False,0.462047,False,0.009197,False,0,False,0.29,True
-1985-04,fine_total_brl,3.225981589090909e-06,0.103229,False,0.251748,False,0.510109,False,0.000173,False,0,False,0.1231,True
+1985-04,fine_total_brl,3.225981589090909e-06,0.103229,False,0.251748,False,0.510109,False,0.000172,False,0,False,0.1231,True
 1985-05,fine_total_brl,8.114731010909092e-06,1.672258,False,1.73811,False,0.487226,False,0.003806,False,0,False,0.2553,True
 1985-06,fine_total_brl,6.620368130909091e-06,0.946696,False,1.120732,False,0.468514,False,0.001094,False,0,False,0.1881,True
 1985-07,fine_total_brl,1.367949472e-05,2.347215,False,2.037305,False,0.463726,False,0.006057,False,0,False,0.297,True
@@ -615,7 +615,7 @@ month,series,value,zscore_score,zscore_vote,mad_score,mad_vote,iforest_score,ifo
 1986-01,fine_total_brl,1.3281683043636363e-05,0.472315,False,0.519912,False,0.465759,False,0.001638,False,0,False,0.1442,True
 1986-02,fine_total_brl,1.9917627207272727e-05,0.997703,False,1.216355,False,0.460258,False,0.000945,False,0,False,0.1921,True
 1986-03,fine_total_brl,0.0003215835454545455,5.393211,True,5.027654,True,0.608313,True,0.041183,False,3,True,0.6734,True
-1986-04,fine_total_brl,0.0001786584,2.149725,False,3.712954,True,0.557831,False,0.018318,False,1,False,0.4114,True
+1986-04,fine_total_brl,0.0001786584,2.149725,False,3.712954,True,0.557831,False,0.018317,False,1,False,0.4114,True
 1986-05,fine_total_brl,4.1888676363636366e-05,0.526744,False,1.359585,False,0.522421,False,0.000581,False,0,False,0.1906,True
 1986-06,fine_total_brl,0.001636000330909091,3.560481,True,6.337689,True,0.665487,True,0.080801,True,4,True,0.756,True
 1986-07,fine_total_brl,3.003728727272727e-05,0.185542,False,0.352137,False,0.638313,True,0.004646,False,1,False,0.1698,False
@@ -1070,7 +1070,7 @@ month,series,value,zscore_score,zscore_vote,mad_score,mad_vote,iforest_score,ifo
 2023-12,fine_total_brl,262656671.02,0.716988,False,0.939824,False,0.383078,False,0.000117,False,0,False,0.1503,False
 2024-01,fine_total_brl,43427725.39,4.436758,True,5.338837,True,0.622627,True,0.022626,False,3,True,0.5997,False
 2024-02,fine_total_brl,198417877.62,0.724814,False,1.625365,False,0.521291,False,0.000588,False,0,False,0.2097,False
-2024-03,fine_total_brl,176338875.17,0.859205,False,1.913706,False,0.410285,False,0.001075,False,0,False,0.2051,False
+2024-03,fine_total_brl,176338875.17,0.859205,False,1.913706,False,0.410285,False,0.001074,False,0,False,0.2051,False
 2024-04,fine_total_brl,197008842.86,0.632091,False,1.290919,False,0.402144,False,0.000555,False,0,False,0.1666,False
 2024-05,fine_total_brl,361784063.56,0.310368,False,0.033535,False,0.390418,False,0.000846,False,0,False,0.0991,False
 2024-06,fine_total_brl,308098779.02,0.139804,False,0.2491,False,0.376556,False,0.000258,False,0,False,0.0965,False

@@ -1,7 +1,7 @@
 {
  "summary": {
   "toolkit": "5ltep-layer3 v0.1.0",
-  "generated_at": "2026-10-01T14:12:37+00:00",
+  "generated_at": "2026-10-05T13:09:25+00:00",
   "profile": {
    "id": "ibama-autos-infracao",
    "title": "IBAMA infraction notices (Autos de Infração), Brazil",
@@ -14,7 +14,7 @@
   "source": {
    "profile": "ibama-autos-infracao",
    "profile_sha256": "999f5c89618e2795afa46fd84573c1a639474e47f5f052ee2087307a5b0c4d40",
-   "as_of": "2026-10-01T14:07:18.731884",
+   "as_of": "2026-10-05T13:05:36.461949",
    "dataset_id": "fiscalizacao-auto-de-infracao",
    "dataset_url": "https://dadosabertos.ibama.gov.br/dataset/fiscalizacao-auto-de-infracao",
    "dataset_metadata_modified": "2026-05-27T19:17:38.049734",
@@ -22,7 +22,7 @@
    "resource_id": "b2aba344-95df-43c0-b2ba-f4353cfd9a00",
    "resource_name": "Autos de infração",
    "resource_url": "https://stibamadadosabertosprd.blob.core.windows.net/dados-abertos/dados/SIFISC/auto_infracao/auto_infracao/auto_infracao_csv.zip",
-   "download_started_at": "2026-10-01T14:07:21+00:00",
+   "download_started_at": "2026-10-05T13:05:36+00:00",
    "size_bytes": 122613437,
    "checksum_sha256": "1da3f2dd99a463715c9903507350168648917b87045834f1ed9c9938065b00a8",
    "aggregation": {
