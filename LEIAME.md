@@ -286,6 +286,31 @@ revisão pendente:
   das reformas; os valores **não** são corrigidos pela inflação. As reformas também chegam ao juiz como
   eventos. Quando houver uma nova reforma, acrescente uma entrada nesse arquivo.
 
+## Verificações da fonte
+
+Alguns problemas estão nos próprios arquivos publicados, não no que eles registram, e distorcem uma
+série mensal sem nenhum erro: uma data lida com dia e mês trocados leva registros para o mês errado, e
+um conjunto que para antes de hoje parece uma queda a zero. Eles apareceram quando o kit foi reutilizado
+no [portal do Recife](https://github.com/lsp3cesarschool/5ltep-layer3-recife), não no IBAMA. Todo
+download agora roda [`src/source_checks.py`](src/source_checks.py); o resultado vai para o
+`source_manifest.json` e para o painel **Verificações da fonte** do dashboard, para que quem adotar o
+kit em outro portal veja o problema na primeira execução, em vez de encontrá-lo entre as anomalias.
+Uma verificação está *tratada* quando o perfil já cuida dela, e é um *alerta* quando pode estar
+alterando os resultados.
+
+| Verificação | Aparece quando | O que definir no perfil |
+|---|---|---|
+| `mixed_date_formats` | a parte da data vem em mais de um formato entre os arquivos (ex.: `2025-01-02` e `02/01/2024 00:00`) | `columns.date_formats`, um por formato, tentados em ordem |
+| `ambiguous_day_month` | datas como `02/01/2024` sem formatos declarados: a inferência lê o mês primeiro | `columns.date_formats`; a verificação conta os valores que provam dia primeiro ou mês primeiro |
+| `invalid_encoding` | um arquivo tem bytes inválidos em `file.encoding` | o `file.encoding` certo, ou `file.encoding_errors: "replace"` quando os bytes estão só em outras colunas |
+| `invalid_dates` | 0,5% ou mais das linhas têm data ilegível | `columns.date_formats` |
+| `publication_lag` | nenhum registro em 3 ou mais meses completos antes da execução | `period.end: "last_record"` quando o portal publica com atraso (ex.: uma vez por ano): a série termina no último registro, em vez de contar os meses que faltam como zero |
+| `future_dates` | linhas com data posterior à execução (deixadas de fora) | nada; informado por transparência |
+
+Só são registradas contagens e a *forma* dos valores de data (dígitos trocados por 9), nunca valores.
+No arquivo do IBAMA as verificações não encontram nada: as duas formas em uso (`9999-99-99` e
+`9999-99-99 99:99:99`) têm a mesma parte de data.
+
 ## Calendário de eventos: curado por pessoas, sugerido pelo LLM
 
 O juiz só consegue relacionar uma anomalia a eventos que lhe são informados. Cada perfil tem um
@@ -335,6 +360,8 @@ O kit foi desenhado para que seus *resultados* sejam FAIR (Wilkinson et al., 201
   arquivo exato analisado**;
 - o **SHA-256 do perfil** usado e as estatísticas de agregação (linhas lidas, filtradas, excluídas, sem
   identificador, datas inválidas);
+- as [verificações da fonte](#verificações-da-fonte) dos arquivos (formatos de data, bytes inválidos,
+  atraso de publicação);
 - cada **parâmetro do método** (limiares, janelas, sementes, modelo, temperatura, versão do prompt);
 - o **ambiente**: versões do Python e dos pacotes;
 - para cada julgamento: o prompt completo, as três respostas com sementes e latências, o **digest do
@@ -370,11 +397,12 @@ seletor *Dataset*.
 | `id`, `title`, `country` | identificador (nome do arquivo, pasta de saída, rótulo das issues), título legível, país do publicador |
 | `scheduled` | `true`: incluído na execução mensal; `false`: só sob demanda |
 | `source.portal_url`, `dataset_id`, `resource_name`, `resource_format` | o portal CKAN, o identificador do conjunto e o recurso (casado por nome e formato). A URL é consultada a cada execução, então arquivos movidos são seguidos. |
-| `file.compression` (`zip`/`none`), `member_pattern`, `sep`, `encoding` | como ler o recurso (um zip de CSVs ou um CSV) |
-| `columns.date`, `columns.key` | a data que coloca um registro num mês; o identificador do registro (opcional) |
+| `source.resource_pattern` | no lugar de `resource_name`: uma expressão regular (nome inteiro, sem distinguir maiúsculas) para um conjunto publicado em um arquivo por ano; todos os recursos que casam são lidos, e os anos novos entram sozinhos |
+| `file.compression` (`zip`/`none`), `member_pattern`, `sep`, `encoding`, `encoding_errors` | como ler o recurso (um zip de CSVs ou um CSV); `encoding_errors: "replace"` lê um arquivo com alguns bytes inválidos |
+| `columns.date`, `columns.key`, `columns.date_formats` | a data que coloca um registro num mês; o identificador do registro (opcional); os formatos de data, tentados em ordem (opcional; necessário quando os arquivos misturam formatos ou trazem o dia primeiro) |
 | `exclude` | linhas removidas das séries mas contadas como contexto (ex.: autos cancelados) |
 | `filters` | **o recorte dos dados**: uma lista de `{"column", "in" \| "not_in" \| "equals"}` |
-| `period.start`, `period.end` | janela de tempo opcional (`AAAA-MM`) |
+| `period.start`, `period.end` | janela de tempo opcional (`AAAA-MM`); `period.end: "last_record"` termina a série no último mês com registros (portais que publicam com atraso) |
 | `sparse_min_records` | a análise começa onde os 12 meses seguintes têm pelo menos esta mediana |
 | `series` | as séries mensais: `{"name", "kind": "count"}` ou `{"name", "kind": "sum", "column", "number_format": "br" \| "plain", "convert_currency": true \| false}`, cada uma com uma `description` que o LLM lê |
 | `domain`, `record_label` | um parágrafo descrevendo o publicador e os registros, para o LLM |
@@ -407,11 +435,11 @@ causas forem outras, `categories` e o calendário de eventos.
 ### 3. Outro portal CKAN
 
 Só mudam `source.portal_url` e os campos específicos do conjunto. Confira o perfil contra o portal real
-antes da primeira execução: o comando valida o perfil, resolve e baixa o recurso, lê as colunas e
-mostra a janela de análise:
+antes da primeira execução: o comando valida o perfil, resolve e baixa o recurso, lê as colunas,
+roda as [verificações da fonte](#verificações-da-fonte) e mostra a janela de análise:
 
 ```bash
-python main.py check-profile profiles/my-portal-dataset.json
+python main.py check-profile --profile profiles/my-portal-dataset.json
 ```
 
 Um segundo portal roda como instância separada, montada pelo autor seguindo os mesmos passos que outro
@@ -425,6 +453,15 @@ colunas, nenhum indicador de cancelamento, cerca de 1.600 registros desde 2018 e
 instância roda o mesmo código deste repositório; só o perfil, o calendário e o README são diferentes.
 Rodá-la expôs duas suposições que valiam para o IBAMA mas não em geral (meses esparsos só no início de
 uma série; um perfil padrão fixo no código); as duas foram corrigidas aqui, no código comum.
+
+Uma terceira instância, [**5ltep-layer3-recife**](https://github.com/lsp3cesarschool/5ltep-layer3-recife),
+monitora dois conjuntos do portal de dados abertos da Prefeitura do Recife
+([dados.recife.pe.gov.br](https://dados.recife.pe.gov.br)): as infrações de trânsito registradas pela
+CTTU (cerca de 240 meses desde 2006) e os autos de infração ambiental da Secretaria de Meio Ambiente e
+Sustentabilidade (36 meses, 2021-2023). Os dois são publicados em um arquivo por ano e terminam antes
+de hoje, e os arquivos de trânsito misturam três formatos de data, um deles com o dia primeiro: daí
+vieram `resource_pattern`, `date_formats`, `period.end: "last_record"` e as
+[verificações da fonte](#verificações-da-fonte), também no código comum.
 
 Portais que não são CKAN precisam de um pequeno adaptador de fonte em `src/ckan_source.py` (o resto do
 pipeline só precisa de um arquivo em disco).

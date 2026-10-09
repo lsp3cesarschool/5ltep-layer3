@@ -278,6 +278,31 @@ paper, so Layer 4 can ingest them unchanged.
   reforms; values are **not** adjusted for inflation. The reforms also reach the judge as events.
   When a new reform happens, add one entry to that file.
 
+## Source checks
+
+Some problems are in the published files themselves, not in what they record, and they distort a
+monthly series without any error: a date read with day and month swapped moves records to the wrong
+month, and a dataset that stops before today looks like a collapse to zero. They appeared when the
+toolkit was reused on the [Recife portal](https://github.com/lsp3cesarschool/5ltep-layer3-recife),
+not on IBAMA's. Every download now runs [`src/source_checks.py`](src/source_checks.py); the result
+goes to `source_manifest.json` and to the **Source checks** panel of the dashboard, so whoever
+adopts the toolkit for another portal sees the problem on the first run instead of finding it among
+the anomalies. A check is *handled* when the profile already takes care of it, and a *warning* when
+it may be changing the results.
+
+| Check | Raised when | What to set in the profile |
+|---|---|---|
+| `mixed_date_formats` | the date part comes in more than one format across the files (e.g. `2025-01-02` and `02/01/2024 00:00`) | `columns.date_formats`, one per format, tried in order |
+| `ambiguous_day_month` | dates like `02/01/2024` and no declared formats: inference reads them month-first | `columns.date_formats`; the check counts the values that prove day-first or month-first |
+| `invalid_encoding` | a file has bytes that are not valid in `file.encoding` | the right `file.encoding`, or `file.encoding_errors: "replace"` when the bytes are only in other columns |
+| `invalid_dates` | 0.5% or more of the rows have a date that could not be read | `columns.date_formats` |
+| `publication_lag` | no record in the 3 or more complete months before the run | `period.end: "last_record"` when the portal publishes late (e.g. once a year): the series stops at the last record instead of counting the missing months as zero |
+| `future_dates` | rows dated after the run (left out) | nothing; reported for transparency |
+
+Only counts and the *shape* of the date values (digits replaced by 9) are recorded, never values.
+On IBAMA's file the checks find nothing: the two shapes in use (`9999-99-99` and
+`9999-99-99 99:99:99`) have the same date part.
+
 ## Event calendar: curated by people, suggested by the LLM
 
 The judge can only relate an anomaly to events it is told about. Each profile has an event calendar
@@ -326,6 +351,7 @@ The toolkit is designed so that its *results* are FAIR (Wilkinson et al., 2016),
   exact file analysed**;
 - the **SHA-256 of the profile** used, and the aggregation statistics (rows read, filtered,
   excluded, without identifier, invalid dates);
+- the [source checks](#source-checks) of the files (date formats, invalid bytes, publication lag);
 - every **method parameter** (thresholds, windows, seeds, model, temperature, prompt version);
 - the **environment**: Python and package versions;
 - for each judgment: the full prompt, the three answers with seeds and latencies, the **model
@@ -360,11 +386,12 @@ The code never changes. Outputs are kept per profile (`data/<id>/`, `results/<id
 | `id`, `title`, `country` | identifier (file name, output folder, issue label), human title, country of the publisher |
 | `scheduled` | `true`: included in the monthly run; `false`: run on demand only |
 | `source.portal_url`, `dataset_id`, `resource_name`, `resource_format` | the CKAN portal, the dataset slug and the resource (matched by name and format). The URL is looked up at every run, so moved files are followed. |
-| `file.compression` (`zip`/`none`), `member_pattern`, `sep`, `encoding` | how to read the resource (a zip of CSVs or one CSV) |
-| `columns.date`, `columns.key` | the date that places a record in a month; the record identifier (optional) |
+| `source.resource_pattern` | instead of `resource_name`: a regular expression (whole name, case-insensitive) for a dataset published as one file per year; every matching resource is read, and new years are picked up by themselves |
+| `file.compression` (`zip`/`none`), `member_pattern`, `sep`, `encoding`, `encoding_errors` | how to read the resource (a zip of CSVs or one CSV); `encoding_errors: "replace"` reads a file with a few invalid bytes |
+| `columns.date`, `columns.key`, `columns.date_formats` | the date that places a record in a month; the record identifier (optional); the date formats, tried in order (optional; needed when files mix formats or are day-first) |
 | `exclude` | rows removed from the series but counted as context (e.g. cancelled notices) |
 | `filters` | **the data cut**: a list of `{"column", "in" \| "not_in" \| "equals"}` |
-| `period.start`, `period.end` | optional time window (`YYYY-MM`) |
+| `period.start`, `period.end` | optional time window (`YYYY-MM`); `period.end: "last_record"` ends the series at the last month with records (portals that publish late) |
 | `sparse_min_records` | the analysis starts where the next 12 months have at least this median |
 | `series` | the monthly series: `{"name", "kind": "count"}` or `{"name", "kind": "sum", "column", "number_format": "br" \| "plain", "convert_currency": true \| false}`, each with a `description` the LLM reads |
 | `domain`, `record_label` | a paragraph describing the publisher and the records, for the LLM |
@@ -398,10 +425,10 @@ the causes differ, `categories` and the event calendar.
 
 Only `source.portal_url` and the dataset-specific fields change. Check the profile against the live
 portal before the first run: it validates the profile, resolves and downloads the resource, reads
-the columns and shows the analysis window:
+the columns, runs the [source checks](#source-checks) and shows the analysis window:
 
 ```bash
-python main.py check-profile profiles/my-portal-dataset.json
+python main.py check-profile --profile profiles/my-portal-dataset.json
 ```
 
 A second portal runs as a separate instance, set up by the author following the same steps another
@@ -415,6 +442,15 @@ event calendar, meant to be extended with `suggest-events`. That instance runs t
 this repository; only its profile, calendar and README differ. Running it exposed two assumptions
 that held for IBAMA but not in general (sparse months only at the start of a series; a hard-coded
 default profile); both were fixed here, in the shared code.
+
+A third instance, [**5ltep-layer3-recife**](https://github.com/lsp3cesarschool/5ltep-layer3-recife),
+monitors two datasets of the open data portal of the city of Recife
+([dados.recife.pe.gov.br](https://dados.recife.pe.gov.br)): the traffic infractions recorded by the
+city's traffic authority (CTTU, about 240 months since 2006) and the environmental infraction notices
+of its environment secretariat (36 months, 2021-2023). Both are published as one file per year and
+stop before today, and the traffic files mix three date formats, one of them day-first: that is where
+`resource_pattern`, `date_formats`, `period.end: "last_record"` and the [source checks](#source-checks)
+came from, again in the shared code.
 
 Portals that are not CKAN need a small source adapter in `src/ckan_source.py` (the rest of the
 pipeline only needs a file on disk).
