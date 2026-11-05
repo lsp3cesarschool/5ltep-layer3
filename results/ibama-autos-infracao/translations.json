@@ -344,6 +344,76 @@
    "text": "A anomalia em 2 014-01 é principalmente impulsionada por um padrão sazonal. O número de autos é significativamente abaixo da mediana dos últimos 12 meses (redução de 66%), e essa divergência é consistente com os dados históricos em numerosos anos (9 de 10 anos nos últimos mostram um valor baixo para janeiro). O fato de o mesmo mês ter sido sinalizado como anomalo em múltiplos anos (incluindo 2024-01) reforça essa interpretação sazonal. Embora o total de multas também tenha diminuído, o foco aqui está no número de autos. A ausência de uma mudança de nível sustentada (teste Page-Hinkley) reforça um padrão cíclico em vez de uma mudança sistêmica. As outras séries sinalizadas no mesmo mês (fine_total_brl) podem estar relacionadas a essa mudança sazonal.",
    "model": "qwen3:4b",
    "version": "2612d7409ea0"
+  },
+  "54ed30eda37417c24380290b44c411f908f6683cc95a547c000c756a114b42c2": {
+   "text": "Verificação de sazonalidade mostra que 9/10 anos anteriores tiveram o mesmo mês do calendário (agosto) com desvio acima de 1,0 na razão para mediana. Isso indica um padrão recorrente. O mês foi sinalizado em 1992-08, 1993-08 e 1994-08, confirmando padrão sazonal. O teste Page-Hinkley mostra uma mudança de nível sustentada, mas isso é consistente com padrões sazonais no contexto da reforma monetária. Não há sinais de qualidade de dados (registros cancelados/no_id) ou eventos políticos que expliquem isso. A reforma monetária em 1994-07 alinha-se com o timing, mas a anomalia é consistente em todos os anos, portanto é sazonal.",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "27509b5c345a38cd9d0d2cabebb2fc2af959d04ef8a78c000afb6e7ca2cb6677": {
+   "text": "Verificação de sazonalidade mostra que a razão para 2011-11 (3,33) está acima de 1 em 7 de 10 anos anteriores, indicando um padrão recorrente (SP). O mesmo mês calendário nunca foi sinalizado em outros anos, mas a direção consistente de desvio corresponde a padrões sazonais. Não há eventos de política (por exemplo, Novo Código Florestal em 2012-05) alinhados ao horário de 2011-11. Problemas de qualidade de dados (cancelados/não_id) são zero em 2011-11, e não há evidência de migração de sistema ou correção retroativa. A anomalia não é grande o suficiente para ser puramente de qualidade de dados (DQE) sem evidência de falha no relato. A mudança genuína de fiscalização (GES) é improvável, já que o padrão persiste sem mudanças políticas. Assim, SP melhor explica a anomalia.",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "7bff5f7b877902442baf89a028f0e45257b3e068d6519aae54978480d9189e02": {
+   "text": "Verificação de sazonalidade mostra que 9/1.0 anos anteriores tiveram razões abaixo de 1 para janeiro, indicando uma tendência descendente consistente. O mesmo mês calendário foi sinalizado em 1989,1999,2020,2021,2024 (todos os meses de janeiro) - padrão sazonal forte. Não há eventos listados dentro de +-6 meses. Qualidade de dados: nenhum registro cancelado ou sem id em 2014, e valores não implausíveis (39,7M é plausível para janeiro). O baixo nível de razão consistente ao longo de décadas aponta para SP (Padrão Sazonal).",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "1bfee13039ad556da6de3c116acfa35d86e8e1af0261c602c8164bef3db2a40e": {
+   "text": "Verificação de sazonalidade mostra que o mês de janeiro de 2020 se desviou abaixo da mediana em 9 de 10 anos (razão <1), indicando uma tendência descendente consistente. O mesmo mês calendário foi sinalizado em 1989-01, 1999-01, 2014-01, 2021-01 e 2024-01 - confirmando um padrão recorrente. No entanto, a anomalia de janeiro de 2020 é muito baixa (59,7M versus mediana de 241,4M). Os dados mensais mostram que janeiro de 2020 teve 5 registros sem id e 21 autos cancelados, sugerindo problemas de qualidade de dados. O teste Page-Hinkley confirmou a ausência de mudança sustentada de nível, descartando uma mudança genuína de fiscalização. Eventos conhecidos (pandemia de março de 2020) não explicam a anomalia de janeiro. Sinais de qualidade de dados: taxa de cancelamento elevada (21) e registros sem id (5) em janeiro de 2020. Isso alinha-se com o evento de qualidade de dados (DQE).",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "995142cf897d6450befdb338f62705d93337f31d1deedeb365999942e1f2f9e2": {
+   "text": "Verificação de sazonalidade mostra que a razão de 2021-01 (0,12) está abaixo de 1, e 9 de 10 anos anteriores também tiveram razões <1 (2020-01: 0,25, 2019-01: 1,10, etc.). O mesmo mês calendário foi sinalizado em 1989-01, 1999-01, 2014-01, 2020-01, 2024-01, indicando atividade baixa recorrente. No entanto, a razão de 2021-01 é muito baixa (0,12) comparada com a mediana dos 12 meses anteriores (170,9M). Os indicadores de qualidade de dados (cancelados=11, sem_id=10) são altos, mas não extremos. Não há eventos conhecidos que expliquem a queda. O teste Page-Hinkley mostra que não há mudança de nível sustentada. Dado o padrão sazonal recorrente no mesmo mês calendário em múltiplos anos, a anomalia é provavelmente sazonal (SP).",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "c14ba5cfe0abb9236c4ddb0963a7d82c10bc70074356798b01453c1ab434adaa": {
+   "text": "Verificação de sazonalidade mostra que a razão do mês calendário 1 para a mediana dos 12 meses anteriores tem estado abaixo de 1 em 9 de 10 anos (2014-2023), indicando uma tendência descendente consistente em janeiro nos últimos anos. O mesmo mês foi sinalizado em 1989-2021, sugerindo um padrão recorrente. A pontuação do ensemble (0.58) e os detectores (zscore, mad, iforest) confirmam a anomalia. Não há eventos conhecidos que expliquem este timing. Os dados mostram nenhum pico significativo em cancelamentos ou identificadores ausentes, e o contexto mensal indica uma recuperação gradual nos valores de multas após janeiro de 2024. Isso alinha-se com um padrão sazonal em vez de mudanças por política, problemas de qualidade de dados ou mudanças genuínas de fiscalização.",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "5aef2d1716aa4868f57112d8bd3057fdba906a706ae92d45583503ff5fab7c2f": {
+   "text": "Verificação de sazonalidade mostra que o mesmo mês calendário (Jan) esteve abaixo da mediana por 7/10 anos, indicando um padrão recorrente. A anomalia foi sinalizada em múltiplos anos (1983, 1989, 1996, 1999, 2009, 2010, 2012, 2014, 2017, 2019, 2021, 2024), sugerindo comportamento sazonal consistente. Não há problemas de qualidade de dados (cancelados, no_id=0) e nenhum evento de política que explique a queda (apenas mudança política no mesmo mês, mas a sazonalidade domina).",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "792aa2365be586f737c1dc63d8f8a2286dc53038dac21aca1d8b0bc9b9accc12": {
+   "text": "Verificação de sazonalidade mostra que a razão para 2009-01 (0.36) está abaixo de .1 em 8 de 10 anos anteriores, indicando desempenho consistente abaixo no mês de janeiro. O mesmo mês calendário foi historicamente sinalizado em 12 anos (1983-2024), confirmando baixa atividade recorrente. Nenhum evento de política explica essa anomalia específica (apenas decreto de 2008-07, mas está 6 meses antes). Problemas de qualidade de dados (cancelados/no_id) são mínimos (54 cancelados, 0 no_id). A mudança de nível sustentada é curta (dentro de 2 meses), mas a sazonalidade domina. Portanto, SP (Padrão sazonal) melhor explica a anomalia.",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "d5a2b38b58fe47880bf1c4e07500fdb09af2acd545dd1bb7ee6295f40ee9e179": {
+   "text": "Verificação de sazonalidade mostra que o mesmo mês do calendário (Jan) se desviou abaixo de 1 (razão) em 8 de 1:10 anos anteriores, com tendência descendente consistente. O mesmo mês foi sinalizado(a) anomalamente em 12 anos anteriores. Isso indica um padrão sazonal recorrente, não um evento único. O teste Page-Hinkley mostra uma mudança de nível sustentada, mas isso é consistente com o padrão sazonal observado em múltiplos anos. Não há eventos de qualidade de dados ou problemas de dados (registros cancelados/no_id) registrados. A anomalia alinha-se com ciclos de fiscalização sazonal.",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "ea658f8e41f38c208186769d505f5ef740f3a7ea58f0f05d08924ee9362f830f": {
+   "text": "Verificação de sazonalidade mostra que 8/1.000 anos anteriores tiveram razões abaixo de 1 (decrescente), com 2012-01 sendo o menor (0,49) em comparação com as médias dos anos anteriores (mediana 0,60). O mesmo mês do calendário foi sinalizado em 12 anos anteriores, indicando atividade baixa recorrente. Nenhum evento de política (Novo Código Florestal em maio de 2012) explica a anomalia, pois é muito tarde para janeiro. Verificações de qualidade de dados: nenhum registro cancelado, no_id=0, valores plausíveis. Não há mudança de nível sustentada. Assim, a anomalia se alinha com os padrões sazoniais.",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "5997dc043b2c7fab16371b3eff02b3ce856c1b5700404d52e54c5420d52f87e0": {
+   "text": "The anomalous month (2014-01) has a ratio of 0.34 compared to the median of previous 12 months (1,384). The same calendar month has consistently been below median in 9 of 10 years (2004-2014). The seasonality check shows a long-term downward trend for January (ratio: 0.44 to 0.36) but the pattern is consistent across years. The data quality metrics (cancelled, no_id) are normal (0 for both), and no events occurred within +-6 months. The Page-Hinkley test ruled out a sustained level shift. Since the anomaly is a recurring seasonal pattern (same month deviates in same direction) with no data issues or policy events, the category is SP (Seasonal Pattern).",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "073962d574b3b5ed5353c156c418e349eeddf5a05fa395f4339e7652757d167d": {
+   "text": "Verificação de sazonalidade mostra que o mês de 2017-01 (razão 0,33) se desvia abaixo da mediana dos últimos 12 meses (1.550) em 67%. O mesmo mês se desvia abaixo de 1 em 10 anos (2007-2016), indicando uma tendência descendente consistente. O fato de que 10/10 anos tiveram desvios semelhantes (0,34-0,85) confirma o padrão sazonal. Não há eventos dentro de +-6 meses. Métricas de qualidade de dados: cancelados=28, no_id=0, portanto, sem correções retroativas ou problemas no sistema. O teste Page-Hinkley descartou mudança de nível. A anomalia é um padrão sazonal recorrente.",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "04f4698b0409f81ba618782d988505c8b4b878ba7c8570390b2b650a53eae44c": {
+   "text": "Verificação de sazonalidade mostra que o mesmo mês calendário (Jan) se desviou consistentemente abaixo da mediana (razão <1) em 10/10 anos. A tendência da razão (2015-2021) mostra deslocamento descendente de 0.56 para 0.37, mas o padrão de desvios abaixo de 1 em 10 anos confirma padrão sazonal. Os indicadores de qualidade de dados (cancelado=11, no_id=10) estão baixos, mas não indicam burst ou mudança no sistema. Não há eventos dentro de +-6 meses. A pontuação do ensemble (0.67) e múltiplos detectores (zscore, mad, iforest) sinalizando este mês se alinham com o padrão sazonal devido à direção consistente de desvio histórico.",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
+  },
+  "fe7d75224a9b7d9df375d75838fdcc586cd601851c1e52fb6a23e122356cd817": {
+   "text": "Verificação de sazonalidade mostra que a razão de 2024-01 (0,33) está abaixo de 1 em todos os anos anteriores (2014-2023), e o mesmo mês se desviou abaixo em 9 de 10 anos. Este padrão de desempenho inconsistente em janeiro ao longo das décadas indica fortemente um padrão sazonal (SP). A anomalia também foi sinalizada em 12 janeiros históricos, reforçando a sazonalidade. Não há eventos de política registrados, e problemas de qualidade de dados (cancelados/no_id) estão presentes, mas não são o principal fator aqui, já que o padrão persiste anualmente. O teste Page-Hinkley descarta uma mudança de nível, apoiando a sazonalidade em vez de mudanças genuínas.",
+   "model": "qwen3:4b",
+   "version": "2612d7409ea0"
   }
  }
 }

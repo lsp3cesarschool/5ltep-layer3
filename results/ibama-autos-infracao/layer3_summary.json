@@ -1,6 +1,6 @@
 {
  "toolkit": "5ltep-layer3 v0.1.0",
- "generated_at": "2026-10-05T13:09:25+00:00",
+ "generated_at": "2026-11-05T14:36:10+00:00",
  "profile": {
   "id": "ibama-autos-infracao",
   "title": "IBAMA infraction notices (Autos de Infração), Brazil",
@@ -13,7 +13,7 @@
  "source": {
   "profile": "ibama-autos-infracao",
   "profile_sha256": "999f5c89618e2795afa46fd84573c1a639474e47f5f052ee2087307a5b0c4d40",
-  "as_of": "2026-10-05T13:05:36.461949",
+  "as_of": "2026-11-05T13:45:24.347478",
   "dataset_id": "fiscalizacao-auto-de-infracao",
   "dataset_url": "https://dadosabertos.ibama.gov.br/dataset/fiscalizacao-auto-de-infracao",
   "dataset_metadata_modified": "2026-05-27T19:17:38.049734",
@@ -21,24 +21,26 @@
   "resource_id": "b2aba344-95df-43c0-b2ba-f4353cfd9a00",
   "resource_name": "Autos de infração",
   "resource_url": "https://stibamadadosabertosprd.blob.core.windows.net/dados-abertos/dados/SIFISC/auto_infracao/auto_infracao/auto_infracao_csv.zip",
-  "download_started_at": "2026-10-05T13:05:36+00:00",
-  "size_bytes": 122613437,
-  "checksum_sha256": "1da3f2dd99a463715c9903507350168648917b87045834f1ed9c9938065b00a8",
+  "download_started_at": "2026-11-05T13:45:24+00:00",
+  "size_bytes": 123350892,
+  "checksum_sha256": "b0fa2494df2af539d33665b02246742b7dc858b722a8776cbbffd00c8fac7bf3",
   "aggregation": {
-   "rows_read": 711441,
-   "rows_after_filters": 711441,
+   "rows_read": 712928,
+   "rows_after_filters": 712928,
    "rows_invalid_date": 0,
-   "rows_missing_key": 6806,
+   "rows_missing_key": 7190,
    "rows_duplicate_key_dropped": 0,
-   "rows_excluded": 26038,
+   "rows_excluded": 26164,
    "rows_future_date": 0,
-   "rows_without_fine_total_brl": 10695,
+   "last_record_month": "2026-11",
+   "rows_without_fine_total_brl": 10704,
    "first_month": "1977-09",
-   "last_complete_month": "2026-09"
+   "last_complete_month": "2026-10"
   },
+  "source_checks": [],
   "analysis_period": [
    "1980-11",
-   "2026-09"
+   "2026-10"
   ]
  },
  "series": {
@@ -47,9 +49,9 @@
  },
  "analysis_period": [
   "1980-11",
-  "2026-09"
+  "2026-10"
  ],
- "months": 551,
+ "months": 552,
  "method_parameters": {
   "baseline_window": 12,
   "zscore_k": 3.0,
@@ -82,8 +84,8 @@
   "l3_window_months": 12
  },
  "environment": {
-  "python": "3.11.16",
-  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "python": "3.11.17",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.43",
   "packages": {
    "pandas": "3.0.6",
    "numpy": "2.4.6",
@@ -93,12 +95,12 @@
   }
  },
  "anomalies": {
-  "flagged": 43,
+  "flagged": 44,
   "by_series": {
    "notices": 24,
-   "fine_total_brl": 19
+   "fine_total_brl": 20
   },
-  "judged": 43,
+  "judged": 44,
   "pending_judgment": 0,
   "drift_points": {
    "notices": 14,
@@ -109,34 +111,33 @@
   "model": "qwen3:4b",
   "model_source": "benchmark",
   "judged_by": {
-   "gemma3:4b / prompt v2": 34,
-   "qwen3:4b / prompt v2": 9
+   "gemma3:4b / prompt v2": 27,
+   "qwen3:4b / prompt v2": 17
   },
-  "judged_by_other_model_or_prompt": 34,
+  "judged_by_other_model_or_prompt": 27,
   "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
   "categories": {
-   "SP": 22,
-   "GES": 15,
+   "SP": 23,
+   "GES": 14,
    "PDC": 5,
-   "DQE": 1
+   "DQE": 2
   },
-  "mean_consistency": 0.814,
-  "unanimous_rate": 0.465
+  "mean_consistency": 0.811,
+  "unanimous_rate": 0.432
  },
  "hitl": {
-  "issues": 28,
+  "issues": 29,
   "decided": 0,
   "open_by_level": {
-   "level-shift": 25,
-   "pending": 2,
-   "advisory": 1
+   "level-shift": 26,
+   "pending": 3
   },
   "human_llm_agreement": null
  },
  "layer3": {
   "window": [
-   "2025-10",
-   "2026-09"
+   "2025-11",
+   "2026-10"
   ],
   "pairs_evaluated": 24,
   "l3_rate": 1.0,
