@@ -12,6 +12,7 @@ const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<
 
 const I18N = {
   en: {
+    cupim: "← CUPIM platform",
     back: "← Back to the repository", eyebrow: "5L-TEP · Layer 3 · Anomaly Detection", loading: "Loading…",
     dataset: "Dataset", dataset_hint: "Each profile is one dataset, or one cut of a dataset, monitored by this repository",
     run: "Run Layer 3 now ↗", queue: "Review queue ↗", suggest: "Suggest events ↗", rejudge: "Re-judge ↗",
@@ -61,6 +62,7 @@ const I18N = {
     fix_info_publication_lag: "The series stops at the last record (period.end = \"last_record\").",
   },
   pt: {
+    cupim: "← Plataforma CUPIM",
     back: "← Voltar ao repositório", eyebrow: "5L-TEP · Camada 3 · Detecção de Anomalias", loading: "Carregando…",
     dataset: "Conjunto de dados", dataset_hint: "Cada perfil é um conjunto de dados, ou um recorte de um conjunto, monitorado por este repositório",
     run: "Rodar a Camada 3 agora ↗", queue: "Fila de revisão ↗", suggest: "Sugerir eventos ↗", rejudge: "Rejulgar ↗",
@@ -170,6 +172,7 @@ function pageUrl(changes) {
 }
 
 function applyStaticLabels() {
+  document.getElementById("cupim-link").href = `https://5ltep-cupim.github.io/?lang=${LANG}`;
   document.documentElement.lang = LANG === "pt" ? "pt-BR" : "en";
   document.title = t("eyebrow");
   document.querySelectorAll("[data-i18n]").forEach((n) => { n.textContent = t(n.dataset.i18n); });

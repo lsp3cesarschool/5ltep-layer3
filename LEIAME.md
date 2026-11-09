@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml/badge.svg)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/tests.yml) [![Camada 3](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Flsp3cesarschool%2F5ltep-layer3%2Fmain%2Fdocs%2Fdata%2Fstatus-ibama-autos-infracao.pt.json)](https://github.com/lsp3cesarschool/5ltep-layer3/actions/workflows/layer3.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-[English](README.md) · **Português**
+[← Plataforma CUPIM](https://5ltep-cupim.github.io/?lang=pt) · [English](README.md) · **Português**
 
 **Encontra os meses em que um conjunto de dados abertos governamentais se comporta de forma
 inesperada, pergunta a um modelo de IA local quais deles têm explicação conhecida e envia o resto
